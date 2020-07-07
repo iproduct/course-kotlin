@@ -1,0 +1,115 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.nio.file.StandardCopyOption
+
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        maven { url 'https://plugins.gradle.org/m2/' }
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin-multiplatform'
+apply plugin: 'idea'
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+kotlin {
+    js('frontend') {
+        browser {
+            testTask {
+                // TODO: disable browser tests since we can't run it on teamcity agents yet
+                enabled = false
+            }
+        }
+    }
+    jvm('backend') {
+        compilations.main {
+            tasks.getByName(processResourcesTaskName) {
+                dependsOn(frontendBrowserWebpack)
+//                Files.copy(Paths.get("./build/distributions/map.js"), Paths.get("./static/map.js"), StandardCopyOption.REPLACE_EXISTING)
+                copy {
+                    from "./build/distributions/map.js"
+//                    from frontendBrowserWebpack.outputs
+                    into "$buildDir/processedResources"
+                }
+            }
+        }
+    }
+}
+
+
+group 'org.iproduct.example'
+version '0.0.1'
+
+
+repositories {
+    jcenter()
+    maven { url 'https://kotlin.bintray.com/ktor' }
+    maven { url 'https://kotlin.bintray.com/kotlin-js-wrappers' }
+    maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+}
+
+dependencies {
+    backendMainImplementation "io.ktor:ktor-server-netty:$ktor_version"
+    backendMainImplementation "io.ktor:ktor-html-builder:$ktor_version"
+    backendMainImplementation "ch.qos.logback:logback-classic:$logback_version"
+    backendMainImplementation "io.ktor:ktor-webjars:$ktor_version"
+
+    commonMainImplementation "org.jetbrains.kotlin:kotlin-stdlib-common"
+    commonTestImplementation "org.jetbrains.kotlin:kotlin-test-annotations-common"
+    commonTestImplementation "org.jetbrains.kotlin:kotlin-test-common"
+
+    frontendMainImplementation "org.jetbrains.kotlin:kotlin-stdlib-js"
+    frontendTestImplementation "org.jetbrains.kotlin:kotlin-test-js"
+//    frontendMainImplementation "io.ktor:ktor-client-js:$ktor_version"
+
+    backendMainImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    backendTestImplementation "org.jetbrains.kotlin:kotlin-test"
+    backendTestImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+
+}
+
+task run(type: JavaExec, dependsOn: [backendJar]) {
+    main = "io.ktor.samples.fullstack.backend.BackendCodeKt"
+    classpath(configurations.backendRuntimeClasspath, backendJar)
+    args = []
+}
+
+def dump(obj) {
+    println("${obj.class.name}:")
+    obj.properties.each { println "$it.key : ${it?.value?.class?.name}   ->   $it.value" }
+    def names = obj.properties['names']
+    if (names != null) {
+        println(":: names: $names")
+    }
+}
+
+task frontendWeb(dependsOn: [frontendJar]) {
+    doLast {
+        copy {
+            def jsCompilations = kotlin.targets.js.compilations
+            //from jsCompilations.main.output
+            from jsCompilations.main.output
+            from kotlin.sourceSets.jsMain.resources.srcDirs
+            dump(kotlin.sourceSets.jsMain)
+            dump(jsCompilations.main)
+            jsCompilations.main.runtimeDependencyFiles.each {
+                if (it.exists() && !it.isDirectory()) {
+                    from zipTree(it.absolutePath).matching { include '*.js' }
+                }
+            }
+            into "$buildDir/web"
+        }
+    }
+}
