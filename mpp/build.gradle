@@ -95,21 +95,21 @@ def dump(obj) {
     }
 }
 
-task frontendWeb(dependsOn: [frontendJar]) {
-    doLast {
-        copy {
-            def jsCompilations = kotlin.targets.js.compilations
-            //from jsCompilations.main.output
-            from jsCompilations.main.output
-            from kotlin.sourceSets.jsMain.resources.srcDirs
-            dump(kotlin.sourceSets.jsMain)
-            dump(jsCompilations.main)
-            jsCompilations.main.runtimeDependencyFiles.each {
-                if (it.exists() && !it.isDirectory()) {
-                    from zipTree(it.absolutePath).matching { include '*.js' }
-                }
-            }
-            into "$buildDir/web"
-        }
-    }
-}
+//task frontendWeb(dependsOn: [frontendJar]) {
+//    doLast {
+//        copy {
+//            def jsCompilations = kotlin.targets.js.compilations
+//            //from jsCompilations.main.output
+//            from jsCompilations.main.output
+//            from kotlin.sourceSets.jsMain.resources.srcDirs
+//            dump(kotlin.sourceSets.jsMain)
+//            dump(jsCompilations.main)
+//            jsCompilations.main.runtimeDependencyFiles.each {
+//                if (it.exists() && !it.isDirectory()) {
+//                    from zipTree(it.absolutePath).matching { include '*.js' }
+//                }
+//            }
+//            into "$buildDir/web"
+//        }
+//    }
+//}
