@@ -1,13 +1,13 @@
 package com.example
 
-import io.ktor.application.Application
-import io.ktor.application.ApplicationCall
-import io.ktor.application.call
-import io.ktor.application.install
+import com.codahale.metrics.JmxReporter
+import com.codahale.metrics.Slf4jReporter
+import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.gson.gson
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.metrics.dropwizard.DropwizardMetrics
 import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.response.respondText
@@ -20,6 +20,7 @@ import io.ktor.util.pipeline.PipelineContext
 import java.text.DateFormat
 import java.time.Duration
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
 data class Product(val name: String, val price: Double, var id: Int)
@@ -52,6 +53,19 @@ fun Application.mymodule() {
             setDateFormat(DateFormat.LONG)
             setPrettyPrinting()
         }
+    }
+    install(DropwizardMetrics) {
+        JmxReporter.forRegistry(registry)
+            .convertRatesTo(TimeUnit.SECONDS)
+            .convertDurationsTo(TimeUnit.MILLISECONDS)
+            .build()
+            .start()
+        Slf4jReporter.forRegistry(registry)
+            .outputTo(log)
+            .convertRatesTo(TimeUnit.SECONDS)
+            .convertDurationsTo(TimeUnit.MILLISECONDS)
+            .build()
+            .start(10, TimeUnit.SECONDS)
     }
 
     routing {
