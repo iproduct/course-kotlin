@@ -6,7 +6,6 @@ import io.ktor.request.*
 import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.html.*
-import kotlinx.html.*
 import kotlinx.css.*
 import io.ktor.auth.*
 import com.fasterxml.jackson.databind.*
@@ -32,6 +31,7 @@ import io.ktor.client.features.UserAgent
 import io.ktor.client.features.BrowserUserAgent
 import kotlin.test.*
 import io.ktor.server.testing.*
+import org.assertj.core.api.Assertions.assertThat
 
 class ApplicationTest {
     @Test
@@ -39,7 +39,7 @@ class ApplicationTest {
         withTestApplication({ module(testing = true) }) {
             handleRequest(HttpMethod.Get, "/").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("HELLO WORLD!", response.content)
+                assertThat(response.content).startsWith("<!DOCTYPE html>")
             }
         }
     }
