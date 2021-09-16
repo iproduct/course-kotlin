@@ -1,8 +1,6 @@
-package com.example
-
 import com.fasterxml.jackson.databind.SerializationFeature
+import kotlinx.serialization.Serializable
 import io.ktor.application.Application
-import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.auth.Authentication
@@ -18,7 +16,6 @@ import io.ktor.client.features.logging.Logging
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
-import io.ktor.html.respondHtml
 import io.ktor.http.ContentType
 import io.ktor.http.cio.websocket.Frame
 import io.ktor.http.cio.websocket.pingPeriod
@@ -36,20 +33,15 @@ import io.ktor.routing.routing
 import io.ktor.webjars.Webjars
 import io.ktor.websocket.webSocket
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.css.*
+import kotlinx.html.currentTimeMillis
+import kotlinx.serialization.json.Json
 import java.time.Duration
-import java.time.Instant
 import java.util.*
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
-import java.time.ZoneId
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -125,10 +117,10 @@ fun Application.module(testing: Boolean = false) {
             val quotes = quotesPublisher();
             // Json also has .Default configuration which provides more reasonable settings,
             // but is subject to change in future versions
-            val json = Json(JsonConfiguration.Stable)
+            val json = Json
             quotes.consumeEach {
                 // serializing objects
-                val jsonData = json.stringify(Quote.serializer(), it)
+                val jsonData = json.encodeToString(Quote.serializer(), it)
                 send(Frame.Text(jsonData))
             }
 
@@ -151,7 +143,7 @@ suspend inline fun CoroutineScope.numPublisher(): ReceiveChannel<Int> = produce 
 }
 
 @Serializable
-data class Quote(val symbol: String, val price: Double, val instant: Long = System.currentTimeMillis()) {
+data class Quote(val symbol: String, val price: Double, val instant: Long = System.nanoTime()) {
     var id: Int? = null
 }
 
@@ -169,8 +161,9 @@ suspend inline fun CoroutineScope.quotesPublisher(): ReceiveChannel<Quote> = pro
     val rand = Random()
     for (i in 1..800) {
         var quote: Quote = quotes.get(i % quotes.size)
+        val currentTime = System.currentTimeMillis()
         quote =
-            quote.copy(price = quote.price * (0.9 + 0.2 * rand.nextDouble()), instant = System.currentTimeMillis())
+            quote.copy(price = quote.price * (0.9 + 0.2 * rand.nextDouble()), instant = currentTime)
         send(quote)
         delay(300)
     }

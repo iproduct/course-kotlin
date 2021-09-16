@@ -6,7 +6,6 @@ import io.ktor.request.*
 import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.html.*
-import kotlinx.css.*
 import io.ktor.auth.*
 import com.fasterxml.jackson.databind.*
 import io.ktor.jackson.*
@@ -23,15 +22,13 @@ import io.ktor.websocket.*
 import io.ktor.http.cio.websocket.*
 import java.time.*
 import io.ktor.client.features.websocket.*
-import io.ktor.client.features.websocket.WebSockets
-import io.ktor.http.cio.websocket.Frame
 import kotlinx.coroutines.channels.*
 import io.ktor.client.features.logging.*
-import io.ktor.client.features.UserAgent
-import io.ktor.client.features.BrowserUserAgent
-import kotlin.test.*
 import io.ktor.server.testing.*
+import module
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class ApplicationTest {
     @Test
