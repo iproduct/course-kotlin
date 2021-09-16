@@ -1,9 +1,6 @@
 package async
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
 fun main() {
@@ -21,12 +18,14 @@ fun main() {
 }
 
 // The result type of somethingUsefulOneAsync is Deferred<Int>
+@OptIn(DelicateCoroutinesApi::class)
 fun somethingUsefulOneAsync() = GlobalScope.async {
     delay(1000L) // pretend we are doing something useful here
     24
 }
 
 // The result type of somethingUsefulTwoAsync is Deferred<Int>
+@OptIn(DelicateCoroutinesApi::class)
 fun somethingUsefulTwoAsync() = GlobalScope.async {
     delay(1000L) // pretend we are doing something useful here, too
     18

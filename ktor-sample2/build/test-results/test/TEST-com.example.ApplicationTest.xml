@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.ApplicationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-09-16T13:30:04" hostname="OFFICE27" time="0.327">
+  <properties/>
+  <testcase name="testRoot" classname="com.example.ApplicationTest" time="0.327"/>
+  <system-out><![CDATA[2021-09-16 16:30:05.116 [Test worker] INFO  ktor.test - Autoreload is disabled because the development mode is off.
+2021-09-16 16:30:05.123 [Test worker] INFO  ktor.test - Application started in 0.052 seconds.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
