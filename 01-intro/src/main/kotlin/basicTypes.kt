@@ -117,7 +117,7 @@ fun main() {
 //    }
     val a4 = arrayOf(1, 2, 3)
     val a5: Array<String?> = arrayOfNulls(3)
-    val asc = Array(5) { i -> (i * i).toString() }
+    val asc = Array(5) { (it * i).toString() }
     a4.forEach { println(it) }
     a5.forEach { println(it) }
     asc.forEach { println(it) }
@@ -131,6 +131,15 @@ fun main() {
     arr1.forEach { println(it) }
     arr2.forEach { println(it) }
     arr3.filter { it % 3 == 0 }.forEach { print("$it, ") }
+    println()
 
+    val str2 = """
+        |First line
+        |Sevcond line
+        |third line
+        |
+    """.trimMargin()
+
+    println(str2)
 
 }
