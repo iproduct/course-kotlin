@@ -23,17 +23,33 @@ fun main() {
             is IntArray -> println(x.sum())
         }
     }
-    g(1)
-    g("abc")
-    g(IntArray(5) { it })
+
+    fun g2(x: Any) = when (x) {
+        is Int -> "${x + 1}"
+        is String -> "${x.length + 1}"
+        is IntArray -> "${x.sum()}"
+        else -> "Not recognized"
+    }
+
+    fun g3(x: Any) = if (x is Int) "${x + 1}"
+    else if (x is String) "${x.length + 1}"
+    else if (x is IntArray) "${x.sum()}"
+    else "Not recognized"
+
+    println(g3(1))
+    println(g3("abc"))
+    println(g3(IntArray(5) { it }))
+    println(g3(Shape()))
 
     fun h(y: Any?) {
-//        val x: String = y as String
+//        val x = y as String
 //        val x: String? = y as String?
         val x: String? = y as? String
         println(x)
     }
+    h("abc")
     h(12)
+    h(null)
 
 //    fun readDictionary(file: File): Map<String, *> = file.inputStream().use {
 //        TODO("Read a mapping of strings to arbitrary elements.")

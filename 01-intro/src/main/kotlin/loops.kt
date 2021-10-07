@@ -2,10 +2,10 @@ package course.kotlin
 
 import kotlin.random.Random
 
-/*
- Create a POJO with getters, setters, `equals()`, `hashCode()`, `toString()` and `copy()` in a single line:
+/**
+ Create a Person POJO with getters, setters, `equals()`, `hashCode()`, `toString()` and `copy()` in a single line:
 */
-data class Person(val name: String? = null, val email: String? = null, val age: Int? = 0)
+data class Person(val name: String? = null, val email: String? = null, val age: Int = 0)
 
 
 fun main() {
@@ -13,12 +13,15 @@ fun main() {
     val collection = listOf(1,2,3,4, 5)
     for (item in collection) println(item)
 
-    for (i in 1..3) {
+    for (i in 1 .. 7 step 2) {
         println(i)
     }
-    for (i in 6 downTo 0 step 2) {
-        println(i)
+    for (i in "12345") {
+        println(i.toInt())
     }
+
+    println("12345".toInt())
+
     val array = IntArray(5){ it * it}
     for (i in array.indices) {
         println("$i -> ${array[i]}")
@@ -30,24 +33,25 @@ fun main() {
     // while
     var x = 5
     while (x > 0) {
-        x--
+        println(x--)
     }
 
     fun retrieveData() = if (Random.nextBoolean()) "data ..." else null
 
     do {
         val y = retrieveData()
+        println(y)
     } while (y != null) // y is visible here!
 
     // return, break, continue
-    val person = Person("Ivan Petrov")
+    val person = Person("Ivan")
     val s = person.name ?: return
     println("Person name: $s")
 
-    loop@ for (i in 1..100) {
+    loop2@ for (i in 1..100) {
         for (j in 1..100) {
             print(j)
-            if (j == 3) break@loop
+            if (j == 5) break@loop2
         }
     }
     println()
@@ -63,7 +67,7 @@ fun main() {
 
     fun bar() {
         listOf(1, 2, 3, 4, 5).forEach {
-            if (it == 3) return@forEach // local return to the caller of the lambda - the forEach loop
+            if (it == 3) return@bar // local return to the caller of the lambda - the forEach loop
             print(it)
         }
         println(" done with implicit label")
@@ -72,9 +76,9 @@ fun main() {
 
     // simulate break
     fun baz() {
-        run loop@{
+        run {
             listOf(1, 2, 3, 4, 5).forEach {
-                if (it == 3) return@loop // non-local return from the lambda passed to run
+                if (it == 3) return@run // non-local return from the lambda passed to run
                 print(it)
             }
         }
