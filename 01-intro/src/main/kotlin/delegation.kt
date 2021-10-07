@@ -18,8 +18,15 @@ class Example {
     var prop: String by Delegate()
 }
 
+// top level property
+var topProp: String by Delegate()
+
 fun main() {
     val e = Example()
     e.prop = "NEW_VALUE"
     println(e.prop)
+
+    // top prop
+    topProp = "TOP PROP NEW VALUE"
+    println(topProp)
 }
