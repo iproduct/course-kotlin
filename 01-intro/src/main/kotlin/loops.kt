@@ -3,17 +3,17 @@ package course.kotlin
 import kotlin.random.Random
 
 /**
- Create a Person POJO with getters, setters, `equals()`, `hashCode()`, `toString()` and `copy()` in a single line:
-*/
+Create a Person POJO with getters, setters, `equals()`, `hashCode()`, `toString()` and `copy()` in a single line:
+ */
 data class Person(val name: String? = null, val email: String? = null, val age: Int = 0)
 
 
 fun main() {
     // for
-    val collection = listOf(1,2,3,4, 5)
+    val collection = listOf(1, 2, 3, 4, 5)
     for (item in collection) println(item)
 
-    for (i in 1 .. 7 step 2) {
+    for (i in 1..7 step 2) {
         println(i)
     }
     for (i in "12345") {
@@ -22,7 +22,7 @@ fun main() {
 
     println("12345".toInt())
 
-    val array = IntArray(5){ it * it}
+    val array = IntArray(5) { it * it }
     for (i in array.indices) {
         println("$i -> ${array[i]}")
     }
@@ -67,7 +67,7 @@ fun main() {
 
     fun bar() {
         listOf(1, 2, 3, 4, 5).forEach {
-            if (it == 3) return@bar // local return to the caller of the lambda - the forEach loop
+            if (it == 3) return@forEach // local return to the caller of the lambda - the forEach loop
             print(it)
         }
         println(" done with implicit label")
@@ -76,12 +76,12 @@ fun main() {
 
     // simulate break
     fun baz() {
-        run {
+        (run@{
             listOf(1, 2, 3, 4, 5).forEach {
                 if (it == 3) return@run // non-local return from the lambda passed to run
                 print(it)
             }
-        }
+        })()
         println(" done with nested loop")
     }
     baz()

@@ -18,7 +18,7 @@ class User(var name: String, val init: () -> Address) {
 }
 
 fun User.address(modifier: Address.() -> Unit) {
-    modifier.invoke(addr)
+    modifier(addr)
 }
 
 fun main() {
