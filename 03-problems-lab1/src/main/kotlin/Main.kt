@@ -20,17 +20,28 @@ fun main(args: Array<String>) {
     var n: Int = 0
     var a: String = ""
     var fm: List<Int> = emptyList()
-    bf.useLines { lines -> lines.forEach {
-            when (i++ % 3) {
-                0 -> n = it.toInt()
-                1 -> a = it
-                2 -> {
-                    fm = it.split(" ").map { c -> c.toInt() }
-                    problems.add(LongNumberProblem(n, a, fm))
-                }
+    bf.forEachLine {
+        when (i++ % 3) {
+            0 -> n = it.toInt()
+            1 -> a = it
+            2 -> {
+                fm = it.split(" ").map { c -> c.toInt() }
+                problems.add(LongNumberProblem(n, a, fm))
             }
         }
     }
+//    bf.useLines { lines ->
+//        lines.forEach {
+//            when (i++ % 3) {
+//                0 -> n = it.toInt()
+//                1 -> a = it
+//                2 -> {
+//                    fm = it.split(" ").map { c -> c.toInt() }
+//                    problems.add(LongNumberProblem(n, a, fm))
+//                }
+//            }
+//        }
+//    }
 
     for (p in problems) {
         println(solveLongNumber(p))
