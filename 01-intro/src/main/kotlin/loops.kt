@@ -13,7 +13,7 @@ fun main() {
     val collection = listOf(1, 2, 3, 4, 5)
     for (item in collection) println(item)
 
-    for (i in 1..7 step 2) {
+    for (i in 6 downTo 0 step 2) {
         println(i)
     }
     for (i in "12345") {

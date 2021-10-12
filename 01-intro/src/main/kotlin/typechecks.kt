@@ -14,7 +14,7 @@ fun main() {
             println(obj.length)
         }
     }
-    f("abc")
+//    f("abc")
 
     fun g(x: Any) {
         when (x) {
@@ -36,10 +36,10 @@ fun main() {
     else if (x is IntArray) "${x.sum()}"
     else "Not recognized"
 
-    println(g3(1))
-    println(g3("abc"))
-    println(g3(IntArray(5) { it }))
-    println(g3(Shape()))
+    println(g2(1))
+    println(g2("abc"))
+    println(g2(IntArray(5) { it }))
+    println(g2(Shape()))
 
     fun h(y: Any?) {
 //        val x = y as String
