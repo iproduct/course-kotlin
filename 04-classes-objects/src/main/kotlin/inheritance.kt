@@ -27,8 +27,13 @@ open class Shape {
     }
 }
 
-class Circle() : Shape() {
+open class Circle() : Shape() {
     override fun draw() { /*...*/
+    }
+}
+
+class ColoredCircle(): Circle() {
+    override fun draw() { /* draw in color...*/
     }
 }
 
@@ -50,7 +55,9 @@ interface Shape3 {
     val vertexCount: Int
 }
 
-class Rectangle3(override val vertexCount: Int = 4) : Shape3 // Always has 4 vertices
+class Rectangle3(count: Int = 4) : Shape3  {
+    override val vertexCount: Int = count
+}// Always has 4 vertices
 
 class Polygon3 : Shape3 {
     override var vertexCount: Int = 0  // Can be set to any number later
@@ -58,7 +65,6 @@ class Polygon3 : Shape3 {
 
 // Initialization order
 open class Base(val name: String) {
-
     open val size: Int =
         name.length.also { println("Initializing size in the base class: $it") }
 
@@ -66,6 +72,19 @@ open class Base(val name: String) {
         println("Initializing a base class: $size")
     }
 }
+class Derived(
+    name: String,
+    val lastName: String,
+) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) {
+
+    init {
+        println("Initializing a derived class")
+    }
+
+    override val size: Int =
+        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") }
+}
+
 
 // Using super implementation
 open class Rectangle4 {
@@ -99,18 +118,7 @@ class FilledRectangle2: Rectangle4() {
     }
 }
 
-class Derived(
-    name: String,
-    val lastName: String,
-) : Base(name.replaceFirstChar { it.uppercase() }.also { println("Argument for the base class: $it") }) {
 
-    init {
-        println("Initializing a derived class")
-    }
-
-    override val size: Int =
-        (super.size + lastName.length).also { println("Initializing size in the derived class: $it") }
-}
 
 // Multiple inheritance
 open class Rectangle5 {
@@ -153,5 +161,6 @@ abstract class WildShape : Polygon7() {
 }
 
 fun main() {
-    val d = Derived("ivan", "Petrov")
+//    val d = Derived("ivan", "Petrov")
+    FilledRectangle2().draw()
 }

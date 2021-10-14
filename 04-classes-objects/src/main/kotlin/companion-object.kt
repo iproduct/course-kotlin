@@ -1,16 +1,25 @@
 package course.kotlin
 
 class MyClass {
-    companion object Factory {
-        fun create(): MyClass = MyClass()
+    companion object {
+        lateinit var theInstance: MyClass
+        init {
+            val theInstance = create()
+        }
+        private fun create(): MyClass = MyClass()
+        fun getInstance() = theInstance
+
     }
 }
 
-val instance = MyClass.create()
-
+val instance = MyClass.Companion.getInstance()
 
 class MyClass2 {
-    companion object { }
+    companion object {
+        object Factory {
+
+        }
+    }
 }
 
 val x = MyClass2.Companion
