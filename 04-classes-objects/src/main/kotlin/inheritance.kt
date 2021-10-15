@@ -30,6 +30,8 @@ open class Shape {
 open class Circle() : Shape() {
     override fun draw() { /*...*/
     }
+//    override fun fill() { /*...*/
+//    }
 }
 
 class ColoredCircle(): Circle() {
@@ -161,6 +163,6 @@ abstract class WildShape : Polygon7() {
 }
 
 fun main() {
-//    val d = Derived("ivan", "Petrov")
-    FilledRectangle2().draw()
+    val d = Derived("ivan", "Petrov")
+//    FilledRectangle2().draw()
 }

@@ -12,11 +12,11 @@ class Person2 constructor(firstName: String) { /*...*/ }
 class Person3(firstName: String) { /*...*/ }
 
 class InitOrderDemo(name: String) {
-    init {
-        println("First initializer block that prints ${name}")  // 2
-    }
-
     val firstProperty = "First property: $name".also(::println) // 1
+
+    init {
+        println("First initializer block that prints $name, $firstProperty")  // 2
+    }
 
     val secondProperty = "Second property: ${name.length}".also(::println)  // 3
 
@@ -32,7 +32,7 @@ class Customer(name: String) {
 
 class Person4(val firstName: String, val lastName: String, var age: Int)
 
-class Person5(val firstName: String, val lastName: String, var isEmployed: Boolean = true) {
+class Person5 @JvmOverloads constructor(val firstName: String, val lastName: String = "", var isEmployed: Boolean = true) {
     override fun toString(): String = "Person5($firstName $lastName, employed: $isEmployed)"
 }
 
@@ -52,11 +52,13 @@ class Person7(val name: String, val pets: MutableList<Pet> = mutableListOf()) {
 
 
 class Pet(val name: String) {
+    lateinit var owner: Person7 // subtle bug here - can be uninitialized runtime!
     constructor(name: String, owner: Person7) : this(name) {
+        this.owner = owner
         owner.pets.add(this) // adds this pet to the list of its owner's pets
     }
 
-    override fun toString() = "Pet($name)"
+    override fun toString() = "${owner.name}'s Pet: $name"
 }
 
 class Constructors {
@@ -75,6 +77,13 @@ class Constructors {
 class DontCreateMe private constructor () { /*...*/ }
 class Customer3(val customerName: String = "")
 
+class StringRegistry private constructor(val items: MutableList<String> = mutableListOf()){
+    override fun toString() = "StringRegistry(${items})"
+    companion object Factory1 {
+        val theInstance = StringRegistry()
+    }
+}
+
 data class Product(val name: String = "", val price: Double =0.0, var id: Int? = null) {
     init {
         println("In Product init ...")
@@ -91,21 +100,26 @@ fun main() {
 //    val o1 = InitOrderDemo("Test")
 //    val c1 = Customer("ABC Ltd.")
 //    println(c1)
-//    val p5  = Person5("Ivan", "Petrov")
+//    val p5  = Person5(firstName = "Ivan", isEmployed = true )
 //    println(p5)
-//
-//    // Secondary constructors
+
+    // Secondary constructors
 //    val ivan = Person7("Ivan Petrov")
-//    val Johny = Pet("Johny", ivan)
-//    val Silvester = Pet("Silvester", ivan)
-//    val Caty = Pet("Caty", ivan)
+//    val johny = Pet("Johny", ivan)
+//    val silvester = Pet("Silvester", ivan)
+//    val caty = Pet("Caty")
 //    println(ivan) //Ivan Petrov's pets: [Pet(Johny), Pet(Silvester), Pet(Caty)]
+//    println(caty)
 //    val micky = Pet("Micky Mouse")
 //    println(micky)
 
     // Constructor delegation
 //    val c2 = Constructors(42) // Init block, Constructor 42
-//
+
+    // Private constructor demo - singleton
+//    val reg = StringRegistry.Factory1.theInstance
+//    println(reg)
+
     // Instances
     val customer = Customer("Joe Smith")
     val invoice = Invoice(1, customer, mutableListOf(Product("Laptop", 1200.0,  1), Product()))
