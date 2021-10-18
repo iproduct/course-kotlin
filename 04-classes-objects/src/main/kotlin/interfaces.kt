@@ -30,11 +30,11 @@ class Child2 : MyInterface2 {
     override val prop: Int = 29
 }
 
+// Interface inheritance
 interface Named {
     val name: String
 }
 
-// Interface inheritance
 interface Person : Named {
     val firstName: String
     val lastName: String
