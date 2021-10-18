@@ -44,7 +44,7 @@ interface Person : Named {
 
 data class Position(val name: String)
 
-data class Employee(
+data class Employee (
     // implementing 'name' is not required
     override val firstName: String,
     override val lastName: String,
@@ -75,4 +75,10 @@ class D : A, B {
     override fun bar() {
         super<B>.bar()
     }
+}
+
+
+fun main() {
+    val e = Employee("Ivan", "Petrov", Position("Manager"))
+    println("${e.name}")
 }

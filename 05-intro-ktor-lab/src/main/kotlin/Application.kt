@@ -24,7 +24,8 @@ fun main() {
     embeddedServer(Netty,
         port = 8080,
         host = "localhost",
-        watchPaths = listOf("build/classes/kotlin/main")) {
+        watchPaths = listOf("classes", "resources"),
+        ) {
         configureRouting()
         configureHTTP()
         configureSerialization()

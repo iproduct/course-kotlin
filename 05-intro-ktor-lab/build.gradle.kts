@@ -7,10 +7,12 @@ plugins {
     kotlin("jvm") version "1.5.31"
 }
 
+
 group = "kotlin.course"
 version = "0.0.1"
 application {
     mainClass.set("kotlin.course.ApplicationKt")
+    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=true")
 }
 
 repositories {
