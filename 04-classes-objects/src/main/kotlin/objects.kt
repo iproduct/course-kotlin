@@ -87,8 +87,8 @@ object DataProviderManager {
         // ...
     }
 
-    val allDataProviders: Collection<DataProvider>
-        get() = // ...
+//    val allDataProviders: Collection<DataProvider>
+////        get() = {}// ...
 }
 
 fun main() {

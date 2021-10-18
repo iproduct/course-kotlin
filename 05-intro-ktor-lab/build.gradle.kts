@@ -7,10 +7,10 @@ plugins {
     kotlin("jvm") version "1.5.31"
 }
 
-group = "com.example"
+group = "kotlin.course"
 version = "0.0.1"
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass.set("kotlin.course.ApplicationKt")
 }
 
 repositories {

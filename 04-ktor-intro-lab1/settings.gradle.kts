@@ -1,1 +1,0 @@
-rootProject.name = "04-ktor-intro-lab1"

@@ -1,4 +1,4 @@
-package com.example.plugins
+package course.kotlin.plugins
 
 import io.ktor.jackson.*
 import com.fasterxml.jackson.databind.*
