@@ -4,7 +4,7 @@ class MyClass {
     companion object {
         lateinit var theInstance: MyClass
         init {
-            val theInstance = create()
+            theInstance = create()
         }
         private fun create(): MyClass = MyClass()
         fun getInstance() = theInstance
@@ -25,27 +25,36 @@ class MyClass2 {
 val x = MyClass2.Companion
 
 
-
 class MyClass3 {
-    companion object Named { }
+    companion object Named {}
 }
 
 val x3 = MyClass3
 
 class MyClass4 {
-    companion object { }
+    companion object {}
 }
 
 val y = MyClass4
 
 interface Factory<T> {
-    fun create(): T
+    fun create(ctx: Context, name: String): T
 }
 
-class MyClass5 {
-    companion object : Factory<MyClass5> {
-        override fun create(): MyClass5 = MyClass5()
+data class Context2(val name: String)
+
+data class MyClass5 private constructor(val ctx: Context) {
+    var name: String = "unnamed"
+    override fun toString(): String = "MyClass5(ctx=$ctx, name=$name)"
+
+    object MyFactory : Factory<MyClass5> {
+        override fun create(ctx: Context, aName: String): MyClass5 =
+            MyClass5(ctx).apply { this.name = aName  }
     }
 }
 
-val f: Factory<MyClass5> = MyClass5
+fun main() {
+//    MyClass5.MyFactory.create(Context())
+    val mc5 = MyClass5.MyFactory.create(Context(), "MyClass5Instance")
+    println(mc5)
+}

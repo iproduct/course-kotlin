@@ -102,7 +102,7 @@ fun main() {
     })
     window.size = Dimension(600, 400)
     window.defaultCloseOperation = EXIT_ON_CLOSE
-//    window.isVisible = true
+    window.isVisible = true
 
     // return and value objects
     val c= C1()
