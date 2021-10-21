@@ -64,20 +64,22 @@ class C {
 }
 
 // accesssing variables
-fun countClicks(window: JComponent) {
+class CountClicks(window: JComponent) {
     var clickCount = 0
     var enterCount = 0
 
-    window.addMouseListener(object : MouseAdapter() {
-        override fun mouseClicked(e: MouseEvent) {
-            clickCount++
-        }
+    init {
+        window.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent) {
+                clickCount++
+            }
 
-        override fun mouseEntered(e: MouseEvent) {
-            enterCount++
-        }
-    })
-    // ...
+            override fun mouseEntered(e: MouseEvent) {
+                enterCount++
+            }
+        })
+        // ...
+    }
 }
 
 // object declarations
@@ -97,7 +99,9 @@ fun main() {
     // Inherit from class
     val window = JFrame("Main Window")
     window.addMouseListener(object : MouseAdapter() {
-        override fun mouseClicked(e: MouseEvent) { /*...*/ }
+        override fun mouseClicked(e: MouseEvent) {
+            println(e)
+        }
         override fun mouseEntered(e: MouseEvent) { /*...*/ }
     })
     window.size = Dimension(600, 400)
@@ -110,4 +114,7 @@ fun main() {
 
     // object declarations
     DataProviderManager.registerDataProvider(DataProvider())
+
+    val c4 = C()
+//    c4.getObjectB().funFromA()
 }

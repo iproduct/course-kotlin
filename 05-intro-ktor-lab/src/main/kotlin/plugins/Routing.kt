@@ -52,7 +52,7 @@ private suspend fun<R> PipelineContext<*, ApplicationCall>. errorAware(block: su
     } catch (e: Exception) {
         call.respond(
             HttpStatusCode.InternalServerError, """
-                    {"error" : "$e"}
+                    {"error" : ${e.message}}
                 """.trimIndent()
         )
         null

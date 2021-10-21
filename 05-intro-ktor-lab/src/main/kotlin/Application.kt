@@ -17,8 +17,13 @@ val ProductRepo = ProductRepository( listOf(
     )
 )
 
-//val Application.productRepo
-//    get() = productRepository
+val Application.productRepo = ProductRepository( listOf(
+    ProductData("Laptop Lenovo", 1850.0),
+    ProductData("Wireless Mouse", 25.7),
+    ProductData("Wireless Keyboard", 35.2),
+    ProductData("Whitboard Markers", 5.0),
+))
+//    get() = ProductRepo
 
 fun main() {
     embeddedServer(Netty,

@@ -1,16 +1,28 @@
 package course.kotlin
 
+import java.io.Serializable
+
 class MyClass {
     companion object {
         lateinit var theInstance: MyClass
+
         init {
             theInstance = create()
         }
+
         private fun create(): MyClass = MyClass()
         fun getInstance() = theInstance
 
     }
+
+    fun print() {
+        println(getInstance())
+    }
 }
+
+//object MyClassObject : MyClass(), Serializable {
+//    override fun toString(): String = "<MyClass Singleton>"
+//}
 
 val instance = MyClass.Companion.getInstance()
 
@@ -47,14 +59,16 @@ data class MyClass5 private constructor(val ctx: Context) {
     var name: String = "unnamed"
     override fun toString(): String = "MyClass5(ctx=$ctx, name=$name)"
 
-    object MyFactory : Factory<MyClass5> {
+    companion object : Factory<MyClass5> {
         override fun create(ctx: Context, aName: String): MyClass5 =
-            MyClass5(ctx).apply { this.name = aName  }
+            MyClass5(ctx).apply { name = aName }
     }
 }
 
 fun main() {
-//    MyClass5.MyFactory.create(Context())
-    val mc5 = MyClass5.MyFactory.create(Context(), "MyClass5Instance")
+    val mc = MyClass()
+    mc.print()
+    MyClass5.create(Context(), "Noname")
+    val mc5 = MyClass5.create(Context(), "MyClass5Instance")
     println(mc5)
 }
