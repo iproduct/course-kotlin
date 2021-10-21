@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation("javax.inject:javax.inject:1")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31")
     testImplementation(kotlin("test"))
 }
 
