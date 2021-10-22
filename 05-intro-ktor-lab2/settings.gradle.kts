@@ -1,0 +1,1 @@
+rootProject.name = "05-intro-ktor-lab2"
