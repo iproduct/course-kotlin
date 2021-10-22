@@ -14,10 +14,10 @@ import io.ktor.server.netty.*
 
 private val productRepository: ProductRepository = InMemoryProductRepository(
     listOf(
-        Product(1, "Laptop Computer", 1500.0),
-        Product(2, "Computer Mouse", 25.7),
-        Product(3, "Wireless Keyboard", 35.2),
-        Product(4, "Whiteboard Markers", 4.7),
+        Product("Laptop Computer", 1500.0),
+        Product("Computer Mouse", 25.7),
+        Product("Wireless Keyboard", 35.2),
+        Product("Whiteboard Markers", 4.7),
     )
 )
 
