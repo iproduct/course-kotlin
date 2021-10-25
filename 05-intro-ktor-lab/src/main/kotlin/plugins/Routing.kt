@@ -1,7 +1,7 @@
 package course.kotlin.plugins
 
-import course.kotlin.ProductRepo
 import course.kotlin.model.ProductData
+import course.kotlin.productRepo
 import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.application.*
@@ -13,12 +13,12 @@ fun Application.configureRouting() {
 
     routing {
         get("/api/products") {
-            call.respond(ProductRepo.values)
+            call.respond(application.productRepo.values)
         }
         get("/api/products/{id}") {
             try {
                 val id = call.parameters["id"]?.toInt()
-                val product = ProductRepo.get(id)
+                val product = application.productRepo.get(id)
                 if (product != null) {
                     call.respond(product)
                 } else {
@@ -39,7 +39,7 @@ fun Application.configureRouting() {
         post("/api/products") {
             errorAware {
                 val productData = call.receive(ProductData::class)
-                val product = ProductRepo.addProduct(productData)
+                val product = application.productRepo.addProduct(productData)
                 call.respond(HttpStatusCode.Created, product)
             }
         }
