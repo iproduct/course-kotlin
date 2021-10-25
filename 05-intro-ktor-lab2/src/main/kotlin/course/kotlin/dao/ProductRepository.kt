@@ -2,10 +2,10 @@ package course.kotlin.dao
 
 import course.kotlin.model.Product
 
-interface ProductRepository {
-    fun findAll(): Collection<Product>
-    fun findById(id: Int): Product?
-    fun create(product: Product): Product
-    fun update(product: Product): Product
-    fun deleteById(id: Int): Product?
+interface Repository<K, T> {
+    fun findAll(): Collection<T>
+    fun findById(id: K): T?
+    fun create(product: T): T
+    fun update(product: T): T
+    fun deleteById(id: K): T?
 }
