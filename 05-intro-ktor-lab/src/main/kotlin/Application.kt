@@ -1,14 +1,17 @@
 package course.kotlin
 
 import course.kotlin.dao.ProductRepository
+import course.kotlin.fieldprop.FieldProperty
 import course.kotlin.model.ProductData
 import course.kotlin.plugins.configureRouting
 import course.kotlin.plugins.configureSerialization
 import course.plugins.configureHTTP
 import io.ktor.application.*
+import io.ktor.request.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.util.pipeline.*
 import kotlin.reflect.KProperty
 
 private val ProductRepo = ProductRepository(
@@ -21,7 +24,14 @@ private val ProductRepo = ProductRepository(
 )
 
 //val Application.productRepo: ProductRepository by ::ProductRepo
-val Route.productRepo by RouteDelegate()
+val  PipelineContext<Unit, ApplicationCall>.productRepo: ProductRepository by FieldProperty(
+    {
+        ProductRepository(
+            listOf(
+                ProductData("${this.context.request.path()}", 1850.0),
+            )
+        )
+    })
 
 class RouteDelegate {
     operator fun getValue(thisRef: Route, property: KProperty<*>): ProductRepository {
@@ -34,15 +44,15 @@ class RouteDelegate {
 }
 
 
-    fun main() {
-        embeddedServer(
-            Netty,
-            port = 8080,
-            host = "localhost",
-            watchPaths = listOf("classes", "resources"),
-        ) {
-            configureRouting()
-            configureHTTP()
-            configureSerialization()
-        }.start(wait = true)
-    }
+fun main() {
+    embeddedServer(
+        Netty,
+        port = 8080,
+        host = "localhost",
+        watchPaths = listOf("classes", "resources"),
+    ) {
+        configureRouting()
+        configureHTTP()
+        configureSerialization()
+    }.start(wait = true)
+}

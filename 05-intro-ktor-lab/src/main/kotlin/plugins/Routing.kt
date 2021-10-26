@@ -13,12 +13,18 @@ fun Application.configureRouting() {
 
     routing {
         get("/api/products") {
-            call.respond(application.productRepo.values)
+            call.respond(productRepo.values)
+        }
+        get("/api/services") {
+            call.respond(productRepo.values)
+        }
+        get("/api/accessoaries") {
+            call.respond(productRepo.values)
         }
         get("/api/products/{id}") {
             try {
                 val id = call.parameters["id"]?.toInt()
-                val product = application.productRepo.get(id)
+                val product = productRepo.get(id)
                 if (product != null) {
                     call.respond(product)
                 } else {
@@ -39,7 +45,7 @@ fun Application.configureRouting() {
         post("/api/products") {
             errorAware {
                 val productData = call.receive(ProductData::class)
-                val product = application.productRepo.addProduct(productData)
+                val product =  productRepo.addProduct(productData)
                 call.respond(HttpStatusCode.Created, product)
             }
         }

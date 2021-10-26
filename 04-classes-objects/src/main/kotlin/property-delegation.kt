@@ -7,7 +7,7 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 class Delegate {
-    var _value: String = ""
+    private var _value: String = ""
     operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
         return "$thisRef, thank you for delegating '${property.name}' to me: $_value"
     }
@@ -26,15 +26,15 @@ class ExampleDelegation {
 var topProp: String by Delegate()
 
 // lazy
-val lazyValue: String by lazy(LazyThreadSafetyMode.PUBLICATION) {
+val lazyValue: String by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
     println("computed!")
-    "Hello"
+    "Lazy Hello"
 }
 
 // observable
 class User {
     var name: String by Delegates.observable("<no name>") { prop, old, new ->
-        println("$old -> $new")
+        println("${prop.name}: $old -> $new")
     }
 }
 
@@ -169,7 +169,7 @@ class ResourceID<T>(val id: T) {
 
 class ResourceDelegate4<T> : ReadOnlyProperty<MyUI, T> {
     override fun getValue(thisRef: MyUI, property: KProperty<*>): T = when (property.name) {
-        "text" -> "108" as T
+        "text" -> "textId" as T
         "image" -> 108 as T
         else -> 108 as T
     }
@@ -186,6 +186,7 @@ class ResourceLoader4<T>(id: ResourceID<T>) {
     }
 
     private fun checkProperty(thisRef: MyUI, name: String) { /*...*/
+        println("Checking property $thisRef.$name")
     }
 }
 
@@ -198,9 +199,11 @@ class MyUI {
 
 //PropertyDelegateProvider
 val provider = PropertyDelegateProvider { thisRef: Any?, property ->
-    ReadOnlyProperty<Any?, Int> {_, property -> 42 }
+//        println("customizing delegate creation")
+        ReadOnlyProperty<Any?, Int> { _, property -> 42 }
 }
 val delegate: Int by provider
+
 
 
 fun main() {
@@ -215,26 +218,31 @@ fun main() {
     // lazy()
     println(lazyValue)
     println(lazyValue)
+    println(lazyValue)
 
     // observable()
     val user = User()
     user.name = "first"
     user.name = "second"
 
-    // delagation to another property
-    val myClass8 = MyClass8()
-    // Notification: 'oldName: Int' is deprecated.
-    // Use 'newName' instead
-    myClass8.oldName = 42
-    println(myClass8.newName) // 42
-
+////    // delagation to another property
+////    val myClass8 = MyClass8()
+////    // Notification: 'oldName: Int' is deprecated.
+////    // Use 'newName' instead
+////    myClass8.oldName = 42
+////    println(myClass8.newName) // 42
+//
     // delegation to map
     println(user2.name) // Prints "John Doe"
     println(user2.age)  // Prints 25
+    mutableUser.age = 42
     println(mutableUser.name) // Prints "John Doe"
-    println(mutableUser.age)  // Prints 25
+    println(mutableUser.age)  // Prints 42
 
-    val myUI = MyUI()
-    println(myUI.text)
+//    val myUI = MyUI()
+//    println(myUI.image)
+//    println(myUI.text)
+
+//    println(delegate)
 
 }

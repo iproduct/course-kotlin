@@ -23,11 +23,18 @@ fun Application.configureRouting() {
             call.respondText("Hello World!")
         }
         get("/api/products") {
-            call.respond(application.productRepo.findAll())
+//            .context.request.path
+            call.respond(productRepo.findAll())
+        }
+        get("/api/services") {
+            call.respond(productRepo.findAll())
+        }
+        get("/api/devices") {
+            call.respond(productRepo.findAll())
         }
         post("/api/products") {
             val newProduct = call.receive(Product::class)
-            val created = application.productRepo.create(newProduct)
+            val created = productRepo.create(newProduct)
 //            call.response.headers.append(HttpHeaders.Location, "/api/products/${created.id}")
             call.response.created(created)
         }

@@ -83,7 +83,14 @@ public class MyTest {
     @Test fun test() {
         if (::subject.isInitialized) {
             subject.method()  // dereference directly
+        } else {
+            println("Subject is null!!!")
         }
 
     }
+}
+
+fun main() {
+    val mytest = MyTest()
+    mytest.test()
 }

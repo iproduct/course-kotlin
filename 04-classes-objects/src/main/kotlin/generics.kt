@@ -34,14 +34,18 @@ fun demo(x: Comparable<Number>) {
 //    operator fun set(index: Int, value: T) { /*...*/ }
 //}
 
-fun copy(from: Array<Any>, to: Array<Any>) {
+//fun copy(from: Array<Any>, to: Array<Any>) {
+//    assert(from.size == to.size)
+//    for (i in from.indices) {
+//        to[i] = from[i]
+//    }
+//}
+fun copy(from: Array<out Any>, to: Array<Any>) {
     assert(from.size == to.size)
     for (i in from.indices) {
         to[i] = from[i]
-    }
-}
-fun copy(from: Array<out Any>, to: Array<Any>) { ... }
-fun fill(dest: Array<in String>, value: String) { ... }
+    } }
+//fun fill(dest: Array<in String>, value: String) { ... }
 fun main() {
     val ints: Array<Int> = arrayOf(1, 2, 3)
     val any = Array<Any>(3) { "" }
