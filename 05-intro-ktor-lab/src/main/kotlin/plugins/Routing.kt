@@ -1,30 +1,34 @@
 package course.kotlin.plugins
 
-import course.kotlin.model.ProductData
+import course.kotlin.model.Product
 import course.kotlin.productRepo
-import io.ktor.routing.*
-import io.ktor.http.*
 import io.ktor.application.*
-import io.ktor.response.*
+import io.ktor.http.*
 import io.ktor.request.*
+import io.ktor.response.*
+import io.ktor.routing.*
 import io.ktor.util.pipeline.*
 
 fun Application.configureRouting() {
 
     routing {
         get("/api/products") {
-            call.respond(productRepo.values)
+//            errorAware {
+                val resp = application.productRepo.findAll()
+                call.respond(resp)
+//            }
+
         }
         get("/api/services") {
-            call.respond(productRepo.values)
+            call.respond(application.productRepo.findAll())
         }
         get("/api/accessoaries") {
-            call.respond(productRepo.values)
+            call.respond(application.productRepo.findAll())
         }
         get("/api/products/{id}") {
             try {
                 val id = call.parameters["id"]?.toInt()
-                val product = productRepo.get(id)
+                val product = application.productRepo.findById(id!!)
                 if (product != null) {
                     call.respond(product)
                 } else {
@@ -34,7 +38,7 @@ fun Application.configureRouting() {
                 """.trimIndent()
                     )
                 }
-            } catch (ex: NumberFormatException ) {
+            } catch (ex: NumberFormatException) {
                 call.respond(
                     HttpStatusCode.BadRequest, """
                     {"error" : "Invalid product ID: ${call.parameters["id"]}"}
@@ -44,15 +48,15 @@ fun Application.configureRouting() {
         }
         post("/api/products") {
             errorAware {
-                val productData = call.receive(ProductData::class)
-                val product =  productRepo.addProduct(productData)
+                val productData = call.receive(Product::class)
+                val product = application.productRepo.create(productData)
                 call.respond(HttpStatusCode.Created, product)
             }
         }
     }
 }
 
-private suspend fun<R> PipelineContext<*, ApplicationCall>. errorAware(block: suspend () -> R): R? {
+private suspend fun <R> PipelineContext<*, ApplicationCall>.errorAware(block: suspend () -> R): R? {
     return try {
         block()
     } catch (e: Exception) {

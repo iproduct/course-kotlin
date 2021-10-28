@@ -1,47 +1,51 @@
 package course.kotlin
 
-import course.kotlin.dao.ProductRepository
-import course.kotlin.fieldprop.FieldProperty
-import course.kotlin.model.ProductData
+import course.kotlin.dao.InMemoryRepository
+import course.kotlin.dao.Repository
+import course.kotlin.model.IdGenerator
+import course.kotlin.model.Product
 import course.kotlin.plugins.configureRouting
 import course.kotlin.plugins.configureSerialization
 import course.plugins.configureHTTP
 import io.ktor.application.*
-import io.ktor.request.*
-import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import io.ktor.util.pipeline.*
-import kotlin.reflect.KProperty
+import java.util.concurrent.atomic.AtomicInteger
 
-private val ProductRepo = ProductRepository(
+typealias ProductRepository = Repository<Int, Product>
+private val ProductRepo: ProductRepository = InMemoryRepository(
+    object: IdGenerator<Int> {
+        private  val sequence =  AtomicInteger()
+        override fun nextId(): Int = sequence.incrementAndGet()
+    },
     listOf(
-        ProductData("Laptop Lenovo", 1850.0),
-        ProductData("Wireless Mouse", 25.7),
-        ProductData("Wireless Keyboard", 35.2),
-        ProductData("Whitboard Markers", 5.0),
+        Product("Laptop Lenovo", 1850.0),
+        Product("Wireless Mouse", 25.7),
+        Product("Wireless Keyboard", 35.2),
+        Product("Whitboard Markers", 5.0),
     )
 )
 
-//val Application.productRepo: ProductRepository by ::ProductRepo
-val  PipelineContext<Unit, ApplicationCall>.productRepo: ProductRepository by FieldProperty(
-    {
-        ProductRepository(
-            listOf(
-                ProductData("${this.context.request.path()}", 1850.0),
-            )
-        )
-    })
+val Application.productRepo: ProductRepository by ::ProductRepo
 
-class RouteDelegate {
-    operator fun getValue(thisRef: Route, property: KProperty<*>): ProductRepository {
-        return ProductRepository(
-            listOf(
-                ProductData("$thisRef, thank you for delegating '${property.name}", 1000.0),
-            )
-        )
-    }
-}
+//val  PipelineContext<Unit, ApplicationCall>.productRepo: ProductRepository by FieldProperty(
+//    {
+//        ProductRepository(
+//            listOf(
+//                ProductData("${this.context.request.path()}", 1850.0),
+//            )
+//        )
+//    })
+
+//class RouteDelegate {
+//    operator fun getValue(thisRef: Route, property: KProperty<*>): ProductRepository {
+//        return ProductRepository(
+//            listOf(
+//                ProductData("$thisRef, thank you for delegating '${property.name}", 1000.0),
+//            )
+//        )
+//    }
+//}
 
 
 fun main() {

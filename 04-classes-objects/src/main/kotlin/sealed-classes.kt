@@ -20,9 +20,9 @@ sealed class IOError2 {
 }
 
 // indirect inheritance
-sealed interface Error2 // has implementations only in same package and module
-sealed class IOError3(): Error2 // extended only in same package and module
-open class CustomError(): Error2 // can be extended wherever it's visible
+sealed interface Error3 // has implementations only in same package and module
+sealed class IOError3(): Error3 // extended only in same package and module
+open class CustomError(): Error3 // can be extended wherever it's visible
 
 // when expression
 fun log(e: Error) = when(e) {
