@@ -28,9 +28,9 @@ fun demo(strs: Source<String>) {
 fun demo(x: Comparable<Number>) {
     x.compareTo(1.0) // 1.0 has type Double, which is a subtype of Number
     // Thus, you can assign x to a variable of type Comparable<Double>
-    var y: Comparable<Int> = x // OK!
-//    var z: Comparable<Number> = 1
-//    y = z
+    var y: Comparable<Number> = x // OK!
+    var z: Comparable<Int> = 1
+    z = y
 }
 
 // type projection
@@ -88,11 +88,11 @@ class Repository<in T> {
 }
 
 fun main() {
-//    val repo = Repository<Product2> ()
-//    val p1 = Consumable("Print documets sevice", 5.0)
-//    val p2 = Product2("Print documets sevice", 5.0)
-//    val p3 = Mobile()
-//    repo.addProduct(p3)
+    val repo = Repository<Product2> ()
+    val p1 = Consumable("Print documents service", 5.0)
+    val p2 = Product2("Print documents service", 5.0)
+    val mobile = Mobile()
+    repo.addProduct(mobile)
 
     val ints: Array<Int> = arrayOf(1, 2, 3)
     val any :Array<Any> = arrayOf( "", 2, 3.0 )
