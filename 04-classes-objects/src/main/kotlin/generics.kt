@@ -46,7 +46,7 @@ fun copy(from: Array<out Any>, to: Array<Any>) {
 //        from[i] =  to[i] // Error
     }
 }
-//fun copy(from: Array<out Any>, to: Array<Any>) {
+//fun copy(from: Array<Any>, to: Array<Any>) {
 //    assert(from.size == to.size)
 //    for (i in from.indices) {
 //        to[i] = from[i]
@@ -100,13 +100,13 @@ fun main() {
     println(any.joinToString(", ") { it.toString() })
     //   ^ type is Array<Int> but Array<Any> was expected
 
-//    // generic functions
-//    val l = singletonList<Int>(1)
-//    val l2 = singletonList(1)
-//
-//    // generic constraints
-//    sort(listOf(1, 2, 3)) // OK. Int is a subtype of Comparable<Int>
-////    sort(listOf(HashMap<Int, String>())) // Error: HashMap<Int, String> is not a subtype of Comparable<HashMap<Int, String>>
+    // generic functions
+    val l = singletonList<Int>(1)
+    val l2 = singletonList(1)
+
+    // generic constraints
+    sort(listOf(1, 2, 3)) // OK. Int is a subtype of Comparable<Int>
+//    sort(listOf(HashMap<Int, String>())) // Error: HashMap<Int, String> is not a subtype of Comparable<HashMap<Int, String>>
 }
 
 
