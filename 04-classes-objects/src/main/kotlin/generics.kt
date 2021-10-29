@@ -39,30 +39,35 @@ fun demo(x: Comparable<Number>) {
 //    operator fun set(index: Int, value: T) { /*...*/ }
 //}
 
+//fun copy(from: Array<out Any>, to: Array<Any>) {
+//    assert(from.size == to.size)
+//    for (i in from.indices) {
+//        to[i] = from[i]
+////        from[i] =  to[i] // Error
+//    }
+//}
+
 fun copy(from: Array<out Any>, to: Array<Any>) {
     assert(from.size == to.size)
     for (i in from.indices) {
         to[i] = from[i]
-//        from[i] =  to[i] // Error
     }
 }
-//fun copy(from: Array<Any>, to: Array<Any>) {
-//    assert(from.size == to.size)
-//    for (i in from.indices) {
-//        to[i] = from[i]
-//    } }
 //fun fill(dest: Array<in String>, value: String) { ... }
 
 // generic functions
 fun <T> singletonList(item: T): List<T> {
     return emptyList()
 }
+
 fun <T> T.basicToString(): String { // extension function
     return ""
 }
 
 // generic constraints
-fun <T : Comparable<T>> sort(list: List<T>) {  /*...*/ }
+fun <T : Comparable<T>> sort(list: List<T>) {  /*...*/
+}
+
 fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
         where T : CharSequence,
               T : Comparable<T> {
@@ -70,43 +75,51 @@ fun <T> copyWhenGreater(list: List<T>, threshold: T): List<String>
 }
 
 // exercises
-open class Product2(val name: String = "", val price: Double =0.0, var id: Int? = null) {
+open class Product2(val name: String = "", val price: Double = 0.0, var id: Int? = null) {
     init {
         println("In Product init ...")
     }
+
     val calculateVat get() = price * 0.2
 }
+
 class Mobile : Product2()
 class Consumable(name: String, price: Double) : Product2(name, price)
-class Repository<in T> {
+class Repository<in T : Product2> {
     val items: MutableList<in T> = mutableListOf()
     fun addProduct(p: T) {
         items.add(p)
-//        val p: Product2 = items.get(0)
+//        val p: T =  items.get(0)
+//        println(p.calculateVat)
+    }
+
+    fun addProducts(other: List<T>) {
+        items.addAll(other)
+//        val p: T =  items.get(0)
 //        println(p.calculateVat)
     }
 }
 
 fun main() {
-    val repo = Repository<Product2> ()
-    val p1 = Consumable("Print documents service", 5.0)
-    val p2 = Product2("Print documents service", 5.0)
-    val mobile = Mobile()
-    repo.addProduct(mobile)
+//    val repo = Repository<Product2>()
+//    val consumable = Consumable("Print documents service", 5.0)
+//    val product = Product2("Print documents service", 5.0)
+//    val mobiles = listOf(Mobile(), Mobile())
+//    repo.addProducts(mobiles)
 
     val ints: Array<Int> = arrayOf(1, 2, 3)
     val any :Array<Any> = arrayOf( "", 2, 3.0 )
     copy(ints, any)
     println(any.joinToString(", ") { it.toString() })
     //   ^ type is Array<Int> but Array<Any> was expected
-
-    // generic functions
-    val l = singletonList<Int>(1)
-    val l2 = singletonList(1)
-
-    // generic constraints
-    sort(listOf(1, 2, 3)) // OK. Int is a subtype of Comparable<Int>
-//    sort(listOf(HashMap<Int, String>())) // Error: HashMap<Int, String> is not a subtype of Comparable<HashMap<Int, String>>
+//
+//    // generic functions
+//    val l = singletonList<Int>(1)
+//    val l2 = singletonList(1)
+//
+//    // generic constraints
+//    sort(listOf(1, 2, 3)) // OK. Int is a subtype of Comparable<Int>
+////    sort(listOf(HashMap<Int, String>())) // Error: HashMap<Int, String> is not a subtype of Comparable<HashMap<Int, String>>
 }
 
 

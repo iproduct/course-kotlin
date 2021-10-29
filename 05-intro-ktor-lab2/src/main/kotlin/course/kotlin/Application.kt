@@ -33,7 +33,7 @@ private val productRepository: ProductRepository = InMemoryRepository(
 val PipelineContext<Unit, ApplicationCall>.productRepo: ProductRepository by FieldPropertyDelegate({
     InMemoryRepository(
         listOf(
-            Product("${this}", 1500.0),
+            Product("${this.context.request.path()}", 1500.0),
         ),
         object: IdGenerator<Int> {
             private val idSequence = AtomicInteger()

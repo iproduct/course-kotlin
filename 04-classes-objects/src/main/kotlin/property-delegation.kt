@@ -199,7 +199,7 @@ class MyUI {
 
 //PropertyDelegateProvider
 val provider = PropertyDelegateProvider { thisRef: Any?, property ->
-//        println("customizing delegate creation")
+        println("customizing delegate creation")
         ReadOnlyProperty<Any?, Int> { _, property -> 42 }
 }
 val delegate: Int by provider
@@ -207,42 +207,42 @@ val delegate: Int by provider
 
 
 fun main() {
-    val e = ExampleDelegation()
-    e.prop = "NEW_VALUE"
-    println(e.prop)
-
-    // top prop
-    topProp = "TOP PROP NEW VALUE"
-    println(topProp)
-
-    // lazy()
-    println(lazyValue)
-    println(lazyValue)
-    println(lazyValue)
-
-    // observable()
-    val user = User()
-    user.name = "first"
-    user.name = "second"
-
-////    // delagation to another property
-////    val myClass8 = MyClass8()
-////    // Notification: 'oldName: Int' is deprecated.
-////    // Use 'newName' instead
-////    myClass8.oldName = 42
-////    println(myClass8.newName) // 42
+//    val e = ExampleDelegation()
+//    e.prop = "NEW_VALUE"
+//    println(e.prop)
 //
-    // delegation to map
-    println(user2.name) // Prints "John Doe"
-    println(user2.age)  // Prints 25
-    mutableUser.age = 42
-    println(mutableUser.name) // Prints "John Doe"
-    println(mutableUser.age)  // Prints 42
-
+//    // top prop
+//    topProp = "TOP PROP NEW VALUE"
+//    println(topProp)
+//
+//    // lazy()
+//    println(lazyValue)
+//    println(lazyValue)
+//    println(lazyValue)
+//
+//    // observable()
+//    val user = User()
+//    user.name = "first"
+//    user.name = "second"
+//
+//////    // delagation to another property
+//////    val myClass8 = MyClass8()
+//////    // Notification: 'oldName: Int' is deprecated.
+//////    // Use 'newName' instead
+//////    myClass8.oldName = 42
+//////    println(myClass8.newName) // 42
+////
+//    // delegation to map
+//    println(user2.name) // Prints "John Doe"
+//    println(user2.age)  // Prints 25
+//    mutableUser.age = 42
+//    println(mutableUser.name) // Prints "John Doe"
+//    println(mutableUser.age)  // Prints 42
+//
 //    val myUI = MyUI()
 //    println(myUI.image)
 //    println(myUI.text)
 
-//    println(delegate)
+    println(delegate)
 
 }
