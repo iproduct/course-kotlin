@@ -14,21 +14,21 @@ fun Application.configureRouting() {
     routing {
         get("/api/products") {
 //            errorAware {
-                val resp = application.productRepo.findAll()
+                val resp = productRepo.findAll()
                 call.respond(resp)
 //            }
 
         }
         get("/api/services") {
-            call.respond(application.productRepo.findAll())
+            call.respond(productRepo.findAll())
         }
         get("/api/accessoaries") {
-            call.respond(application.productRepo.findAll())
+            call.respond(productRepo.findAll())
         }
         get("/api/products/{id}") {
             try {
                 val id = call.parameters["id"]?.toInt()
-                val product = application.productRepo.findById(id!!)
+                val product = productRepo.findById(id!!)
                 if (product != null) {
                     call.respond(product)
                 } else {
@@ -49,7 +49,7 @@ fun Application.configureRouting() {
         post("/api/products") {
             errorAware {
                 val productData = call.receive(Product::class)
-                val product = application.productRepo.create(productData)
+                val product = productRepo.create(productData)
                 call.respond(HttpStatusCode.Created, product)
             }
         }

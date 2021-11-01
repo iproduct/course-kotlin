@@ -1,6 +1,7 @@
 package course.kotlin.fieldprop
 
 import course.kotlin.WeakIdentityHashMap
+import course.kotlin.model.Product
 import java.lang.IllegalArgumentException
 import java.util.*
 import kotlin.reflect.KProperty

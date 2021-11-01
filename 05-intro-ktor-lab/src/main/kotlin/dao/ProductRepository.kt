@@ -4,7 +4,7 @@ import course.kotlin.model.Product
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 
-class ProductRepository(): ConcurrentHashMap<Int, Product>() {
+class MyProductRepository(): ConcurrentHashMap<Int, Product>() {
     private val idSequence = AtomicInteger()
     constructor(products :List<Product>): this() {
        products.forEach(::addProduct)
