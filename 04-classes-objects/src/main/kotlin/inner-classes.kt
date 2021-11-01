@@ -58,36 +58,6 @@ class A { // implicit label @A
         }
     }
 }
-
-// Inline classes
-// For JVM backends
-@JvmInline
-value class Password(private val s: String)
-
-// No actual instantiation of class 'Password' happens
-// At runtime 'securePassword' contains just 'String'
-val securePassword = Password("Don't try this in production")
-
-@JvmInline
-value class Name(val s: String) {
-    init {
-        require(s.length > 0) { }
-    }
-
-    val length: Int
-        get() = s.length
-
-    fun greet() {
-        println("Hello, $s")
-    }
-}
-
-fun main2() {
-    val name = Name("Kotlin")
-    name.greet() // method `greet` is called as a static method
-    println(name.length) // property getter is called as a static method
-}
-
 fun main() {
     // Anonimous inner functions
     val  window = JFrame()
@@ -97,5 +67,3 @@ fun main() {
     })
     val listener = ActionListener { println("clicked") }
 }
-
-
