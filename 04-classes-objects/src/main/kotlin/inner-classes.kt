@@ -1,6 +1,7 @@
 package course.kotlin.inner
 
 import com.sun.javafx.logging.JFRInputEvent
+import foo
 import java.awt.SystemColor.window
 import java.awt.event.ActionListener
 import java.awt.event.MouseAdapter
@@ -42,12 +43,14 @@ class A { // implicit label @A
         fun Int.foo() { // implicit label @foo
             val a = this@A // A's this
             val b = this@B // B's this
-
+            fun String.myfunc():Int  = length
             val c = this // foo()'s receiver, an Int
             val c1 = this@foo // foo()'s receiver, an Int
-
+            val c2 = this@B.compute()
+            val c3 = this.minus("abc".myfunc())
+            val c4 = this@A.inA()
             val funLit = lambda@ fun String.() {
-                val d = this // funLit's receiver
+                val d = this@lambda.chars() // funLit's receiver == String
             }
 
             val funLit2 = { s: String ->
@@ -56,6 +59,13 @@ class A { // implicit label @A
                 val d1 = this
             }
         }
+        fun compute() {
+            5.foo()
+        }
+    }
+    fun inA(): Int {
+//        5.foo()
+        return 42
     }
 }
 fun main() {

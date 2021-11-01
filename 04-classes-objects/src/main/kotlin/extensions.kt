@@ -13,7 +13,9 @@ fun <T> MutableList<T>.swap2(index1: Int, index2: Int) {
 fun main1() {
     val list = mutableListOf(1, 2, 3)
     list.swap(0, 2) // 'this' inside 'swap()' will hold the value of 'list'
-    list.swap2(0, 2) // 'this' inside 'swap()' will hold the value of 'list'
+    val list2 = mutableListOf("1", "2", "3")
+    list2.swap2(0, 2) // 'this' inside 'swap()' will hold the value of 'list'
+    println(list2)
 }
 
 // static dispatch
@@ -71,9 +73,9 @@ class Connection(val host: Host, val port: Int) {
     fun printPort() { print(port) }
 
     fun Host.printConnectionString() {
-        printHostname()   // calls Host.printHostname()
+        this.printHostname()   // calls Host.printHostname()
         print(":")
-        printPort()   // calls Connection.printPort()
+        this@Connection.printPort()   // calls Connection.printPort()
     }
 
     fun connect() {
@@ -107,7 +109,7 @@ open class BaseCaller {
         println("Derived extension function in BaseCaller")
     }
 
-    fun call(b: Base) {
+    fun call(b: Derived) {
         b.printFunctionInfo()   // call the extension function
     }
 }
@@ -123,7 +125,7 @@ class DerivedCaller: BaseCaller() {
 }
 
 fun main() {
-    BaseCaller().call(Base())   // "Base extension function in BaseCaller"
-    DerivedCaller().call(Base())  // "Base extension function in DerivedCaller" - dispatch receiver is resolved virtually
+    BaseCaller().call(Derived())   // "Base extension function in BaseCaller"
+//    DerivedCaller().call(Base())  // "Base extension function in DerivedCaller" - dispatch receiver is resolved virtually
     DerivedCaller().call(Derived())  // "Base extension function in DerivedCaller" - extension receiver is resolved statically
 }
