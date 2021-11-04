@@ -123,7 +123,6 @@ class DerivedCaller: BaseCaller() {
         println("Derived extension function in DerivedCaller")
     }
 }
-
 fun main() {
     BaseCaller().call(Derived())   // "Base extension function in BaseCaller"
 //    DerivedCaller().call(Base())  // "Base extension function in DerivedCaller" - dispatch receiver is resolved virtually

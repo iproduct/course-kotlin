@@ -15,7 +15,7 @@ fun powerOf2(
 
 fun main1() {
     val result = double(2)
-    Stream().read() // create instance of class Stream and call read()
+//    Stream().read() // create instance of class Stream and call read()
 
 }
 
