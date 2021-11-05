@@ -43,5 +43,8 @@ inline fun <reified T : Enum<T>> printAllValues() {
     print(enumValues<T>().joinToString { "${it.ordinal}: ${it.name}" })
 }
 fun main() {
+    println(IntArithmetics.PLUS.apply(5, 7))
+    printAllValues<IntArithmetics>()
+    println()
     printAllValues<RGB>() // prints RED, GREEN, BLUE
 }

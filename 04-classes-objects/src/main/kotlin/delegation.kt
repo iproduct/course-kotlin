@@ -15,6 +15,7 @@ fun main1() {
     Derived(b).print() // 10
 }
 
+// demo 2
 interface Base2 {
     fun printMessage()
     fun printMessageLine()
