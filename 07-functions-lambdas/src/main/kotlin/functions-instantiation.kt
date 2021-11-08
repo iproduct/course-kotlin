@@ -14,17 +14,19 @@ fun main() {
     fun String.myrepeat(times: Int): String {
         return this.repeat(times)
     }
-    val repeatFun: String.(Int) -> String = { times -> this.repeat(times) }
+    val repeatFun: String.(Int) -> String = { times ->
+        this.repeat(times)
+    }
     val twoParameters: (String, Int) -> String = repeatFun // OK
     
     fun runTransformation(f: (String, Int) -> String): String {
         return f("hello", 3)
     }
-    val result = runTransformation(repeatFun) // OK
-    println(result)
+    println(runTransformation(repeatFun)) // OK
+//    println(runTransformation(myrepeat)) //  Not allowed
     println(repeatFun("a", 5))
     println("a".myrepeat(5))
-    // println(myrepeat("a", 5)) // not available
+//     println(myrepeat("a", 5)) // Not allowed
 
     // invoking function with receiver
     val stringPlus: (String, String) -> String = String::plus

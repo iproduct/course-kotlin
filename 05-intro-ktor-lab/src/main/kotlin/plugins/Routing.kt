@@ -5,17 +5,31 @@ import course.kotlin.exceptions.InvalidClientDataException
 import course.kotlin.model.Product
 import course.kotlin.productRepo
 import io.ktor.application.*
+import io.ktor.html.*
 import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.pipeline.*
+import kotlinx.html.*
 import java.lang.NullPointerException
 import java.lang.NumberFormatException
 
 fun Application.configureRouting() {
 
     routing {
+        get("/") {
+            call.respondHtml {
+                body {
+                    this@respondHtml.head {
+                        title() {text("This should not be possible") }
+                    }
+                    h2 {
+                        a(href = "/api/products") { + "Go to /products" }
+                    }
+                }
+            }
+        }
         get("/api/products") {
             val resp = application.productRepo.findAll()
             call.respond(resp)
