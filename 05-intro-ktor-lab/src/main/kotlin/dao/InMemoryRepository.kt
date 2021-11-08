@@ -17,7 +17,7 @@ class InMemoryRepository<K, V>(
 
     override fun findAll(): Collection<V> = items.values
 
-    override fun findById(id: K): V? = throw SQLException("Database crashed!")//items[id]
+    override fun findById(id: K): V? =  items[id] //throw SQLException("Database crashed!")
 
     override fun create(item: V): V {
         item.id = idGen.nextId()
@@ -26,11 +26,12 @@ class InMemoryRepository<K, V>(
     }
 
     override fun update(item: V): V {
-        TODO("Not yet implemented")
+        items[item.id] = item
+        return item
     }
 
     override fun deleteById(id: K): V? {
-        TODO("Not yet implemented")
+        return items.remove(id)
     }
 
 }

@@ -67,5 +67,6 @@ fun main() {
         configureRouting()
         configureHTTP()
         configureSerialization()
+
     }.start(wait = true)
 }

@@ -10,6 +10,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.pipeline.*
+import java.lang.NullPointerException
 import java.lang.NumberFormatException
 
 fun Application.configureRouting() {
@@ -44,11 +45,29 @@ fun Application.configureRouting() {
             }
         }
         put("/api/products/{id}") {
-            val productData = call.receive(Product::class)
-            TODO()
+            serverErrorAware {
+                clientRequestErrorAware {
+                    val id = call.parameters["id"]?.toInt()
+                    val productData = call.receive(Product::class)
+                    if (id == null || id != productData.id) throw InvalidClientDataException("ID in URL or body not valid")
+                    application.productRepo.findById(id!!)
+                        ?: throw EntityNotFoundException("Product with id: ${id} not found")
+                    if (productData.price < 0) throw InvalidClientDataException("The price should be positive number")
+                    val product = application.productRepo.update(productData)
+                    call.respond(product)
+                }
+            }
         }
         delete("/api/products/{id}") {
-            TODO()
+            serverErrorAware {
+                clientRequestErrorAware {
+                    val id = call.parameters["id"]?.toInt() ?:
+                        throw EntityNotFoundException("Invalid entity ID")
+                    val deleted = application.productRepo.deleteById(id)?:
+                        throw EntityNotFoundException("Entity with ID=${id} not found")
+                    call.respond(deleted)
+                }
+            }
         }
     }
 }
@@ -57,6 +76,7 @@ private suspend fun <R> PipelineContext<*, ApplicationCall>.serverErrorAware(blo
     return try {
         block()
     } catch (e: Exception) {
+        application.log.error("Call error", e)
 //        if (call.response.status() == null) {
         call.respond(
             HttpStatusCode.InternalServerError, """
@@ -71,13 +91,23 @@ private suspend fun <R> PipelineContext<*, ApplicationCall>.clientRequestErrorAw
     return try {
         block()
     } catch (e: EntityNotFoundException) {
+       application.log.error("Call error", e)
         call.respond(
             HttpStatusCode.NotFound, """
                     {"error" : ${e.message}}
                 """.trimIndent()
         )
         null
+    } catch (e: NullPointerException) {
+        application.log.error("Call error", e)
+        call.respond(
+            HttpStatusCode.NotFound, """
+                    {"error" : "Entity not found" }
+                """.trimIndent()
+        )
+        null
     } catch (e: NumberFormatException) {
+        application.log.error("Call error", e)
         call.respond(
             HttpStatusCode.BadRequest, """
                     {"error" : ${e.message}}
@@ -85,6 +115,7 @@ private suspend fun <R> PipelineContext<*, ApplicationCall>.clientRequestErrorAw
         )
         null
     } catch (e: InvalidClientDataException) {
+        application.log.error("Call error", e)
         call.respond(
             HttpStatusCode.BadRequest, """
                     {"error" : ${e.message}}
