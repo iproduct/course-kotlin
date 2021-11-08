@@ -1,5 +1,7 @@
 package course.kotlin.plugins
 
+import course.kotlin.exceptions.EntityNotFoundException
+import course.kotlin.exceptions.InvalidClientDataException
 import course.kotlin.model.Product
 import course.kotlin.productRepo
 import io.ktor.application.*
@@ -8,60 +10,83 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.pipeline.*
+import java.lang.NumberFormatException
 
 fun Application.configureRouting() {
 
     routing {
         get("/api/products") {
-//            errorAware {
-                val resp = productRepo.findAll()
-                call.respond(resp)
-//            }
-
+            val resp = application.productRepo.findAll()
+            call.respond(resp)
         }
         get("/api/services") {
-            call.respond(productRepo.findAll())
+            call.respond(application.productRepo.findAll())
         }
         get("/api/accessoaries") {
-            call.respond(productRepo.findAll())
+            call.respond(application.productRepo.findAll())
         }
         get("/api/products/{id}") {
-            try {
-                val id = call.parameters["id"]?.toInt()
-                val product = productRepo.findById(id!!)
-                if (product != null) {
+            serverErrorAware {
+                clientRequestErrorAware {
+                    val id = call.parameters["id"]?.toInt()
+                    val product = application.productRepo.findById(id!!)
+                        ?: throw EntityNotFoundException("Product with id: ${id} not found")
                     call.respond(product)
-                } else {
-                    call.respond(
-                        HttpStatusCode.NotFound, """
-                    {"error" : "Product with id: ${id} not found"}
-                """.trimIndent()
-                    )
                 }
-            } catch (ex: NumberFormatException) {
-                call.respond(
-                    HttpStatusCode.BadRequest, """
-                    {"error" : "Invalid product ID: ${call.parameters["id"]}"}
-                """.trimIndent()
-                )
             }
         }
         post("/api/products") {
-            errorAware {
+            serverErrorAware {
                 val productData = call.receive(Product::class)
-                val product = productRepo.create(productData)
+                val product = application.productRepo.create(productData)
+                call.response.header("Location", "${call.request.path()}/${product.id}")
                 call.respond(HttpStatusCode.Created, product)
             }
+        }
+        put("/api/products/{id}") {
+            val productData = call.receive(Product::class)
+            TODO()
+        }
+        delete("/api/products/{id}") {
+            TODO()
         }
     }
 }
 
-private suspend fun <R> PipelineContext<*, ApplicationCall>.errorAware(block: suspend () -> R): R? {
+private suspend fun <R> PipelineContext<*, ApplicationCall>.serverErrorAware(block: suspend () -> R): R? {
     return try {
         block()
     } catch (e: Exception) {
+//        if (call.response.status() == null) {
         call.respond(
             HttpStatusCode.InternalServerError, """
+                    {"error" : ${e.message}}
+                """.trimIndent()
+        )
+        null
+    }
+}
+
+private suspend fun <R> PipelineContext<*, ApplicationCall>.clientRequestErrorAware(block: suspend () -> R): R? {
+    return try {
+        block()
+    } catch (e: EntityNotFoundException) {
+        call.respond(
+            HttpStatusCode.NotFound, """
+                    {"error" : ${e.message}}
+                """.trimIndent()
+        )
+        null
+    } catch (e: NumberFormatException) {
+        call.respond(
+            HttpStatusCode.BadRequest, """
+                    {"error" : ${e.message}}
+                """.trimIndent()
+        )
+        null
+    } catch (e: InvalidClientDataException) {
+        call.respond(
+            HttpStatusCode.BadRequest, """
                     {"error" : ${e.message}}
                 """.trimIndent()
         )

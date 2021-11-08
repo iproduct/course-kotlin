@@ -2,6 +2,7 @@ package course.kotlin.dao
 
 import course.kotlin.model.IdGenerator
 import course.kotlin.model.Identifiable
+import java.sql.SQLException
 import java.util.concurrent.ConcurrentHashMap
 
 class InMemoryRepository<K, V>(
@@ -16,7 +17,7 @@ class InMemoryRepository<K, V>(
 
     override fun findAll(): Collection<V> = items.values
 
-    override fun findById(id: K): V? = items[id]
+    override fun findById(id: K): V? = throw SQLException("Database crashed!")//items[id]
 
     override fun create(item: V): V {
         item.id = idGen.nextId()

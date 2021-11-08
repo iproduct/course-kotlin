@@ -37,14 +37,14 @@ private val ProductRepo: ProductRepository = InMemoryRepository(
 
 val Application.productRepo: ProductRepository by ::ProductRepo
 
-val <S, C> PipelineContext<S, C>.productRepo: ProductRepository
-        where S : Any, C : Any
-        by FieldProperty({
-            InMemoryRepository(
-                { sequence.incrementAndGet() },
-                listOf(Product("${this.context}", 1200.0)),
-            )
-        })
+//val <S, C> PipelineContext<S, C>.productRepo: ProductRepository
+//        where S : Any, C : Any
+//        by FieldProperty({
+//            InMemoryRepository(
+//                { sequence.incrementAndGet() },
+//                listOf(Product("${this.context}", 1200.0)),
+//            )
+//        })
 
 //class RouteDelegate {
 //    operator fun getValue(thisRef: Route, property: KProperty<*>): ProductRepository {
