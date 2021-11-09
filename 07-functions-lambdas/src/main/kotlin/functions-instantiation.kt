@@ -3,12 +3,19 @@ package course.kotlin.functions
 import kotlin.text.Typography.times
 
 class IntTransformer: (Int) -> Int {
-    override operator fun invoke(x: Int): Int = TODO()
+    override operator fun invoke(x: Int): Int = x + 1
 }
+
+fun d(x : Int): Int = x+1
+private var fromClosure = 5
 
 fun main() {
     val intFunction: (Int) -> Int = IntTransformer()
-    val a = { i: Int -> i + 1 } // The inferred type is (Int) -> Int
+    val a = { i: Int, j: Int -> i + fromClosure  } // The inferred type is (Int) -> Int
+    val b = fun(i: Int) = i + fromClosure   // The inferred type is (Int) -> Int
+    val c = fun(i: Int): Int { fromClosure ++; return  i + fromClosure  } // The inferred type is (Int) -> Int
+    println(c(10))
+    val intVal = IntTransformer()(2)
 
     // function type with receiver
     fun String.myrepeat(times: Int): String {
@@ -39,3 +46,5 @@ fun main() {
     println(intPlus(1, 2))
     println(2.intPlus(3)) // extension-like call
 }
+
+

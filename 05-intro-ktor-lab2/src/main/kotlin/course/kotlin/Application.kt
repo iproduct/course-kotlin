@@ -37,22 +37,24 @@ private val productRepository: ProductRepository = InMemoryRepository(
     ),
 )
 
-val <Subject:Any, Call:Any> PipelineContext<Subject, Call>.productRepo: ProductRepository
-by FieldPropertyDelegate {
-    InMemoryRepository(
-        { productsSequence.incrementAndGet() },
-//        object: IdGenerator<Int> {
-//            private val idSequence = AtomicInteger()
-//            override fun getNextId(): Int = idSequence.incrementAndGet()
-//        },
-        listOf(
-            Product("${this.context}", 1500.0),
-        ),
-    )
-}
+val Application.productRepo: ProductRepository by ::productRepository
+
+//val <Subject:Any, Call:Any> PipelineContext<Subject, Call>.productRepo: ProductRepository
+//by FieldPropertyDelegate {
+//    InMemoryRepository(
+//        { productsSequence.incrementAndGet() },
+////        object: IdGenerator<Int> {
+////            private val idSequence = AtomicInteger()
+////            override fun getNextId(): Int = idSequence.incrementAndGet()
+////        },
+//        listOf(
+//            Product("${this.context}", 1500.0),
+//        ),
+//    )
+//}
 
 fun main() {
-    embeddedServer(Netty, port = 8090, host = "localhost", watchPaths = listOf("classes", "resource")) {
+    embeddedServer(Netty, port = 8080, host = "localhost", watchPaths = listOf("classes", "resource")) {
         configureRouting()
         configureHTTP()
         configureMonitoring()
