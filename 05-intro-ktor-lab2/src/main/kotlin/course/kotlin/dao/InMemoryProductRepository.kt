@@ -4,6 +4,7 @@ import course.kotlin.model.Identifiable
 import course.kotlin.variance.course.kotlin.dao.IdGenerator
 import course.kotlin.variance.course.kotlin.dao.Repository
 import io.ktor.utils.io.*
+import java.lang.IllegalStateException
 import java.util.concurrent.ConcurrentHashMap
 
 class InMemoryRepository<K, V: Identifiable<K>>(
@@ -18,10 +19,11 @@ class InMemoryRepository<K, V: Identifiable<K>>(
     }
 
     override fun findAll(): Collection<V> = items.values
-    override fun findById(id: K): V? = items[id]
+    override fun findById(id: K): V? = throw IllegalStateException("Database unavailable") //items[id]
 
     override fun create(item: V): V {
         item.id = generator.getNextId()
+//        if(item.id as Int > 4) throw IllegalStateException("Database unavailable")
         items[item.id] = item
         return item
     }
