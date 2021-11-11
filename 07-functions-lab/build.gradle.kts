@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.5.31"
     application
+    idea
 }
 
 group = "course.kotlin"
@@ -26,4 +27,11 @@ tasks.withType<KotlinCompile>() {
 
 application {
     mainClass.set("MainKt")
+}
+
+idea {
+    module {
+        isDownloadSources = true
+        isDownloadJavadoc = true
+    }
 }
