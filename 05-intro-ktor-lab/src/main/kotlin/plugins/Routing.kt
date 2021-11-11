@@ -16,7 +16,6 @@ import java.lang.NullPointerException
 import java.lang.NumberFormatException
 
 fun Application.configureRouting() {
-
     routing {
         get("/") {
             call.respondHtml {
