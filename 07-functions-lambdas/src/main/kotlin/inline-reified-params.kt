@@ -15,16 +15,18 @@ inline fun <reified T> TreeNode.findParentOfType(): T? {
     var p = parent
     while (p != null && p !is T) {
         p = p.parent
+        val ctor = T::class.java.constructors.iterator().next()
+        val nt = ctor.newInstance()
     }
     return p as T?
 }
 
 inline fun <reified T> membersOf() = T::class.members
-fun main2(s: Array<String>) {
+fun main(s: Array<String>) {
     // reified type params
-    class MyTreeNode: DefaultMutableTreeNode()
-    val treeNode = DefaultMutableTreeNode("The Java Series");
-    treeNode.findParentOfType(MyTreeNode::class.java)
+//    class MyTreeNode: DefaultMutableTreeNode()
+//    val treeNode = DefaultMutableTreeNode("The Java Series");
+//    treeNode.findParentOfType(MyTreeNode::class.java)
 
     // using reflection
     println(membersOf<StringBuilder>().joinToString("\n"))

@@ -11,13 +11,15 @@ private var fromClosure = 5
 
 fun main() {
     val intFunction: (Int) -> Int = IntTransformer()
-    val a = { i: Int, j: Int -> i + fromClosure  } // The inferred type is (Int) -> Int
+    val a = { i: Int -> i + fromClosure  } // The inferred type is (Int) -> Int
     val b = fun(i: Int) = i + fromClosure   // The inferred type is (Int) -> Int
     val c = fun(i: Int): Int { fromClosure ++; return  i + fromClosure  } // The inferred type is (Int) -> Int
+    println(a(10))
+    println(b(10))
     println(c(10))
-    val intVal = IntTransformer()(2)
+    println(IntTransformer()(2))
 
-    // function type with receiver
+//    // function type with receiver
     fun String.myrepeat(times: Int): String {
         return this.repeat(times)
     }
@@ -25,12 +27,13 @@ fun main() {
         this.repeat(times)
     }
     val twoParameters: (String, Int) -> String = repeatFun // OK
-    
+
     fun runTransformation(f: (String, Int) -> String): String {
         return f("hello", 3)
     }
     println(runTransformation(repeatFun)) // OK
 //    println(runTransformation(myrepeat)) //  Not allowed
+    println("a".repeatFun( 5))
     println(repeatFun("a", 5))
     println("a".myrepeat(5))
 //     println(myrepeat("a", 5)) // Not allowed

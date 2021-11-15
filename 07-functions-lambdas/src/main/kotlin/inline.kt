@@ -5,7 +5,14 @@ import javax.swing.tree.DefaultMutableTreeNode
 import javax.swing.tree.TreeNode
 
 
-inline fun <T> lock(lock: Lock, body: () -> T): T { /*...*/ return 42 as T }
+inline fun <T> lock(lock: Lock, body: () -> T): T {
+    lock.lock()
+    try {
+        return body()
+    } finally {
+       lock.unlock()
+    }
+}
 inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) { /*...*/ }
 
 // return
@@ -41,10 +48,11 @@ inline fun f(crossinline body: () -> Unit) {
 fun main() {
     val foo = fun(){}
     val l = ReentrantLock()
-    l.lock()
-    try {
-        foo()
-    } finally {
-        l.unlock()
-    }
+    lock(l) { foo() }
+//    l.lock()
+//    try {
+//        foo()
+//    } finally {
+//        l.unlock()
+//    }
 }

@@ -18,7 +18,7 @@ fun main() {
 }
 
 // The result type of somethingUsefulOneAsync is Deferred<Int>
-@OptIn(DelicateCoroutinesApi::class)
+@OptIn(DelicateCoroutinesApi::class) // -Xopt-in=kotlin.RequiresOptIn
 fun somethingUsefulOneAsync() = GlobalScope.async {
     delay(1000L) // pretend we are doing something useful here
     24

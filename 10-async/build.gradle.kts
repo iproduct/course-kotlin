@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-jdk9:1.5.2")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     testImplementation(kotlin("test"))
 }
 

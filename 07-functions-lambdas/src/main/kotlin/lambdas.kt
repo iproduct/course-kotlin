@@ -17,28 +17,28 @@ fun main() {
     val strings = listOf("Orange", "Banana", "Pineapple", "Papaya", "Apple", "Plum")
     println(max(strings) { a, b -> a.length - b.length })
 
-//    val sum1: (Int, Int) -> Int = { x: Int, y: Int -> x + y }
-//    val sum = { x: Int, y: Int -> x + y }
-//    val ints = listOf(1, 2, 3)
-//    val product = ints.fold(1) { acc, e -> acc * e }
-//    run { println("...") }
-//    ints.filter { it > 0 } // this literal is of type '(it: Int) -> Boolean'
-//
-//    ints.filter {
-//        val shouldFilter = it > 0
-//        shouldFilter
-//    }
-//
-//    ints.filter {
-//        val shouldFilter = it > 0
-//        return@filter shouldFilter
-//    }
-//
-//    strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
-//
-//    val map = mapOf(1 to "x", 2 to "y", 3 to "z")
-//    map.forEach { _, value -> println("$value!") }
-//
+    val sum1: (Int, Int) -> Int = { x: Int, y: Int -> x + y }
+    val sum = { x: Int, y: Int -> x + y }
+    val ints = listOf(1, 2, 3)
+    val product = ints.fold(1) { acc, e -> acc * e }
+    run { println("...") }
+    ints.filter { it > 0 } // this literal is of type '(it: Int) -> Boolean'
+
+    ints.filter {
+        val shouldFilter = it > 0
+        shouldFilter
+    }
+
+    ints.filter {
+        val shouldFilter = it > 0
+        return@filter shouldFilter
+    }
+
+    strings.filter { it.length == 5 }.sortedBy { it }.map { it.uppercase() }
+
+    val map = mapOf(1 to "x", 2 to "y", 3 to "z")
+    map.forEach { _, value -> println("$value!") }
+
 //    // destructuring
 //    map.mapValues { entry -> "${entry.value}!" }
 //    map.mapValues { (key, value) -> "$value!" }
@@ -53,7 +53,9 @@ fun main() {
 //    }
 //    ints.filter(fun(item) = item > 0)
 //
-//    //with receiver
-//    val sum2: Int.(Int) -> Int = { other -> plus(other) }
-//    val sum3 = fun Int.(other: Int): Int = this + other
+    //with receiver
+    val sum2: Int.(Int) -> Int = { other -> plus(other) }
+    val sum3 = fun Int.(other: Int): Int = this + other
+    println(sum2(1, 2))
+    println(sum3(1, 2))
 }
