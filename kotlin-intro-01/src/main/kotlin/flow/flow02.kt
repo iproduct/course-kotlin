@@ -5,8 +5,10 @@ private fun foo(): Sequence<Int> = sequence { // sequence builder
         Thread.sleep(200) // pretend we are computing it
         yield(i) // yield next value
     }
-}
+}.constrainOnce()
 
 fun main() {
-    foo().forEach { value -> println(value) }
+    val seq = foo()
+    seq.forEach { value -> println(value) }
+    seq.forEach { value -> println(value) }
 }
