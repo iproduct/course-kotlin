@@ -21,19 +21,19 @@ fun main() = runBlocking() {
 }
 
 suspend fun doGalaxy() {
-//    val handler = CoroutineExceptionHandler { _, exception ->
-//        println("CoroutineExceptionHandler got $exception")
-//    }
-    coroutineScope {
+    val handler = CoroutineExceptionHandler { _, exception ->
+        println("CoroutineExceptionHandler got $exception")
+    }
+    supervisorScope {
         for (i in 1..10) {
-            launch { doWorld(i) }
+            launch(handler) { doWorld(i) }
         }
     }
 }
 
 suspend fun doWorld(i: Int) {
     delay(i * 1000L)
-//    if (i == 3) throw IllegalStateException("Canceled from Child $i")
+    if (i == 3) throw IllegalStateException("Canceled from Child $i")
     println("World $i!-> Thread: ${Thread.currentThread().name}")
 }
 
