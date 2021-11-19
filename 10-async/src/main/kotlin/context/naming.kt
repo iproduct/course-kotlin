@@ -1,14 +1,15 @@
 package context
 
-import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import logging.Log
+import logging.log
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import kotlin.coroutines.AbstractCoroutineContextElement
+import kotlin.coroutines.CoroutineContext
 
-private val LOG: Logger = LoggerFactory.getLogger("context.main")
-fun main() = runBlocking {
+//private val LOG: Logger = LoggerFactory.getLogger("context.main")
+fun main() = runBlocking(Log("context.main")) {
     log("Started main coroutine")
 // run two background value computations
     val v1 = async(CoroutineName("v1coroutine")) {
@@ -22,9 +23,4 @@ fun main() = runBlocking {
         6
     }
     log("The answer for v1 / v2 = ${v1.await() / v2.await()}")
-}
-
-
-private fun log(s: String) {
-    LOG.info(s)
 }
