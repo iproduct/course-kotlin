@@ -1,16 +1,18 @@
-package course.kotlin.cancelation
+package course.kotlin.errors
 
 
+import course.kotlin.cancelation.helloEarth2
 import course.kotlin.helloEarth
 import javafx.application.Application.launch
 import kotlinx.coroutines.*
+import java.lang.IllegalStateException
 import java.lang.Thread.sleep
 import kotlin.coroutines.coroutineContext
 import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking {
     val time = measureTimeMillis {
-        val galaxyHelloJob = launch(start = CoroutineStart.DEFAULT) {
+        val galaxyHelloJob = launch {
             helloGalaxy()
         }
         val earthJob = launch(CoroutineName("Earth")) {
@@ -27,9 +29,12 @@ fun main() = runBlocking {
 }
 
 suspend fun helloGalaxy() {
-    coroutineScope {
+    var handler = CoroutineExceptionHandler { ctx, ex ->
+        println("Coroutine ${ctx.job} got exception $ex.")
+    }
+    supervisorScope {
         for (i in 1..10) {
-            launch(CoroutineName("World $i") + Dispatchers.Default) {
+            launch(CoroutineName("World $i") + Dispatchers.Default + handler) {
                 helloWorld(i)
             }
         }
@@ -37,18 +42,16 @@ suspend fun helloGalaxy() {
 }
 
 suspend fun helloWorld(i: Int) {
-    var nextPrintTime = System.currentTimeMillis()
-    var j = 0
-//    while (j < 10 && coroutineContext.isActive ){
-    while (j < 10) {
-//        coroutineContext.ensureActive()
-        yield()
-        if (System.currentTimeMillis() > nextPrintTime) {
-            println("Job $i: ${coroutineContext.job}, Thread: ${Thread.currentThread().name}: I'm working ${j++}")
-            nextPrintTime += 1000
+    try {
+        delay(i * 1000L)
+//    if( i == 2) throw IllegalStateException("Canceled from World $i !!!")
+    } finally { // close resources and finish
+        withContext(NonCancellable) {
+            println("Traying to close resources for World $i!-> Thread: ${Thread.currentThread().name} ...")
+            delay(2000)
+            println("World $i! -> Job ${kotlin.coroutines.coroutineContext.job}, Thread: ${Thread.currentThread().name}")
         }
     }
-    println("World $i! -> Job ${coroutineContext.job}, Thread: ${Thread.currentThread().name}")
 }
 
 suspend fun helloEarth2() {
