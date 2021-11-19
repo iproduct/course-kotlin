@@ -18,7 +18,7 @@ fun main() = runBlocking<Unit> {
     println("Calling foo...")
     val flow = foo()
     println("Calling collect...")
-    flow.collect { value -> println(value) }
+    foo().collect { println("Collected: $it") }
     println("Calling collect again...")
-    flow.collect { value -> println(value) }
+    foo().collect { println("Collected: $it") }
 }

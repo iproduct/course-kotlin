@@ -23,5 +23,5 @@ fun main() = runBlocking<Unit> {
         }
     }
     // Collect the flow
-    foo().collect { value -> println(value) }
+    foo().collect { println("Collected: $it") }
 }

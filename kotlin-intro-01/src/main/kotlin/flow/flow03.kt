@@ -9,5 +9,5 @@ private suspend fun foo(): List<Int> {
 }
 
 fun main() = runBlocking<Unit> {
-    foo().forEach { value -> println(value) }
+    foo().forEach { println(it) }
 }

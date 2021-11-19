@@ -9,7 +9,7 @@ private val LOG: Logger = LoggerFactory.getLogger("org.example.kotlin-intro-01.m
 
 fun main() = runBlocking<Unit>(Dispatchers.Default) {
     launch(CoroutineName("My-Coroutine")) {
-        flowOf("A", "B", "C")
+        flowOf("A", "B", "C", "D")
             .map {
                 delay(1000)
                 it
@@ -17,7 +17,7 @@ fun main() = runBlocking<Unit>(Dispatchers.Default) {
             .onEach {
                 log(
                     "[${coroutineContext[CoroutineName.Key]} is executing on thread : " +
-                            "${Thread.currentThread().name}]: Collected  1$it"
+                            "${Thread.currentThread().name}]: OnEach  1$it"
                 )
             }
             .buffer()  // <--------------- buffer between onEach and collect
