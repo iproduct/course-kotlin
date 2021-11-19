@@ -19,6 +19,7 @@ fun CoroutineScope.launchProcessor(id: Int, channel: ReceiveChannel<Int>) = laun
     }
 }
 
+@ExperimentalCoroutinesApi
 fun main() = runBlocking {
     val producer = produceNumbers()
     repeat(5) { launchProcessor(it, producer) }
