@@ -13,7 +13,7 @@ fun main() = runBlocking {
         }
         try {
             println("${deferred.await()}")
-        } catch (ex: TimeoutCancellationException) {
+        } catch (ex: CancellationException) {
             println("Computing the answer of everything is cancelled due to Timeout!")
         }
     }

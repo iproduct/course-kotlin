@@ -8,7 +8,8 @@ fun main() = runBlocking {
     val time = measureTimeMillis {
         val deferred = async { compute() }
         launch{
-            delay(1500)
+            delay(500)
+            println("Cancelled!")
             deferred.cancel()
         }
         try {

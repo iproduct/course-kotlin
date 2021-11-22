@@ -1,10 +1,8 @@
 package channels
 
+import jdk.nashorn.internal.objects.ArrayBufferView.buffer
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.ChannelResult
-import kotlinx.coroutines.channels.consume
-import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
 
 
@@ -19,7 +17,6 @@ fun main() = runBlocking {
     val ctx = coroutineContext
 
 //    for (y in channel) println(y)
-
 
 // here we print five received integers:
 //    val cit = channel.iterator()
@@ -37,27 +34,28 @@ fun main() = runBlocking {
 //    channel.consumeAsFlow().collect { println(it) }
 
 //    channel.consume {
-//        repeat(5) { println(it) }
+//        repeat(5) {println(this.receive())}
 //    }
 
     //publish-subscribe
-//    val sharedFlow = channel.consumeAsFlow()
-//        .buffer(0)
-//        .onCompletion { ctx.cancelChildren() } // cancel children coroutines}
-//        .shareIn(this, SharingStarted.Eagerly)
-//    val j1 = launch{ sharedFlow.collect { println(it) }}
-//    val j2 = launch{ sharedFlow.collect { println(it) }}
-//    val j3 = launch { sharedFlow.collect { println(it) }}
-//    joinAll(j1, j2, j3)
+    val sharedFlow = channel.consumeAsFlow()
+        .buffer(0)
+        .onCompletion { ctx.cancelChildren() } // cancel children coroutines}
+        .shareIn(this, SharingStarted.Eagerly)
+    val j1 = launch{ sharedFlow.collect { println(it) }}
+    delay(10)
+    val j2 = launch{ sharedFlow.collect { println(it) }}
+    val j3 = launch { sharedFlow.collect { println(it) }}
+    joinAll(j1, j2, j3)
 
     // fan-out
-    val sharedFlow = channel.receiveAsFlow()
-        .buffer(0)
-//        .onCompletion { ctx.cancelChildren() } // cancel children coroutines}
-    val j1 = launch{ sharedFlow.collect { println("$it -> ${coroutineContext.job}") }}
-    val j2 = launch{ sharedFlow.collect { println("$it -> ${coroutineContext.job}") }}
-    val j3 = launch { sharedFlow.collect { println("$it -> ${coroutineContext.job}") }}
-    joinAll(j1, j2, j3)
+//    val sharedFlow = channel.receiveAsFlow()
+//        .buffer(0)
+////        .onCompletion { ctx.cancelChildren() } // cancel children coroutines}
+//    val j1 = launch{ sharedFlow.collect { println("$it -> ${coroutineContext.job}") }}
+//    val j2 = launch{ sharedFlow.collect { println("$it -> ${coroutineContext.job}") }}
+//    val j3 = launch { sharedFlow.collect { println("$it -> ${coroutineContext.job}") }}
+//    joinAll(j1, j2, j3)
 
 
     println("Done!")

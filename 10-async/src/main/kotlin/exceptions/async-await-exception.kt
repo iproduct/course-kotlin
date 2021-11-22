@@ -1,13 +1,10 @@
 package exceptions
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 fun main() = runBlocking<Unit> {
     try {
-        failedConcurrentSum()
+        println(failedConcurrentSum())
     } catch(e: ArithmeticException) {
         println("Computation failed with ArithmeticException")
     }
@@ -16,14 +13,16 @@ fun main() = runBlocking<Unit> {
 suspend fun failedConcurrentSum(): Int = coroutineScope {
     val one = async {
         try {
-            delay(Long.MAX_VALUE) // Emulates very long computation
+            delay(5000) // Emulates very long computation
             42
-        } finally {
+        } catch(ex: CancellationException) {
             println("First child was cancelled")
+            throw ex
         }
     }
     val two = async<Int> {
         println("Second child throws an exception")
+//        108
         throw ArithmeticException()
     }
     one.await() + two.await()

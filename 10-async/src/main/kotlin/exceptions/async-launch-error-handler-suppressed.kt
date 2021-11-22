@@ -12,6 +12,8 @@ fun main() = runBlocking {
         launch {
             try {
                 delay(Long.MAX_VALUE) // it gets cancelled when another sibling fails with IOException
+            } catch(e: CancellationException) {
+                println(e)
             } finally {
                 throw ArithmeticException() // the second exception
             }
