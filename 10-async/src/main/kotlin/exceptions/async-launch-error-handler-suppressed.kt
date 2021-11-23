@@ -26,14 +26,4 @@ fun main() = runBlocking {
     }
     job.join()
     println("Joined failed job")
-    val deferred = GlobalScope.async { // root coroutine with async
-        println("Throwing exception from async")
-        throw ArithmeticException() // Nothing is printed, relying on user to call await
-    }
-    try {
-        deferred.await()
-        println("Unreached")
-    } catch (e: ArithmeticException) {
-        println("Caught ArithmeticException from deferred.await()")
-    }
 }
