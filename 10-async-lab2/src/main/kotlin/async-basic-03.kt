@@ -10,7 +10,7 @@ import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking {
     val time = measureTimeMillis {
-        val galaxyHelloJob = launch(start = CoroutineStart.DEFAULT) {
+        val galaxyHelloJob = launch() {
             helloGalaxy()
         }
         val earthJob = launch(CoroutineName("Earth")) {
@@ -29,7 +29,7 @@ fun main() = runBlocking {
 suspend fun helloGalaxy() {
     coroutineScope {
         for (i in 1..10) {
-            launch(CoroutineName("World $i") + Dispatchers.Default) {
+            launch(CoroutineName("World $i")) {
                 helloWorld(i)
             }
         }
@@ -41,7 +41,7 @@ suspend fun helloWorld(i: Int) {
     var j = 0
 //    while (j < 10 && coroutineContext.isActive ){
     while (j < 10) {
-//        coroutineContext.ensureActive()
+        coroutineContext.ensureActive()
         yield()
         if (System.currentTimeMillis() > nextPrintTime) {
             println("Job $i: ${coroutineContext.job}, Thread: ${Thread.currentThread().name}: I'm working ${j++}")
