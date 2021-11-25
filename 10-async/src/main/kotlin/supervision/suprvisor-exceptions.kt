@@ -14,5 +14,5 @@ fun main() = runBlocking {
         }
         println("The scope is completing")
     }
-    println("The scope is completed")
+    println("The runBlock scope is completed")
 }

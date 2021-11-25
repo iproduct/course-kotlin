@@ -3,6 +3,7 @@ package flow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.runBlocking
 
@@ -12,10 +13,11 @@ private suspend fun performRequest(request: Int): String {
 }
 
 fun main() = runBlocking<Unit> {
-    (1..3).asFlow() // a flow of requests
+    (1..5).asFlow() // a flow of requests
         .transform { request ->
             emit("Making request $request")
             emit(performRequest(request))
         }
+        .take(6)
         .collect { response -> println(response) }
 }

@@ -6,7 +6,7 @@ fun main() = runBlocking<Unit> {
     try {
         println(failedConcurrentSum())
     } catch(e: ArithmeticException) {
-        println("Computation failed with ArithmeticException")
+        println("CoroutineExceptionHandler got $e with suppressed ${e.suppressed.contentToString()}")
     }
 }
 
@@ -17,7 +17,7 @@ suspend fun failedConcurrentSum(): Int = coroutineScope {
             42
         } catch(ex: CancellationException) {
             println("First child was cancelled")
-            throw ex
+            throw AssertionError(ex)
         }
     }
     val two = async<Int> {

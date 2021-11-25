@@ -8,11 +8,18 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull
 
 private fun foo(): Flow<Int> = flow {
-    for (i in 1..5) {
-        delay(100)
-        println("Emitting $i")
-        emit(i)
+    try {
+        for (i in 1..10) {
+            delay(100)
+            println("Emitting $i")
+            emit(i)
+        }
+    } catch (e: Exception) {
+        println(e)
+    } finally {
+        println("Exiting flow producer.")
     }
+
 }
 
 fun main() = runBlocking<Unit> {

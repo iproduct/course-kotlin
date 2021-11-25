@@ -11,6 +11,7 @@ fun main() {
         // but waiting for a result must involve either suspending or blocking.
         // here we use `runBlocking { ... }` to block the main thread while waiting for the result
         runBlocking {
+            println("Answer! ->  Job ${kotlin.coroutines.coroutineContext.job}, Thread: ${Thread.currentThread().name}")
             println("The answer is ${one.await() + two.await()}")
         }
     }
@@ -20,6 +21,7 @@ fun main() {
 // The result type of somethingUsefulOneAsync is Deferred<Int>
 @OptIn(DelicateCoroutinesApi::class) // -Xopt-in=kotlin.RequiresOptIn
 fun somethingUsefulOneAsync() = GlobalScope.async {
+    println("One! ->  Job ${kotlin.coroutines.coroutineContext.job}, Thread: ${Thread.currentThread().name}")
     delay(1000L) // pretend we are doing something useful here
     24
 }
@@ -27,6 +29,7 @@ fun somethingUsefulOneAsync() = GlobalScope.async {
 // The result type of somethingUsefulTwoAsync is Deferred<Int>
 @OptIn(DelicateCoroutinesApi::class)
 fun somethingUsefulTwoAsync() = GlobalScope.async {
+    println("Two! ->  Job ${kotlin.coroutines.coroutineContext.job}, Thread: ${Thread.currentThread().name}")
     delay(1000L) // pretend we are doing something useful here, too
     18
 }

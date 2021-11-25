@@ -1,5 +1,6 @@
 package channels
 
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -15,6 +16,8 @@ fun main() = runBlocking {
     }
 // don't receive anything... just wait....
     delay(1000)
-    sender.cancel() // cancel sender coroutine
+    sender.cancelAndJoin() // cancel sender coroutin
+    for (y in channel) println(y)
+    println("Done!")
 }
 

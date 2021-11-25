@@ -15,9 +15,11 @@ fun main() {
 
     // from chunks
     val oddNumbers2 = sequence {
-        yield(1)
-        yieldAll(listOf(3, 5))
+        for (i in 1..10) {
+            yield(i)
+        }
+        yieldAll(listOf(3, 5).asSequence())
         yieldAll(generateSequence(7) { it + 2 })
     }
-    println(oddNumbers.take(5).toList())
+    println(oddNumbers2.take(15).toList())
 }

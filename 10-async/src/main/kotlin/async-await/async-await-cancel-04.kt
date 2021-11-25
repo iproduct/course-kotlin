@@ -4,18 +4,20 @@ import async.compute
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
-fun main() = runBlocking {
+fun main(){
     val time = measureTimeMillis {
-        val deferred = async { compute() }
-        launch{
-            delay(500)
-            println("Cancelled!")
-            deferred.cancel()
-        }
-        try {
-            println("${deferred.await()}")
-        }catch (ex: CancellationException){
-            println("Computing the answer of everything is cancelled!")
+        runBlocking {
+            val deferred = async { compute() }
+            launch {
+                delay(1500)
+                println("Cancelled!")
+                deferred.cancel()
+            }
+            try {
+                println("${deferred.await()}")
+            } catch (ex: CancellationException) {
+                println("Computing the answer of everything is cancelled!")
+            }
         }
     }
     println("Completed in $time ms")
