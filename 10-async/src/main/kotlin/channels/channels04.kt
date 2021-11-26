@@ -13,6 +13,7 @@ fun main() = runBlocking {
     fun CoroutineScope.square(numbers: ReceiveChannel<Int>): ReceiveChannel<Int> = produce {
         for (x in numbers) send(x * x)
     }
+
     // here we print received values using `for` loop (until the channel is closed)
     for (y in square(produceNumbers(10))) println(y)
     println("Done!")

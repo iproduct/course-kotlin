@@ -1,5 +1,6 @@
 package flow
 
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,7 @@ private fun foo(): Flow<Int> = flow {
     }
 }
 
-fun main() = runBlocking<Unit> {
+fun main() = runBlocking<Unit>(CoroutineName("main")){
     println("Calling foo...")
     val flow = foo()
     println("Calling collect...")

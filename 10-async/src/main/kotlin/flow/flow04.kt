@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 private fun foo(): Flow<Int> = flow { // flow builder
-    for (i in 1..3) {
+    for (i in 1..4) {
         delay(100) // pretend we are doing something useful here
         emit(i) // emit next value
     }

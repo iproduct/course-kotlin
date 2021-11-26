@@ -8,9 +8,11 @@ fun main() {
 
     val oddNumbers = generateSequence(1) { it + 2 } // `it` is the previous element
     println(oddNumbers.take(5).toList())
+    println(oddNumbers.take(5).toList())
     //println(oddNumbers.count())     // error: the sequence is infinite
 
     val oddNumbersLessThan10 = generateSequence(1) { if (it < 8) it + 2 else null }
+    println(oddNumbersLessThan10.toList())
     println(oddNumbersLessThan10.count())
 
     // from chunks

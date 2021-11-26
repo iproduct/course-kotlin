@@ -1,11 +1,8 @@
 package channels.fanin
 
-import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.SendChannel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 suspend fun sendString(channel: SendChannel<String>, s: String, time: Long) {
     while (true) {
@@ -18,8 +15,10 @@ fun main() = runBlocking {
     val channel = Channel<String>()
     launch { sendString(channel, "foo", 200L) }
     launch { sendString(channel, "BAR!", 500L) }
-    repeat(10) { // receive first six
+    launch { sendString(channel, "BAZ!", 800L) }
+    repeat(15) { // receive first six
         println(channel.receive())
     }
     coroutineContext.cancelChildren() // cancel all children to let main finish
+    println("End of demo")
 }

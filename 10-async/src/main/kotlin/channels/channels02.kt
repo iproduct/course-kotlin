@@ -25,11 +25,12 @@ fun main() = runBlocking {
 //        println(cit.next())
 //    }
 
-    while(true){
-        val cres = channel.receiveCatching()
-        if (cres.isClosed) break
-        println(cres.getOrNull())
-    }
+//    while(true){
+//        val cres = channel.receiveCatching()
+//        if (cres.isClosed || cres.isFailure) break
+//        println(cres.getOrNull())
+////        println(cres)
+//    }
 
 //    channel.consumeEach { println(it) }
 
@@ -39,32 +40,37 @@ fun main() = runBlocking {
 //        repeat(11) {println(this.receiveCatching())}
 //    }
 
-    //publish-subscribe
-    val sharedFlow = channel.consumeAsFlow()
-//        .buffer(0)
-//        .onEach { event -> yield(); println("Event: $event") }
-        .onCompletion { emit(-1) } // cancel children coroutines}
-        .shareIn(this, SharingStarted.Lazily)
-    val j1 = launch{ sharedFlow
-        .takeWhile { it > 0 }
-        .collect { println("j1: $it") }}
-//    delay(10)
-    val j2 = launch{ sharedFlow
-        .takeWhile { it > 0 }
-        .collect { println("j2: $it") }}
-    val j3 = launch { sharedFlow
-        .takeWhile { it > 0 }
-        .collect { println("j3: $it") }}
-    joinAll(j1, j2, j3)
-
-//    // fan-out
-//    val sharedFlow = channel.receiveAsFlow()
-//        .buffer(0)
-////        .onCompletion { ctx.cancelChildren() } // cancel children coroutines}
-//    val j1 = launch(Dispatchers.Default) { sharedFlow.collect { println("j1: $it -> ${coroutineContext.job}, Thread:${Thread.currentThread().name}") }}
-//        val j2 = launch(Dispatchers.Default) { sharedFlow.collect { println("j2: $it -> ${coroutineContext.job}, Thread:${Thread.currentThread().name}") }}
-//        val j3 = launch(Dispatchers.Default) { sharedFlow.collect { println("j3: $it -> ${coroutineContext.job}, Thread:${Thread.currentThread().name}") }}
+//    //publish-subscribe
+//    val sharedFlow = channel.consumeAsFlow()
+////        .buffer(0)
+//        .onEach { println("Event: $it") }
+//        .catch{ println("Error: $it") }
+////        .onCompletion {  ctx.cancelChildren() } // cancel children coroutines}
+//        .onCompletion {  emit(-1) } // cancel children coroutines using special value -1
+//        .shareIn(this, SharingStarted.Lazily)
+//    val j1 = launch{ sharedFlow
+//        .takeWhile { it > 0 }
+//        .collect { println("j1: $it") }}
+////    delay(10)
+//    val j2 = launch{ sharedFlow
+//        .takeWhile { it > 0 }
+//        .collect { println("j2: $it") }}
+//    val j3 = launch { sharedFlow
+//        .takeWhile { it > 0 }
+//        .collect { println("j3: $it") }}
 //    joinAll(j1, j2, j3)
+
+    // fan-out
+    val sharedFlow = channel.receiveAsFlow()
+//        .buffer(0)
+//        .onCompletion { ctx.cancelChildren() } // cancel children coroutines}
+    val j1 = launch(Dispatchers.Default) {
+            sharedFlow.collect { println("j1: $it -> ${coroutineContext.job}, Thread:${Thread.currentThread().name}") } }
+    val j2 = launch(Dispatchers.Default) {
+            sharedFlow.collect { println("j2: $it -> ${coroutineContext.job}, Thread:${Thread.currentThread().name}") } }
+    val j3 = launch(Dispatchers.Default) {
+            sharedFlow.collect { println("j3: $it -> ${coroutineContext.job}, Thread:${Thread.currentThread().name}") } }
+    joinAll(j1, j2, j3)
 
 
     println("Done!")
