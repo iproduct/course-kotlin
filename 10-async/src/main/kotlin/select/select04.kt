@@ -13,6 +13,7 @@ fun CoroutineScope.produceNumbers(side: SendChannel<Int>) = produce<Int> {
             side.onSend(num) {} // or to the side channel
         }
     }
+    side.close()
 }
 fun main() = runBlocking {
     val side = Channel<Int>() // allocate side channel
@@ -24,5 +25,5 @@ fun main() = runBlocking {
         delay(250) // let us digest the consumed number properly, do not hurry
     }
     println("Done consuming")
-    coroutineContext.cancelChildren()
+//    coroutineContext.cancelChildren()
 }

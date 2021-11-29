@@ -22,12 +22,14 @@ fun CoroutineScope.buzz() = produce<String> {
     }
 }
 suspend fun selectFizzBuzz(fizz: ReceiveChannel<String>, buzz: ReceiveChannel<String>) {
-    select<Unit> { // <Unit> means that this select expression does not produce any result
+    select<String> { // <Unit> means that this select expression does not produce any result
         fizz.onReceive { value ->  // this is the first select clause
             println("fizz -> '$value'")
+            value
         }
         buzz.onReceive { value ->  // this is the second select clause
             println("buzz -> '$value'")
+            value
         }
     }
 }
@@ -35,7 +37,7 @@ suspend fun selectFizzBuzz(fizz: ReceiveChannel<String>, buzz: ReceiveChannel<St
 fun main() = runBlocking {
     val fizz = fizz()
     val buzz = buzz()
-    repeat(7) {
+    repeat(10) {
         selectFizzBuzz(fizz, buzz)
     }
     coroutineContext.cancelChildren() // cancel fizz & buzz coroutines

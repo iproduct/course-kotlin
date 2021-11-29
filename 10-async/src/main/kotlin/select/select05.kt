@@ -19,7 +19,7 @@ fun CoroutineScope.asyncStringsList(): MutableList<Deferred<String>> {
 
 fun main() = runBlocking {
     val list = asyncStringsList()
-    val countActive = list.count { it.isActive }
+    var countActive = list.count { it.isActive }
     while(countActive > 0) {
         val result = select<Pair<Int, String>> {
             list.withIndex().forEach { (index, deferred) ->
@@ -30,7 +30,8 @@ fun main() = runBlocking {
         }
         println(result.second)
         list.removeAt(result.first)
-        val countActive = list.count { it.isActive }
+        countActive = list.count { it.isActive }
         println("$countActive coroutines are still active")
     }
+    println("Done")
 }
