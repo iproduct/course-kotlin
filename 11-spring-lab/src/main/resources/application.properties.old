@@ -1,0 +1,4 @@
+info.app.encoding = "UTF-8"
+info.app.name = REST MVC Demo
+info.app.description = REST MVC demo with Spring Boot and Spring Data JPA
+info.app.version = 1.0-SNAPSHOT
