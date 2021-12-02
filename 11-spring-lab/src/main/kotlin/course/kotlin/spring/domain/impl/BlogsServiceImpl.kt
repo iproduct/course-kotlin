@@ -6,7 +6,9 @@ import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.extensions.toModel
 import course.kotlin.spring.model.BlogCreateView
 import course.kotlin.spring.model.BlogDetailsView
+import org.springframework.stereotype.Service
 
+@Service
 class BlogsServiceImpl(
     private val blogsRepository: BlogsRepository,
     private val usersRepository: UsersRepository
