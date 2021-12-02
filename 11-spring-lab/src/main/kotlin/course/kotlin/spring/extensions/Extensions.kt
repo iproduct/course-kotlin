@@ -2,7 +2,6 @@ package course.kotlin.spring.extensions
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import sun.jvm.hotspot.oops.DataLayout
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField

@@ -8,7 +8,9 @@ import course.kotlin.spring.model.Role
 import course.kotlin.spring.model.User
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
+import org.springframework.stereotype.Component
 
+@Component
 class DataInitializer(
     private val blogsRepository: BlogsRepository,
     private val usersRepository: UsersRepository

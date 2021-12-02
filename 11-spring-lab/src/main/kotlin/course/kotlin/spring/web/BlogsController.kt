@@ -17,9 +17,10 @@ class BlogsController(
     private val usersService: UsersService,
 ) {
     @GetMapping
-    fun blog(model : ModelMap) {
+    fun blog(model : ModelMap): String {
         model["title"] = "Kotlin Blogs"
-        model["blogs"] = emptyList<Blog>()
+        model["blogs"] = blogsService.findAll()
         log().debug("GET Blogs {}", blogsService.findAll())
+        return "blogs"
     }
 }

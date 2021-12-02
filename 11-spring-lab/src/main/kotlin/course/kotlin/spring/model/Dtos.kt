@@ -23,16 +23,35 @@ class BlogCreateView(
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now()
 )
 
+fun BlogCreateView.toBlogReflection() = with(::Blog) {
+    val propertiesByName = BlogCreateView::class.memberProperties.associateBy { it.name }
+    callBy(parameters.associate { parameter ->
+        parameter to when (parameter.name) {
+            else -> propertiesByName[parameter.name]?.get(this@toBlogReflection)
+        }
+    })
+}
+
 class BlogDetailsView(
     val id: Long? = null,
     @NotNull @Size(min = 2, max = 60) val title: String,
     @NotNull @Size(min = 10, max = 2048) val content: String,
     @ManyToOne val author: User,
     val slug: String = title.toSlug(),
-    val pictiureUrl: String? = null,
+    val pictureUrl: String? = null,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val created: LocalDateTime = LocalDateTime.now(),
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now()
 )
+
+fun Blog.toBlogDetailsViewReflection() = with(::BlogDetailsView) {
+    val propertiesByName = Blog::class.memberProperties.associateBy { it.name }
+    callBy(parameters.associate { parameter ->
+        parameter to when (parameter.name) {
+            else -> propertiesByName[parameter.name]?.get(this@toBlogDetailsViewReflection)
+        }
+    })
+}
+
 
 // User Dtos
 class UserCreateView(

@@ -6,6 +6,7 @@ import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.extensions.toModel
 import course.kotlin.spring.model.BlogCreateView
 import course.kotlin.spring.model.BlogDetailsView
+import course.kotlin.spring.model.toBlogDetailsViewReflection
 import org.springframework.stereotype.Service
 
 @Service
@@ -14,7 +15,7 @@ class BlogsServiceImpl(
     private val usersRepository: UsersRepository
     ) : BlogsService {
     override fun findAll(): List<BlogDetailsView> =
-        blogsRepository.findAllByOrderByCreatedDesc().map{it.toModel(::BlogDetailsView)}
+        blogsRepository.findAllByOrderByCreatedDesc().map{it.toModel(::BlogDetailsView)} //map{it.toBlogDetailsViewReflection()}
 
 
     override fun findById(id: Long): BlogDetailsView? {
