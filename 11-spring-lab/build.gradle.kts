@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.6.0"
     kotlin("plugin.spring") version "1.6.0"
     kotlin("plugin.jpa") version "1.6.0"
+    id("idea")
 }
 
 group = "course.kotlin"
@@ -44,4 +45,11 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+idea {
+    module {
+        isDownloadJavadoc = true
+        isDownloadSources = true
+    }
 }

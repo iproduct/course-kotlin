@@ -2,10 +2,13 @@ package course.kotlin.spring.extensions
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import sun.jvm.hotspot.oops.DataLayout
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
 import java.util.*
+import kotlin.reflect.KCallable
+import kotlin.reflect.full.memberProperties
 
 fun LocalDateTime.format() = this.format(englishDateFormatter)
 
@@ -38,3 +41,10 @@ fun String.toSlug() = lowercase()
 inline fun <reified T> T.log(): Logger {
     return LoggerFactory.getLogger(T::class.java)
 }
+
+inline fun <reified T: Any, M, reified C : KCallable<M>> T.toModel(constructor: C) = with(constructor) {
+    val propertiesByName = T::class.memberProperties.associateBy { it.name }
+    callBy(parameters.associate { parameter -> parameter to
+            propertiesByName[parameter.name]?.get(this@toModel) })
+}
+
