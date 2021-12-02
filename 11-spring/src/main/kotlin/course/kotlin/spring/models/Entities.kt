@@ -2,6 +2,7 @@ package course.kotlin.spring.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import course.kotlin.spring.extensions.toSlug
+import course.kotlin.spring.models.Role
 import org.hibernate.validator.constraints.Length
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime

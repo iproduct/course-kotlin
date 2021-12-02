@@ -3,20 +3,16 @@ package course.kotlin.spring.web
 import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.domain.UsersService
 import course.kotlin.spring.entities.Blog
+import course.kotlin.spring.entities.BlogCreateView
+import course.kotlin.spring.entities.BlogDetailsView
 import course.kotlin.spring.extensions.log
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
-import org.springframework.validation.ObjectError
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
-import org.springframework.web.servlet.ModelAndView
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodName
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
-import java.util.regex.Pattern
 import javax.validation.Valid
-import javax.validation.constraints.NotNull
 
 @Controller
 @RequestMapping("/blogs")
@@ -42,7 +38,7 @@ class BlogsController(val blogsService: BlogsService, val usersService: UsersSer
         }
         var title = "Add New Blog"
         if ("edit" == mode) {
-            val found: Blog = blogsService.findById(blogId!!)
+            val found: BlogDetailsView = blogsService.findById(blogId!!)
             model.addAttribute("blog", found)
             title = "Edit Blog"
         }
@@ -53,7 +49,7 @@ class BlogsController(val blogsService: BlogsService, val usersService: UsersSer
 
     @PostMapping("/blog-form")
     fun addBlog(
-        @ModelAttribute("blog") blog: @Valid Blog,
+        @ModelAttribute("blog") blogCreateView: @Valid BlogCreateView,
         errors: BindingResult,
         @RequestParam("file") file: MultipartFile,
         model: Model,
@@ -78,12 +74,12 @@ class BlogsController(val blogsService: BlogsService, val usersService: UsersSer
         }
 //        blog.setAuthorId(author.getId())
 //        blog.setAuthorName(author.getFullName())
-        if (blog.id == null) {  // create
-            log().info("Create new blog: {}", blog)
-            blogsService.add(blog)
+        if (blogCreateView.id == null) {  // create
+            log().info("Create new blog: {}", blogCreateView)
+            blogsService.add(blogCreateView)
         } else { //edit
-            log().info("Edit blog: {}", blog)
-            blogsService.update(blog)
+            log().info("Edit blog: {}", blogCreateView)
+            blogsService.update(blogCreateView)
         }
         return "redirect:/blogs"
     }

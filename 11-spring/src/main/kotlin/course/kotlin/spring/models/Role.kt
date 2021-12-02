@@ -1,4 +1,4 @@
-package course.kotlin.spring.entities
+package course.kotlin.spring.models
 
 enum class Role {
     READER, AUTHOR, ADMIN
