@@ -48,8 +48,6 @@ management:
       enabled: true
     env:
       enabled: true
-    app:
-      encoding: "UTF-8"
 info:
   app:
     encoding: "UTF-8"
