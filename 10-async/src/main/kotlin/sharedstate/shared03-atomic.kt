@@ -21,6 +21,7 @@ suspend fun massiveRun(action: suspend () -> Unit) {
 
 val counter = AtomicInteger()
 
+
 fun main() = runBlocking {
     withContext(Dispatchers.Default) {
         massiveRun {

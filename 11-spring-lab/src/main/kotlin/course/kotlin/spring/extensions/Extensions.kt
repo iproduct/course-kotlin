@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
 import java.util.*
 import kotlin.reflect.KCallable
+import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 
 fun LocalDateTime.format() = this.format(englishDateFormatter)
@@ -41,9 +42,12 @@ inline fun <reified T> T.log(): Logger {
     return LoggerFactory.getLogger(T::class.java)
 }
 
-inline fun <reified T: Any, M, reified C : KCallable<M>> T.toModel(constructor: C) = with(constructor) {
-    val propertiesByName = T::class.memberProperties.associateBy { it.name }
-    callBy(parameters.associate { parameter -> parameter to
-            propertiesByName[parameter.name]?.get(this@toModel) })
-}
+inline fun <reified T : Any, reified M : Any> T.toModel(clazz: KClass<M>) =
+    with(clazz.constructors.first()) {
+        val propertiesByName = T::class.memberProperties.associateBy { it.name }
+        callBy(parameters.associate { parameter ->
+            parameter to
+                    propertiesByName[parameter.name]?.get(this@toModel)
+        })
+    }
 

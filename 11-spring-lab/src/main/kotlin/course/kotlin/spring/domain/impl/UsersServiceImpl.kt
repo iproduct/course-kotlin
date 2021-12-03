@@ -12,7 +12,7 @@ class UsersServiceImpl(
     private val usersRepository: UsersRepository
     ) : UsersService {
     override fun findAll(): List<UserDetailsView> =
-        usersRepository.findAll().map{it.toModel(::UserDetailsView)}
+        usersRepository.findAll().map{it.toModel(UserDetailsView::class)}
 
 
     override fun findById(id: Long): UserDetailsView? {

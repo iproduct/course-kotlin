@@ -1,15 +1,13 @@
 package select
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.selects.select
 
 fun CoroutineScope.fizz() = produce<String> {
     while (true) { // sends "Fizz" every 300 ms
+//        ensureActive()
         delay(300)
         send("Fizz")
     }
@@ -21,7 +19,8 @@ fun CoroutineScope.buzz() = produce<String> {
         send("Buzz!")
     }
 }
-suspend fun selectFizzBuzz(fizz: ReceiveChannel<String>, buzz: ReceiveChannel<String>) {
+
+suspend fun selectFizzBuzz(fizz: ReceiveChannel<String>, buzz: ReceiveChannel<String>) =
     select<String> { // <Unit> means that this select expression does not produce any result
         fizz.onReceive { value ->  // this is the first select clause
             println("fizz -> '$value'")
@@ -32,7 +31,6 @@ suspend fun selectFizzBuzz(fizz: ReceiveChannel<String>, buzz: ReceiveChannel<St
             value
         }
     }
-}
 
 fun main() = runBlocking {
     val fizz = fizz()

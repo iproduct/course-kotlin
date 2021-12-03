@@ -15,7 +15,7 @@ class BlogsServiceImpl(
     private val usersRepository: UsersRepository
     ) : BlogsService {
     override fun findAll(): List<BlogDetailsView> =
-        blogsRepository.findAllByOrderByCreatedDesc().map{it.toModel(::BlogDetailsView)} //map{it.toBlogDetailsViewReflection()}
+        blogsRepository.findAllByOrderByCreatedDesc().map{it.toModel(BlogDetailsView::class)} //map{it.toBlogDetailsViewReflection()}
 
 
     override fun findById(id: Long): BlogDetailsView? {

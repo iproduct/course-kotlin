@@ -34,7 +34,7 @@ fun main() = runBlocking {
     val b = produce<String> {
         repeat(4) { send("World $it") }
     }
-    repeat(10) { // print first eight results
+    repeat(20) { // print first eight results
         println(selectAorB(a, b))
     }
     coroutineContext.cancelChildren()

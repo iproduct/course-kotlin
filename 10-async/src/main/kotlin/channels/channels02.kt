@@ -25,12 +25,12 @@ fun main() = runBlocking {
 //        println(cit.next())
 //    }
 
-//    while(true){
-//        val cres = channel.receiveCatching()
-//        if (cres.isClosed || cres.isFailure) break
-//        println(cres.getOrNull())
-////        println(cres)
-//    }
+    while(true){
+        val cres = channel.receiveCatching()
+        if (cres.isClosed || cres.isFailure) break
+        println(cres.getOrNull())
+//        println(cres)
+    }
 
 //    channel.consumeEach { println(it) }
 

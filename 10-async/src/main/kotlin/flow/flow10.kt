@@ -10,9 +10,8 @@ import logging.log
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-private val LOG: Logger = LoggerFactory.getLogger("org.example.kotlin-intro-01.main")
-
 private fun foo(): Flow<Int> = flow {
+    this
     log("[${this}]: Started foo flow")
     for (i in 1..3) {
         emit(i)

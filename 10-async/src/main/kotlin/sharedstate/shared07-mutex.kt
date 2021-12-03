@@ -23,15 +23,19 @@ suspend fun massiveRun(action: suspend () -> Unit) {
 }
 
 val mutex = Mutex()
+val semaphore = Semaphore(1)
 var counter = 0
 
 fun main() = runBlocking {
     withContext(Dispatchers.Default) {
         massiveRun {
             // protect each increment with lock
-            mutex.withLock {
-                counter++
-            }
+//            mutex.withLock {
+//                counter++
+//            }
+            semaphore.acquire()
+            counter++
+            semaphore.release()
         }
     }
     println("Counter = $counter")
