@@ -15,19 +15,18 @@ import javax.validation.constraints.Size
 
 @Entity
 class Blog(
-    @Id @GeneratedValue var id: Long? = null,
     @NotNull @Size(min = 2, max = 60) var title: String,
     @NotNull @Size(min = 10, max = 2048) var content: String,
     @ManyToOne var author: User,
     var slug: String = title.toSlug(),
     var pictiureUrl: String? = null,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var created: LocalDateTime = LocalDateTime.now(),
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var modified: LocalDateTime = LocalDateTime.now()
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var modified: LocalDateTime = LocalDateTime.now(),
+    @Id @GeneratedValue var id: Long? = null,
 )
 
 @Entity
 class User(
-    @Id @GeneratedValue var id: Long? = null,
     @NotNull @Size(min = 2, max = 40) var firstName: String,
     @NotNull @Size(min = 2, max = 40) var lastName: String,
     @NotNull @Size(min = 2, max = 30) var username: String,
@@ -37,5 +36,6 @@ class User(
     var active: Boolean = true,
     var pictiureUrl: String? = null,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var created: LocalDateTime = LocalDateTime.now(),
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var modified: LocalDateTime = LocalDateTime.now()
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var modified: LocalDateTime = LocalDateTime.now(),
+    @Id @GeneratedValue var id: Long? = null
 )

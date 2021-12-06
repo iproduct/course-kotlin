@@ -23,7 +23,7 @@ private fun getOrdinal(n: Int) = when {
 }
 
 private val englishDateFormatter = DateTimeFormatterBuilder()
-    .appendPattern("yyyy-MM-dd")
+    .appendPattern("dd.MM.yyyy")
     .appendLiteral(" ")
     .appendText(ChronoField.DAY_OF_MONTH, daysLookup)
     .appendLiteral(" ")

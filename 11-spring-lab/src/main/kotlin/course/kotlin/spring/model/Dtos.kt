@@ -1,11 +1,9 @@
 package course.kotlin.spring.model
 
+import course.kotlin.spring.extensions.format
 import course.kotlin.spring.extensions.toSlug
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
 import javax.persistence.ManyToOne
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
@@ -33,21 +31,23 @@ fun BlogCreateView.toBlogReflection() = with(::Blog) {
 }
 
 class BlogDetailsView(
-    val id: Long? = null,
+    val id: Long,
     @NotNull @Size(min = 2, max = 60) val title: String,
     @NotNull @Size(min = 10, max = 2048) val content: String,
     @ManyToOne val author: User,
     val slug: String = title.toSlug(),
     val pictureUrl: String? = null,
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val created: LocalDateTime = LocalDateTime.now(),
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now()
+    val created: String,
+    val modified: String
 )
 
-fun Blog.toBlogDetailsViewReflection() = with(::BlogDetailsView) {
+fun Blog.toBlogDetailsView() = with(::BlogDetailsView) {
     val propertiesByName = Blog::class.memberProperties.associateBy { it.name }
     callBy(parameters.associate { parameter ->
         parameter to when (parameter.name) {
-            else -> propertiesByName[parameter.name]?.get(this@toBlogDetailsViewReflection)
+            BlogDetailsView::created.name -> created.format()
+            BlogDetailsView::modified.name -> created.format()
+            else -> propertiesByName[parameter.name]?.get(this@toBlogDetailsView)
         }
     })
 }
