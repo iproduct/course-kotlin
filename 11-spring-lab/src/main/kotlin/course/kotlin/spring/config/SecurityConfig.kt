@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.web.server.ServerHttpSecurity.http
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.config.web.servlet.invoke
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 
 @Configuration
 class SecurityConfig : WebSecurityConfigurerAdapter() {
@@ -37,7 +38,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Bean
     fun userDetailsService(usersRepository: UsersRepository): UserDetailsService {
         return UserDetailsService {
-            usersRepository.findByUsername(it)
+            usersRepository.findByUsername(it)?: throw UsernameNotFoundException("Invalid username or password.")
         }
     }
 }

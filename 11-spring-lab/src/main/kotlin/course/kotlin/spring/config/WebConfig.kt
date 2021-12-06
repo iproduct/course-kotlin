@@ -22,7 +22,6 @@ class WebConfig: WebMvcConfigurer{
 
     override fun addViewControllers(registry: ViewControllerRegistry) {
         registry.addViewController("/").setViewName("redirect:blogs")
-//        registry.addViewController("/login").setViewName("login")
     }
 
     @Bean("messageSource")
