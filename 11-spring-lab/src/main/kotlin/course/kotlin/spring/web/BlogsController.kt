@@ -8,6 +8,7 @@ import course.kotlin.spring.model.Blog
 import course.kotlin.spring.model.User
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -41,7 +42,7 @@ class BlogsController(
         var title = "Add New Blog"
         model["title"] = title
         model["path"] = ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUri().path
-        val authentication = SecurityContextHolder.getContext().getAuthentication();
+        val authentication = SecurityContextHolder.getContext().authentication;
         if (!(authentication is AnonymousAuthenticationToken)) {
             val currentUserName = authentication.getName();
             model["loggedUserName"] = currentUserName
