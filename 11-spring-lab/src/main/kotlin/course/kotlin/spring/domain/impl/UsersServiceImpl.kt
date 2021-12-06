@@ -19,8 +19,8 @@ class UsersServiceImpl(
         TODO("Not yet implemented")
     }
 
-    override fun findBySlug(slug: String): UserDetailsView? {
-        TODO("Not yet implemented")
+    override fun findByUsername(username: String): UserDetailsView? {
+        return usersRepository.findByUsername(username)?.toModel(UserDetailsView::class)
     }
 
     override fun create(user: UserCreateView): UserDetailsView {

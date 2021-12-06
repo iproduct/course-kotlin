@@ -16,7 +16,7 @@ class BlogCreateView(
     @NotNull @Size(min = 2, max = 60) val title: String,
     @NotNull @Size(min = 10, max = 2048) val content: String,
     val slug: String = title.toSlug(),
-    val pictiureUrl: String? = null,
+    val pictureUrl: String? = null,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val created: LocalDateTime = LocalDateTime.now(),
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now()
 )
@@ -63,7 +63,7 @@ class UserCreateView(
     val password: String,
     @NotNull val role: Role = Role.READER,
     val active: Boolean = true,
-    val pictiureUrl: String? = null,
+    val pictureUrl: String? = null,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val created: LocalDateTime = LocalDateTime.now(),
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now()
 )
@@ -75,7 +75,7 @@ class UserDetailsView(
     @NotNull @Size(min = 2, max = 30) val username: String,
     @NotNull val role: Role = Role.READER,
     val active: Boolean = true,
-    val pictiureUrl: String? = null,
+    val pictureUrl: String? = null,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val created: LocalDateTime = LocalDateTime.now(),
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now(),
     val name: String,
@@ -92,7 +92,7 @@ fun UserCreateView.toUser() = User(
     password = password,
     role = role,
     active = active,
-    pictiureUrl = pictiureUrl
+    pictureUrl = pictureUrl
 )
 
 fun User.toUserDetailsViewReflection() = with(::UserCreateView) {

@@ -8,6 +8,7 @@ import course.kotlin.spring.model.Role
 import course.kotlin.spring.model.User
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
+import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.stereotype.Component
 
 @Component
@@ -20,6 +21,8 @@ class DataInitializer(
         log().info("Initializing application ...")
         if (usersRepository.count() == 0L) {
             val user = User("Default", "Admin", "admin", "admin", Role.ADMIN)
+            val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
+            user.password = encoder.encode(user.getPassword())
             val created = usersRepository.save(user)
             log().info("Created user: ${created.username}")
         }

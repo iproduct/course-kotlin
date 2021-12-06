@@ -4,13 +4,13 @@
 <body>
     <div th:replace="fragments/menu :: menu(${path}, ${loggedUserName})" />
     <div class="container">
-        <h3 th:text="${title}">Add New Article</h3>
+        <h3 th:text="${title}">Add New Blog</h3>
         <form th:object="${blog}" method="post"
               class="form-horizontal col-md-9 col-lg-6" enctype="multipart/form-data">
             <div th:if="${blog.id} != null" class="form-group row">
                 <label path="id" class="col-sm-2 col-form-label">ID</label>
                 <div class="col-sm-10">
-                    <input type="text" th:value="*{id}" id="id" name="id"
+                    <input type="text" th:field="*{id}"
                            class="form-control" title="Article Id" readonly>
                 </div>
             </div>
@@ -18,7 +18,7 @@
             <div class="form-group row">
                 <label path="title" class="col-sm-2 col-form-label">Title</label>
                 <div class="col-sm-10">
-                    <input type="text" th:value="*{title}" id="title" name="title"
+                    <input type="text" th:field="*{title}"
                            class="form-control" title="Article title" th:errorclass="field-error">
                 </div>
             </div>
@@ -30,7 +30,7 @@
             <div class="form-group row">
                 <label path="content" class="col-sm-2 col-form-label">Content</label>
                 <div class="col-sm-10">
-                    <input type="text" th:value="*{content}" id="content" name="content"
+                    <input type="text" th:field="*{content}"
                            class="form-control" title="Article content" th:errorclass="field-error">
                 </div>
             </div>
@@ -39,9 +39,9 @@
                 Content should not be blank.
             </p>
 
-            <input type="hidden" th:value="*{pictureUrl}" id="pictureUrl" name="pictureUrl" title="Article picture URL">
-            <input type="hidden" th:value="*{created}" id="created" name="created" title="Article creation date and time">
-            <input type="hidden" th:value="*{modified}" id="modified" name="modified" title="Article last modification date and timeL">
+            <input type="hidden" th:field="*{pictureUrl}" title="Article picture URL">
+            <input type="hidden" th:field="*{created}"  title="Article creation date and time">
+            <input type="hidden" th:field="*{modified}" title="Article last modification date and timeL">
 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Picture</label>
