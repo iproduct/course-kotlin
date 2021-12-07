@@ -7,19 +7,19 @@ import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
 @Entity
-data class Blog(
-    @Id @GeneratedValue var id: Long? = null,
+class Blog(
     @NotNull @Size(min = 2, max = 60) var title: String,
     @NotNull @Size(min = 10, max = 2048) var content: String,
     @ManyToOne var author: User,
     var pictureUrl: String? = null,
+    var slug =
     var created: LocalDateTime = LocalDateTime.now(),
     var modified: LocalDateTime = LocalDateTime.now(),
+    @Id @GeneratedValue var id: Long? = null,
 )
 
 @Entity
-data class User(
-    @Id @GeneratedValue var id: Long? = null,
+class User(
     @NotNull @Size(min = 2, max = 40) var firstName: String,
     @NotNull @Size(min = 2, max = 40) var lastName: String,
     @NotNull @Size(min = 2, max = 40) var username: String,
@@ -30,6 +30,7 @@ data class User(
     @OneToMany val blogs: MutableList<Blog> = mutableListOf<Blog>(),
     var created: LocalDateTime = LocalDateTime.now(),
     var modified: LocalDateTime = LocalDateTime.now(),
+    @Id @GeneratedValue var id: Long? = null,
 ) {
     val name: String
         get() = "$firstName $lastName"

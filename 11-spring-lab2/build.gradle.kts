@@ -27,6 +27,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 //    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity5")
+    implementation ("org.webjars:jquery:3.3.1-2")
+    implementation ("org.webjars:bootstrap:4.3.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("mysql:mysql-connector-java")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
