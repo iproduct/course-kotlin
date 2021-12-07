@@ -1,5 +1,6 @@
 package course.kotlin.spring.model
 
+import course.kotlin.spring.extensions.toSlug
 import java.time.LocalDateTime
 import javax.persistence.*
 import javax.validation.constraints.NotNull
@@ -12,7 +13,7 @@ class Blog(
     @NotNull @Size(min = 10, max = 2048) var content: String,
     @ManyToOne var author: User,
     var pictureUrl: String? = null,
-    var slug =
+    var slug: String = title.toSlug(),
     var created: LocalDateTime = LocalDateTime.now(),
     var modified: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue var id: Long? = null,
