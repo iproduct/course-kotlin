@@ -28,6 +28,7 @@ class User(
     var password: String,
     var role: Role = Role.READER,
     var pictureUrl: String? = null,
+    var active: Boolean = true,
     @OneToMany val blogs: MutableList<Blog> = mutableListOf<Blog>(),
     var created: LocalDateTime = LocalDateTime.now(),
     var modified: LocalDateTime = LocalDateTime.now(),

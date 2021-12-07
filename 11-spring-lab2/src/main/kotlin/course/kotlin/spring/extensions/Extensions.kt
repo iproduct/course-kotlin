@@ -23,9 +23,11 @@ private fun getOrdinal(n: Int) = when {
 }
 
 private val englishDateFormatter = DateTimeFormatterBuilder()
-    .appendPattern("yyyy-MM-dd")
-    .appendLiteral(" ")
+//    .appendPattern("yyyy-MM-dd")
+//    .appendLiteral(" ")
     .appendText(ChronoField.DAY_OF_MONTH, daysLookup)
+    .appendLiteral(" ")
+    .appendPattern("MMM")
     .appendLiteral(" ")
     .appendPattern("yyyy")
     .toFormatter(Locale.ENGLISH)
@@ -43,8 +45,8 @@ inline fun <reified T> T.log(): Logger {
 }
 
 // Model mapping
-inline fun <reified T : Any, reified M : Any> T.toModel(clazz: KClass<M>) =
-    with(clazz.constructors.first()) {
+inline fun <reified T : Any, reified M : Any> T.toModel() =
+    with(M::class.constructors.first()) {
         val propertiesByName = T::class.memberProperties.associateBy { it.name }
         callBy(parameters.associate { parameter ->
             parameter to
