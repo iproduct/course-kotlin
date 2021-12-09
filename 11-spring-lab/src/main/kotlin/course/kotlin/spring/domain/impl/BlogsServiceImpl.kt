@@ -6,6 +6,7 @@ import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.exception.InvalidEntityDataException
 import course.kotlin.spring.exception.UnauthorisedException
 import course.kotlin.spring.model.Blog
+import course.kotlin.spring.model.User
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -33,18 +34,23 @@ class BlogsServiceImpl(
 
     override fun create(blog: Blog): Blog {
         val authentication = SecurityContextHolder.getContext().authentication;
-        if (!(authentication is AnonymousAuthenticationToken)) {
-            val user = usersRepository.findByUsername(authentication.getName())
-            if (user != null) {
-                blog.author = user
-                blog.created = LocalDateTime.now()
-                blog.modified = LocalDateTime.now()
-                blogsRepository.findBySlug(blog.slug)?:
-                    throw InvalidEntityDataException("Slug '${blog.slug}' is already taken. ")
-                return blogsRepository.save(blog)
-            }
+        var user: User? = null
+        if (authentication != null && !(authentication is AnonymousAuthenticationToken)) {
+            val currentUserName = authentication.getName();
+            user = usersRepository.findByUsername(currentUserName)
         }
-        throw UnauthorisedException("The user should logged in to create blogs")
+        if (authentication == null || user == null) {
+            user = usersRepository.findAll().first()
+        }
+        user?.let {
+            blog.author = it
+        }?: throw UnauthorisedException("The user should logged in to create blogs")
+        blog.created = LocalDateTime.now()
+        blog.modified = LocalDateTime.now()
+        blogsRepository.findBySlug(blog.slug)?.let{
+            throw InvalidEntityDataException("Slug '${blog.slug}' is already taken. ")
+        }
+        return blogsRepository.save(blog)
     }
 
     override fun update(blog: Blog): Blog {

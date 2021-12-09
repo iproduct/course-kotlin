@@ -20,11 +20,11 @@ class BlogCreateView(
     val id: Long? = null,
 )
 
-fun BlogCreateView.toBlogReflection() = with(::Blog) {
+fun BlogCreateView.toBlog() = with(::Blog) {
     val propertiesByName = BlogCreateView::class.memberProperties.associateBy { it.name }
     callBy(parameters.associate { parameter ->
         parameter to when (parameter.name) {
-            else -> propertiesByName[parameter.name]?.get(this@toBlogReflection)
+            else -> propertiesByName[parameter.name]?.get(this@toBlog)
         }
     })
 }
@@ -61,7 +61,7 @@ class UserCreateView(
     @field:NotEmpty @field:Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",
         message = "{password.message}")
     val password: String,
-    @NotNull val role: Role = Role.READER,
+    val role: Role = Role.READER,
     val active: Boolean = true,
     val pictureUrl: String? = null,
 )

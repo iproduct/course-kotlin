@@ -13,29 +13,32 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToOne
 import javax.print.DocFlavor
+import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
 @Entity
 class Blog(
-    @NotNull @Size(min = 2, max = 60) var title: String,
-    @NotNull @Size(min = 10, max = 2048) var content: String,
-    @ManyToOne var author: User,
+    @field:NotEmpty @field:Size(min = 2, max = 60, message = "{blog.title.size}") var title: String,
+    @field:NotEmpty @field:Size(min = 10, max = 2048, message = "{blog.content.size}") var content: String,
     var slug: String = title.toSlug(),
     var pictureUrl: String? = null,
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var created: LocalDateTime = LocalDateTime.now(),
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var modified: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue var id: Long? = null,
-)
+) {
+    @ManyToOne var author: User? = null
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var created: LocalDateTime = LocalDateTime.now()
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var modified: LocalDateTime = LocalDateTime.now()
+}
 
 @Entity
 class User (
-    @NotNull @Size(min = 2, max = 40) var firstName: String,
-    @NotNull @Size(min = 2, max = 40) var lastName: String,
-    @NotNull @Size(min = 2, max = 30) internal var username: String,
-    @NotNull @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$")
-    internal var password: String,
+    @field:NotEmpty @field:Size(min = 2, max = 30, message = "{user.name.size}") var firstName: String,
+    @field:NotEmpty @field:Size(min = 2, max = 30, message = "{user.name.size}") var lastName: String,
+    internal @field:NotEmpty @field:Size(min = 2, max = 30, message = "{user.name.size}") var username: String,
+    internal @field:NotEmpty @field:Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",
+        message = "{password.message}")
+    var password: String,
     @NotNull var role: Role  = Role.READER,
     var active: Boolean = true,
     var pictureUrl: String? = null,

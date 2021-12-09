@@ -44,8 +44,8 @@ inline fun <reified T> T.log(): Logger {
     return LoggerFactory.getLogger(T::class.java)
 }
 
-inline fun <reified T : Any, reified M : Any> T.toModel(clazz: KClass<M>) =
-    with(clazz.constructors.first()) {
+inline fun <reified T : Any, reified M : Any> T.toModel() =
+    with(M::class.constructors.first()) {
         val propertiesByName = T::class.memberProperties.associateBy { it.name }
         callBy(parameters.associate { parameter ->
             parameter to

@@ -1,9 +1,9 @@
 package course.kotlin.spring.web
 
-import course.kotlin.spring.dao.UsersRepository
 import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.domain.UsersService
 import course.kotlin.spring.extensions.log
+import course.kotlin.spring.extensions.toModel
 import course.kotlin.spring.model.BlogCreateView
 import course.kotlin.spring.model.User
 import course.kotlin.spring.model.toBlogDetailsView
@@ -82,7 +82,7 @@ class BlogsController(
             redirectAttr.addFlashAttribute("errorMessages", bindingResult.allErrors)
             return "redirect:/blogs/blog-form"
         }
-        // persist blog
+        val created = blogsService.create(blog.toModel())
         return "redirect:/blogs"
     }
 }
