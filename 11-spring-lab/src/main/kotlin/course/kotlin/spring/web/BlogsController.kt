@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.security.Principal
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/blogs")
 class BlogsController(
     private val blogsService: BlogsService,
     private val usersRepository: UsersRepository,
@@ -43,13 +43,13 @@ class BlogsController(
         model["title"] = title
         model["path"] = ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUri().path
         val authentication = SecurityContextHolder.getContext().authentication;
-        if (!(authentication is AnonymousAuthenticationToken)) {
+        if (authentication != null && !(authentication is AnonymousAuthenticationToken)) {
             val currentUserName = authentication.getName();
             model["loggedUserName"] = currentUserName
             val user = usersRepository.findByUsername(currentUserName)
             model["blog"] = Blog("", "", user!!)
             return "blog-form"
         }
-        return "blogs"
+        return "redirect:/blogs"
     }
 }
