@@ -24,9 +24,10 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http {
             securityMatcher("/")
             authorizeRequests{
-                authorize("/", permitAll)
+                authorize("/blogs", permitAll)
                 authorize("/login", permitAll)
-                authorize("/blog-form", hasRole(Role.ADMIN.toString())) //AntPathRequestMatcher("/blog-form", HttpMethod.GET.name)
+                authorize(HttpMethod.GET,"/blogs/blog-form", permitAll)
+                authorize(HttpMethod.POST, "/blogs/blog-form", permitAll) //AntPathRequestMatcher("/blogs/blog-form", HttpMethod.POST.name)
             }
             formLogin {}
         }

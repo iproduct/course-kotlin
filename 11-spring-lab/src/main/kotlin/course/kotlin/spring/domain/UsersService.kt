@@ -1,14 +1,15 @@
 package course.kotlin.spring.domain
 
-import course.kotlin.spring.model.UserCreateView
-import course.kotlin.spring.model.UserDetailsView
+import course.kotlin.spring.model.User
+import org.springframework.stereotype.Service
 
+@Service
 interface UsersService {
-    fun findAll(): List<UserDetailsView>
-    fun findById(id: Long): UserDetailsView?
-    fun findByUsername(username: String): UserDetailsView?
-    fun create(blog: UserCreateView): UserDetailsView
-    fun update(blog: UserCreateView): UserDetailsView
-    fun delete(id: Long): UserDetailsView
+    fun findAll(): List<User>
+    fun findById(id: Long): User
+    fun findByUsername(username: String): User
+    fun create(user: User): User
+    fun update(user: User): User
+    fun deleteById(id: Long): User
     fun count(): Long
 }

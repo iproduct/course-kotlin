@@ -15,6 +15,9 @@ body {
 .container, .container-fluid {
      padding-top: 90px;
 }
+.container {
+     color: #ccc;
+}
 
 .bg-text {
      background-color: rgb(0,0,0); /* Fallback color */
