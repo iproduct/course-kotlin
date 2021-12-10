@@ -40,6 +40,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("com.ninja-squad:springmockk:3.0.1")
+    testImplementation ("org.springframework.boot:spring-boot-starter-webflux")
 }
 
 tasks.withType<KotlinCompile> {

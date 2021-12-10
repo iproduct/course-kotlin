@@ -62,4 +62,9 @@ logging:
         test:
           context:
             support: INFO
+blog:
+  title: Kotlin Blogs v2
+  upload:
+    dir: uploads
+
 

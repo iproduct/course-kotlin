@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
-@Profile("!test")
+//@Profile("!test")
 class DataInitializer  (
     private val usersService: UsersService,
     private val blogsService: BlogsService,

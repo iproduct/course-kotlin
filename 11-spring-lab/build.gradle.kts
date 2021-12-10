@@ -8,6 +8,7 @@ plugins {
     kotlin("plugin.jpa") version "1.6.0"
     id("idea")
     kotlin("plugin.allopen") version "1.4.32"
+    kotlin("kapt") version "1.4.32"
 }
 
 group = "course.kotlin"
@@ -32,7 +33,9 @@ dependencies {
     implementation ("org.webjars:jquery:3.3.1-2")
     implementation ("org.webjars:bootstrap:4.3.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
     runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 }

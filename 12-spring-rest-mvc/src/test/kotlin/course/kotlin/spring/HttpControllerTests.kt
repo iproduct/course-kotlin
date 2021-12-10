@@ -5,7 +5,10 @@ import course.kotlin.spring.dao.BlogsRepository
 import course.kotlin.spring.dao.UsersRepository
 import course.kotlin.spring.model.Blog
 import course.kotlin.spring.model.User
+import io.mockk.MockKAnnotations
 import io.mockk.every
+import io.mockk.impl.annotations.SpyK
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,13 +31,19 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 //@ExtendWith(SpringExtension::class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
+class HttpControllersTests(@Autowired val mockMvc: MockMvc,
+                           @Autowired val usersRepo: UsersRepository,
+                           @Autowired val blogsRepo: BlogsRepository) {
 
-    @MockkBean
-    private lateinit var usersRepository: UsersRepository
+    @SpyK
+    private var usersRepository: UsersRepository = usersRepo
 
-    @MockkBean
-    private lateinit var blogsRepository: BlogsRepository
+    @SpyK
+    private var blogsRepository: BlogsRepository = blogsRepo
+
+    @BeforeEach
+    fun setUp() = MockKAnnotations.init(this)
+
 
     @Test
     fun `List blogs`() {
