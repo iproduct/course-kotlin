@@ -10,6 +10,7 @@ import course.kotlin.spring.model.User
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import javax.annotation.security.RolesAllowed
@@ -32,6 +33,8 @@ class UsersServiceImpl(
         usersRepository.findByUsername(username) ?: throw EntityNotFoundException("User with ID=$id not found.")
 
     override fun create(user: User): User {
+        val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
+        user.password = encoder.encode(user.getPassword())
         return usersRepository.save(user)
     }
 

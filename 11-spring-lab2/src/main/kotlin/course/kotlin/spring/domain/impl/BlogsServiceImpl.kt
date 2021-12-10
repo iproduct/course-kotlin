@@ -7,11 +7,14 @@ import course.kotlin.spring.exception.EntityNotFoundException
 import course.kotlin.spring.exception.InvalidEntityDataException
 import course.kotlin.spring.exception.UnauthorisedException
 import course.kotlin.spring.model.Blog
+import course.kotlin.spring.model.User
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+
+val DEFAULT_AUTHOR_USERNAME = "author"
 
 @Service
 class BlogsServiceImpl(
@@ -34,14 +37,16 @@ class BlogsServiceImpl(
 
     override fun create(blog: Blog): Blog {
         val authentication = SecurityContextHolder.getContext().authentication;
-        if (!(authentication is AnonymousAuthenticationToken)) {
-            val user = usersRepository.findByUsername(authentication.getName())
-            if (user != null) {
-                blog.author = user
-                blogsRepository.findBySlug(blog.slug)?:
-                    return blogsRepository.save(blog)
-                throw InvalidEntityDataException("Slug '${blog.slug}' is already taken. ")
-            }
+        var user: User? = null
+        if (authentication == null) {
+            user = usersRepository.findByUsername(DEFAULT_AUTHOR_USERNAME)
+        } else if (!(authentication is AnonymousAuthenticationToken)) {
+            user = usersRepository.findByUsername(authentication.getName())
+        }
+        if (user != null) {
+            blog.author = user
+            blogsRepository.findBySlug(blog.slug) ?: return blogsRepository.save(blog)
+            throw InvalidEntityDataException("Slug '${blog.slug}' is already taken. ")
         }
         throw UnauthorisedException("The user should logged in to create blogs")
     }

@@ -19,8 +19,10 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http {
 //            securityMatcher("/")
             authorizeRequests {
-                authorize("/**", permitAll)
+                authorize("/login", permitAll)
+                authorize("/blogs", hasAnyRole(Role.READER.toString(), Role.AUTHOR.toString(), Role.ADMIN.toString()))
             }
+            formLogin { }
         }
 //        http.authorizeRequests {
 //            it.antMatchers("/").hasAnyRole(Role.READER.toString(), Role.AUTHOR.toString(), Role.ADMIN.toString())
