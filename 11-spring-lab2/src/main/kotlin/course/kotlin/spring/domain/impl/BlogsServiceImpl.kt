@@ -21,7 +21,7 @@ class BlogsServiceImpl(
 //    @Autowired
 //    lateinit var usersRepository: UsersRepository
 
-    override fun findAll(): List<Blog> = blogsRepository.findAll()
+    override fun findAll(): List<Blog> = blogsRepository.findAllByOrderByCreatedDesc()
 
     override fun findById(id: Long): Blog =
         blogsRepository.findById(id).orElseThrow {
@@ -39,8 +39,8 @@ class BlogsServiceImpl(
             if (user != null) {
                 blog.author = user
                 blogsRepository.findBySlug(blog.slug)?:
-                    throw InvalidEntityDataException("Slug '${blog.slug}' is already taken. ")
-                return blogsRepository.save(blog)
+                    return blogsRepository.save(blog)
+                throw InvalidEntityDataException("Slug '${blog.slug}' is already taken. ")
             }
         }
         throw UnauthorisedException("The user should logged in to create blogs")

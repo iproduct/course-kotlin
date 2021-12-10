@@ -1,6 +1,7 @@
 package course.kotlin.spring.config
 
 import course.kotlin.spring.dao.UsersRepository
+import course.kotlin.spring.domain.UsersService
 import course.kotlin.spring.model.Role
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -21,17 +22,17 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 authorize("/**", permitAll)
             }
         }
-    }
 //        http.authorizeRequests {
-//            it.antMatchers("/").hasRole(Role.ADMIN.toString())
+//            it.antMatchers("/").hasAnyRole(Role.READER.toString(), Role.AUTHOR.toString(), Role.ADMIN.toString())
 //                .and().formLogin()
 //        }
+    }
 
 
-//    @Bean
-//    fun userDetailsService(usersRepository: UsersRepository): UserDetailsService {
-//        return UserDetailsService {
-//            usersRepository.findByUsername(it)?: throw UsernameNotFoundException("Invalid username or password.")
-//        }
-//    }
+    @Bean
+    fun userDetailsService(usersRepository: UsersService): UserDetailsService {
+        return UserDetailsService {
+            usersRepository.findByUsername(it)?: throw UsernameNotFoundException("Invalid username or password.")
+        }
+    }
     }

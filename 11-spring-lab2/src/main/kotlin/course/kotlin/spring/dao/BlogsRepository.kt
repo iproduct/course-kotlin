@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface BlogsRepository : JpaRepository<Blog, Long> {
     fun findBySlug(slug: String): Blog?
+    fun findAllByOrderByCreatedDesc(): List<Blog>
 }

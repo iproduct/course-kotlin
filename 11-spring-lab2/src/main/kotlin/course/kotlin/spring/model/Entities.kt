@@ -1,6 +1,9 @@
 package course.kotlin.spring.model
 
 import course.kotlin.spring.extensions.toSlug
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDateTime
 import javax.persistence.*
 import javax.validation.constraints.NotNull
@@ -26,6 +29,7 @@ class User(
     @NotNull @Size(min = 2, max = 40) var username: String,
     @NotNull @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$")
     var password: String,
+
     var role: Role = Role.READER,
     var pictureUrl: String? = null,
     var active: Boolean = true,
@@ -33,7 +37,34 @@ class User(
     var created: LocalDateTime = LocalDateTime.now(),
     var modified: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue var id: Long? = null,
-) {
+) : UserDetails {
     val name: String
         get() = "$firstName $lastName"
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
+        mutableListOf(SimpleGrantedAuthority("ROLE_" + role.toString()))
+
+    override fun getPassword(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUsername(): String {
+        TODO("Not yet implemented")
+    }
+
+    override fun isAccountNonExpired(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun isAccountNonLocked(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun isCredentialsNonExpired(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun isEnabled(): Boolean {
+        TODO("Not yet implemented")
+    }
 }
