@@ -26,9 +26,9 @@ class Blog(
 class User(
     @NotNull @Size(min = 2, max = 40) var firstName: String,
     @NotNull @Size(min = 2, max = 40) var lastName: String,
-    @NotNull @Size(min = 2, max = 40) var username: String,
+    @NotNull @Size(min = 2, max = 40) internal var username: String,
     @NotNull @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{6,}$")
-    var password: String,
+    internal var password: String,
 
     var role: Role = Role.READER,
     var pictureUrl: String? = null,
@@ -44,27 +44,15 @@ class User(
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         mutableListOf(SimpleGrantedAuthority("ROLE_" + role.toString()))
 
-    override fun getPassword(): String {
-        TODO("Not yet implemented")
-    }
+    override fun getPassword(): String = password
 
-    override fun getUsername(): String {
-        TODO("Not yet implemented")
-    }
+    override fun getUsername(): String = username
 
-    override fun isAccountNonExpired(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isAccountNonExpired(): Boolean = active
 
-    override fun isAccountNonLocked(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isAccountNonLocked(): Boolean = active
 
-    override fun isCredentialsNonExpired(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isCredentialsNonExpired(): Boolean = active
 
-    override fun isEnabled(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun isEnabled(): Boolean = active
 }
