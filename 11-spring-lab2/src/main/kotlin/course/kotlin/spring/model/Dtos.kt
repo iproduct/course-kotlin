@@ -2,6 +2,7 @@ package course.kotlin.spring.model
 
 import course.kotlin.spring.extensions.format
 import course.kotlin.spring.extensions.toSlug
+import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
 import javax.persistence.ManyToOne
@@ -12,13 +13,11 @@ import kotlin.reflect.full.memberProperties
 
 //Blog Dtos
 class BlogCreateView(
-    val id: Long? = null,
     @NotNull @Size(min = 2, max = 60) val title: String,
     @NotNull @Size(min = 10, max = 2048) val content: String,
     val slug: String = title.toSlug(),
     val pictureUrl: String? = null,
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val created: LocalDateTime = LocalDateTime.now(),
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now()
+    val id: Long? = null,
 )
 
 fun BlogCreateView.toBlogReflection() = with(::Blog) {
@@ -52,10 +51,8 @@ fun Blog.toBlogDetailsView() = with(::BlogDetailsView) {
     })
 }
 
-
 // User Dtos
 class UserCreateView(
-    val id: Long? = null,
     @NotNull @Size(min = 2, max = 40) val firstName: String,
     @NotNull @Size(min = 2, max = 40) val lastName: String,
     @NotNull @Size(min = 2, max = 30) val username: String,
@@ -65,7 +62,8 @@ class UserCreateView(
     val active: Boolean = true,
     val pictureUrl: String? = null,
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val created: LocalDateTime = LocalDateTime.now(),
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now()
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now(),
+    val id: Long? = null,
 )
 
 class UserDetailsView(
