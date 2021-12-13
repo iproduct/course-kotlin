@@ -1,7 +1,7 @@
-package course.kotlin.spring.domain.impl
+package course.kotlin.restmvc.domain.impl
 
-import course.kotlin.spring.dao.BlogsRepository
-import course.kotlin.spring.dao.UsersRepository
+import course.kotlin.restmvc.dao.BlogsRepository
+import course.kotlin.restmvc.dao.UsersRepository
 import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.exception.InvalidEntityDataException
 import course.kotlin.spring.exception.UnauthorisedException

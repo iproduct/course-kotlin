@@ -1,7 +1,5 @@
-package course.kotlin.spring.init
+package course.kotlin.restmvc.init
 
-import course.kotlin.spring.dao.BlogsRepository
-import course.kotlin.spring.dao.UsersRepository
 import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.domain.UsersService
 import course.kotlin.spring.extensions.log

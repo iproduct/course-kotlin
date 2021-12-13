@@ -1,18 +1,13 @@
-package course.kotlin.spring.domain.impl
+package course.kotlin.restmvc.domain.impl
 
-import course.kotlin.spring.dao.UsersRepository
+import course.kotlin.restmvc.dao.UsersRepository
 import course.kotlin.spring.domain.UsersService
 import course.kotlin.spring.exception.EntityNotFoundException
 import course.kotlin.spring.exception.InvalidEntityDataException
-import course.kotlin.spring.exception.UnauthorisedException
-import course.kotlin.spring.model.Role
 import course.kotlin.spring.model.User
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
-import org.springframework.security.authentication.AnonymousAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
-import javax.annotation.security.RolesAllowed
 
 @Service
 class UsersServiceImpl(
