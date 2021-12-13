@@ -8,10 +8,12 @@ import course.kotlin.spring.extensions.log
 import course.kotlin.spring.model.Role
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
+import org.springframework.context.annotation.Profile
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.stereotype.Component
 
 @Component
+@Profile("!test")
 class DataInitializer(
     private val blogsService: BlogsService,
     private val usersService: UsersService
