@@ -2,20 +2,19 @@ package course.kotlin.spring.web
 
 import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.domain.impl.DEFAULT_AUTHOR_USERNAME
-import course.kotlin.spring.model.Blog
-import course.kotlin.spring.model.BlogCreateView
-import course.kotlin.spring.model.User
-import course.kotlin.spring.model.toBlogDetailsView
+import course.kotlin.spring.extensions.log
+import course.kotlin.spring.model.*
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.validation.BindingResult
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.security.Principal
 import javax.persistence.EntityNotFoundException
+import javax.validation.Valid
 
 @Controller
 @RequestMapping("/blogs")
@@ -49,5 +48,26 @@ class BlogsController(
         model["loggedUserName"] = principal?.name
         model["path"]= ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUri().path
         return "blog-form"
+    }
+
+    @PostMapping("/blog-form")
+    fun addEditBlog(@Valid @ModelAttribute blog: BlogCreateView,
+                    bindingResult: BindingResult,
+                    principal: Principal?,
+                    redirectAttributes: RedirectAttributes
+    ): String {
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("blog", blog)
+            redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "blog", bindingResult)
+            return "redirect:blog-form"
+        }
+        if(blog.id != null) {    // edit existing blog
+            log().info("Updating blog: '${blog.title}'")
+            blogsService.update(blog.toBlog())
+        } else {  // create new blog
+            log().info("Creating new blog: '${blog.title}'")
+            blogsService.create(blog.toBlog())
+        }
+        return "redirect:/blogs"
     }
 }

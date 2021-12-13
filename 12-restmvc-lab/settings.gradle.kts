@@ -1,1 +1,1 @@
-rootProject.name = "_12-restmvc-lab"
+rootProject.name = "12-restmvc-lab"

@@ -14,7 +14,7 @@ import javax.validation.constraints.Size
 class Blog(
     @NotNull @Size(min = 2, max = 60) var title: String,
     @NotNull @Size(min = 10, max = 2048) var content: String,
-    @ManyToOne var author: User,
+    @ManyToOne var author: User? = null,
     var pictureUrl: String? = null,
     var slug: String = title.toSlug(),
     var created: LocalDateTime = LocalDateTime.now(),

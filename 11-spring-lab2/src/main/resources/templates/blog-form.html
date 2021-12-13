@@ -5,7 +5,7 @@
     <div th:replace="fragments/menu :: menu(${path}, ${loggedUserName})" />
     <div class="container">
         <h3 th:text="${title}">Add New Blog</h3>
-        <form th:object="${blog}" method="post"
+        <form th:object="${blog}" th:method="post" th:action="@{${path}}"
               class="form-horizontal col-md-9 col-lg-6" enctype="multipart/form-data">
             <div th:if="${blog.id} != null" class="form-group row">
                 <label path="id" class="col-sm-2 col-form-label">ID</label>

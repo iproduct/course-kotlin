@@ -63,8 +63,8 @@ logging:
           context:
             support: INFO
 blog:
-  title: Kotlin Blogs v2
+  title: Kotlin Blogs v5
   upload:
-    dir: uploads
+    dir: file:uploads
 
 

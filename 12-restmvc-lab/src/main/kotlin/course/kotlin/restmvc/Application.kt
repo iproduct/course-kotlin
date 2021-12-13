@@ -1,4 +1,4 @@
-package com.example.restmvc
+package course.kotlin.restmvc
 
 import course.kotlin.spring.properties.BlogProperties
 import org.springframework.boot.autoconfigure.SpringBootApplication

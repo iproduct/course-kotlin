@@ -5,19 +5,27 @@ import course.kotlin.spring.extensions.toSlug
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
 import javax.persistence.ManyToOne
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Pattern
-import javax.validation.constraints.Size
+import javax.validation.constraints.*
 import kotlin.reflect.full.memberProperties
 
 //Blog Dtos
 class BlogCreateView(
-    @NotNull @Size(min = 2, max = 60) val title: String,
-    @NotNull @Size(min = 10, max = 2048) val content: String,
+    @field:NotBlank @field:Size(min = 2, max = 60, message = "{validation.title.size}") val title: String,
+    @field:NotBlank @field:Size(min = 10, max = 2048, message = "{validation.content.size}") val content: String,
     val slug: String = title.toSlug(),
     val pictureUrl: String? = null,
     val id: Long? = null,
+)
+
+fun BlogCreateView.toBlog() = Blog(
+    title = title,
+    content = content,
+    pictureUrl = pictureUrl,
+    slug = slug,
+    id = id
 )
 
 fun BlogCreateView.toBlogReflection() = with(::Blog) {

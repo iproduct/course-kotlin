@@ -1,5 +1,6 @@
 package course.kotlin.spring.config
 
+import course.kotlin.spring.properties.BlogProperties
 import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,10 +15,10 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver
 import java.util.*
 
 @Configuration
-class WebConfig: WebMvcConfigurer{
+class WebConfig(private val blogProps: BlogProperties): WebMvcConfigurer{
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
         registry.addResourceHandler("/uploads/**")
-            .addResourceLocations("file:uploads/")
+            .addResourceLocations(blogProps.upload.dir)
     }
 
     override fun addViewControllers(registry: ViewControllerRegistry) {

@@ -21,6 +21,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
             authorizeRequests {
                 authorize("/login", permitAll)
                 authorize("/blogs", hasAnyRole(Role.READER.toString(), Role.AUTHOR.toString(), Role.ADMIN.toString()))
+                authorize("/blogs/blog-form", hasAnyRole(Role.AUTHOR.toString(), Role.ADMIN.toString()))
             }
             formLogin { }
         }

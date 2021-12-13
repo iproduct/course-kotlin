@@ -33,7 +33,7 @@ dependencies {
     implementation ("org.webjars:jquery:3.3.1-2")
     implementation ("org.webjars:bootstrap:4.3.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
     runtimeOnly("mysql:mysql-connector-java")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

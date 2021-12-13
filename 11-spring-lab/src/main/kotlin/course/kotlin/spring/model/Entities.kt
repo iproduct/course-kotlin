@@ -27,23 +27,27 @@ class Blog(
     var pictureUrl: String? = null,
     @Id @GeneratedValue var id: Long? = null,
 ) {
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var created: LocalDateTime = LocalDateTime.now()
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var modified: LocalDateTime = LocalDateTime.now()
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    var created: LocalDateTime = LocalDateTime.now()
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    var modified: LocalDateTime = LocalDateTime.now()
 }
 
 @Entity
-class User (
+class User(
     @field:NotEmpty @field:Size(min = 2, max = 30, message = "{user.name.size}") var firstName: String,
     @field:NotEmpty @field:Size(min = 2, max = 30, message = "{user.name.size}") var lastName: String,
     internal @field:NotEmpty @field:Size(min = 2, max = 30, message = "{user.name.size}") var username: String,
-    internal @field:NotEmpty @field:Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",
-        message = "{password.message}")
+    internal @field:NotEmpty @field:Pattern(
+        regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",
+        message = "{password.message}"
+    )
     var password: String,
-    @NotNull var role: Role  = Role.READER,
+    @field:NotNull var role: Role = Role.READER,
     var active: Boolean = true,
     var pictureUrl: String? = null,
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var created: LocalDateTime = LocalDateTime.now(),
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var modified: LocalDateTime = LocalDateTime.now(),
+    var created: LocalDateTime = LocalDateTime.now(),
+    var modified: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue var id: Long? = null
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
