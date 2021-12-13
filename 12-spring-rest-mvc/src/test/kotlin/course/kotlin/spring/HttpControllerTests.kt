@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = [Application::class])
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [Application::class])
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [Application::class])
 //@EnableAutoConfiguration(exclude=[SecurityAutoConfiguration::class])
 //@WebMvcTest
@@ -32,14 +32,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class HttpControllersTests(@Autowired val mockMvc: MockMvc,
-                           @Autowired val usersRepo: UsersRepository,
-                           @Autowired val blogsRepo: BlogsRepository) {
+//                           @Autowired val usersRepo: UsersRepository,
+//                           @Autowired val blogsRepo: BlogsRepository
+                           ) {
 
-    @SpyK
-    private var usersRepository: UsersRepository = usersRepo
+    @MockkBean
+    private lateinit var usersRepository: UsersRepository
 
-    @SpyK
-    private var blogsRepository: BlogsRepository = blogsRepo
+    @MockkBean
+    private lateinit var blogsRepository: BlogsRepository
 
     @BeforeEach
     fun setUp() = MockKAnnotations.init(this)
@@ -50,7 +51,7 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc,
         val juergen = User("springjuergen", "Juergen", "Hoeller", "jurgen123&")
         val spring5Blog = Blog("Spring Framework 5.0 goes GA", "Dear Spring community ...", juergen)
         val spring43Blog = Blog("Spring Framework 4.3 goes GA", "Dear Spring community ...", juergen)
-        every { blogsRepository.findAllByOrderByCreatedDesc() } returns listOf(spring5Blog, spring43Blog)
+        every { blogsRepository.findAll() } returns listOf(spring5Blog, spring43Blog)
         mockMvc.perform(get("/api/blogs/").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))

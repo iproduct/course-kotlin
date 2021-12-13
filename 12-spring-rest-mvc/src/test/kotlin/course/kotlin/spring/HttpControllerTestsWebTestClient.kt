@@ -6,6 +6,8 @@ import course.kotlin.spring.dao.UsersRepository
 import course.kotlin.spring.extensions.log
 import course.kotlin.spring.model.Blog
 import course.kotlin.spring.model.User
+import course.kotlin.spring.web.BlogsRestController
+import course.kotlin.spring.web.UsersRestController
 import io.mockk.InternalPlatformDsl.toArray
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -18,28 +20,26 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
+import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockUser
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.returnResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = [Application::class])
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [Application::class])
-//@EnableAutoConfiguration(exclude=[SecurityAutoConfiguration::class])
-//@WebMvcTest
-//@ExtendWith(SpringExtension::class)
+@WebFluxTest(controllers = [BlogsRestController::class, UsersRestController::class])
 @AutoConfigureWebTestClient
 @ActiveProfiles("test")
 class HttpControllersTestsWebTestClient(@Autowired val webClient: WebTestClient) {
 
-    @SpyK
+    @MockkBean
     private lateinit var usersRepository: UsersRepository
 
-    @SpyK
+    @MockkBean
     private lateinit var blogsRepository: BlogsRepository
 
     @BeforeEach
@@ -54,11 +54,11 @@ class HttpControllersTestsWebTestClient(@Autowired val webClient: WebTestClient)
         val spring43Blog = Blog("Spring Framework 4.3 goes GA", "Dear Spring community ...", juergen)
         every { blogsRepository.findAll() } returns listOf(spring5Blog, spring43Blog)
 
-        var exchangeMutator: Any
-        val response = webClient //        		.mutateWith(mockUser("admin").password("admin").roles("ADMIN"))
+//        var exchangeMutator: Any
+        val response = webClient 	//	.mutateWith(mockUser("admin").password("admin").roles("ADMIN"))
 //            .mutate().defaultCookie(org.iproduct.spring.restmvc.RestMvcBootApplicationTests.AUTH_TOKEN, authToken)
 //            .build()
-            .get().uri("/api/articles").accept(MediaType.APPLICATION_JSON)
+            .get().uri("/api/blogs").accept(MediaType.APPLICATION_JSON)
             .exchange()
 
 //        log.info(">>>>> Result: {}", response.returnResult(String.class));
@@ -70,19 +70,21 @@ class HttpControllersTestsWebTestClient(@Autowired val webClient: WebTestClient)
             .jsonPath("\$.[1].author.username").isEqualTo(juergen.username)
             .jsonPath("\$.[1].slug").isEqualTo(spring43Blog.slug)
             .jsonPath("\$").isArray
-            .jsonPath("\$.length").isEqualTo(2)
+            .jsonPath("\$").value<List<Blog>>{log().info(">>> {}", it)}
+            .jsonPath("\$.length()").value<Int>{log().info(">>>Length: {}", it)}
+            .jsonPath("\$.length()").isEqualTo(2)
 
 
-        response.expectBody()
-            .jsonPath("$").isArray()
-            .jsonPath("$").value(
-                containsInAnyOrder(spring5Blog, spring43Blog)
-            )
-            .jsonPath("$.length()").value(greaterThanOrEqualTo(2))
-
-        response.returnResult<List<Blog>>().responseBody.subscribe {
-            log().info(">>> {}", it)
-        }
+//        response.expectBody()
+//            .jsonPath("$").isArray()
+//            .jsonPath("$").value(
+//                containsInAnyOrder(spring5Blog, spring43Blog)
+//            )
+//            .jsonPath("$.length()").value(greaterThanOrEqualTo(2))
+//
+//        response.returnResult<List<Blog>>().responseBody.subscribe {
+//            log().info(">>> {}", it)
+//        }
     }
 
 //    @Test

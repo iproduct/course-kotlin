@@ -19,7 +19,7 @@ class BlogsRestController(
 
     @GetMapping
     @RequestMapping
-    fun getBlogs() = blogsRepository.findAllByOrderByCreatedDesc()
+    fun getBlogs() = blogsRepository.findAll()
 
     @GetMapping
     @RequestMapping("/{id}")
