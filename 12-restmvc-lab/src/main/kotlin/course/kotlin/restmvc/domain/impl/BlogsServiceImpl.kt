@@ -59,8 +59,9 @@ class BlogsServiceImpl(
                 throw course.kotlin.spring.exception.EntityNotFoundException("Blog with ID=${blog.id} not found.")
             }
         } ?: throw InvalidEntityDataException("Undefined blog ID.")
-        if (blog.author != old.author)
+        if (blog.author != null && blog.author != old.author)
             throw InvalidEntityDataException("The blog author could not be changed.")
+        blog.author = old.author
         blog.modified = LocalDateTime.now()
         blog.created = old.created
         return blogsRepository.save(blog)

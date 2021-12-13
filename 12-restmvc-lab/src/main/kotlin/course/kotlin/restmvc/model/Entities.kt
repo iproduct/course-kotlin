@@ -20,7 +20,7 @@ import javax.validation.constraints.Size
 class Blog(
     @field:NotEmpty @field:Size(min = 2, max = 60, message = "{blog.title.size}") var title: String,
     @field:NotEmpty @field:Size(min = 10, max = 2048, message = "{blog.content.size}") var content: String,
-    @ManyToOne var author: User,
+    @ManyToOne var author: User? = null,
     var slug: String = title.toSlug(),
     var pictureUrl: String? = null,
     @Id @GeneratedValue var id: Long? = null,

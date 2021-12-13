@@ -33,7 +33,7 @@ class BlogDetailsView(
     val id: Long,
     val title: String,
     val content: String,
-    val author: UserDetailsView,
+    val author: UserDetailsView?,
     val slug: String = title.toSlug(),
     val pictureUrl: String? = null,
     val created: String,
@@ -46,7 +46,7 @@ fun Blog.toBlogDetailsView() = with(::BlogDetailsView) {
         parameter to when (parameter.name) {
             BlogDetailsView::created.name -> created.format()
             BlogDetailsView::modified.name -> created.format()
-            BlogDetailsView::author.name -> author.toUserDetailsView()
+            BlogDetailsView::author.name -> author?.toUserDetailsView()
             else -> propertiesByName[parameter.name]?.get(this@toBlogDetailsView)
         }
     })
