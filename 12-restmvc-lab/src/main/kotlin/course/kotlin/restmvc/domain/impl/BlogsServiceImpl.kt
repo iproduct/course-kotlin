@@ -2,11 +2,11 @@ package course.kotlin.restmvc.domain.impl
 
 import course.kotlin.restmvc.dao.BlogsRepository
 import course.kotlin.restmvc.dao.UsersRepository
+import course.kotlin.restmvc.model.Blog
+import course.kotlin.restmvc.model.User
 import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.exception.InvalidEntityDataException
 import course.kotlin.spring.exception.UnauthorisedException
-import course.kotlin.spring.model.Blog
-import course.kotlin.spring.model.User
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder

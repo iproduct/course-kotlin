@@ -1,8 +1,7 @@
-package course.kotlin.spring.model
+package course.kotlin.restmvc.model
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import course.kotlin.spring.extensions.toSlug
-import org.springframework.data.annotation.AccessType
+import course.kotlin.spring.model.Role
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -12,7 +11,6 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToOne
-import javax.print.DocFlavor
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
@@ -22,7 +20,7 @@ import javax.validation.constraints.Size
 class Blog(
     @field:NotEmpty @field:Size(min = 2, max = 60, message = "{blog.title.size}") var title: String,
     @field:NotEmpty @field:Size(min = 10, max = 2048, message = "{blog.content.size}") var content: String,
-    @ManyToOne var author: User? = null,
+    @ManyToOne var author: User,
     var slug: String = title.toSlug(),
     var pictureUrl: String? = null,
     @Id @GeneratedValue var id: Long? = null,

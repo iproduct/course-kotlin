@@ -1,12 +1,12 @@
 package course.kotlin.spring.model
 
+import course.kotlin.restmvc.model.Blog
+import course.kotlin.restmvc.model.User
 import course.kotlin.spring.extensions.format
 import course.kotlin.spring.extensions.toSlug
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
-import javax.persistence.ManyToOne
 import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 import kotlin.reflect.full.memberProperties
@@ -33,7 +33,7 @@ class BlogDetailsView(
     val id: Long,
     val title: String,
     val content: String,
-    val author: User,
+    val author: UserDetailsView,
     val slug: String = title.toSlug(),
     val pictureUrl: String? = null,
     val created: String,
@@ -46,6 +46,7 @@ fun Blog.toBlogDetailsView() = with(::BlogDetailsView) {
         parameter to when (parameter.name) {
             BlogDetailsView::created.name -> created.format()
             BlogDetailsView::modified.name -> created.format()
+            BlogDetailsView::author.name -> author.toUserDetailsView()
             else -> propertiesByName[parameter.name]?.get(this@toBlogDetailsView)
         }
     })
@@ -91,7 +92,7 @@ fun UserCreateView.toUser() = User(
     pictureUrl = pictureUrl
 )
 
-fun User.toUserDetailsView() = with(::UserCreateView) {
+fun User.toUserDetailsView() = with(::UserDetailsView) {
     val propertiesByName = User::class.memberProperties.associateBy { it.name }
     callBy(parameters.associate { parameter ->
         parameter to when (parameter.name) {

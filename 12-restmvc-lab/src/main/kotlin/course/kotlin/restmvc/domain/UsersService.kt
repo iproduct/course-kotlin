@@ -1,6 +1,6 @@
 package course.kotlin.spring.domain
 
-import course.kotlin.spring.model.User
+import course.kotlin.restmvc.model.User
 import org.springframework.stereotype.Service
 
 @Service

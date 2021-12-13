@@ -1,6 +1,7 @@
 package course.kotlin.restmvc.web
 
 import course.kotlin.restmvc.dao.BlogsRepository
+import course.kotlin.spring.model.toBlogDetailsView
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,12 +21,14 @@ class BlogsRestController(
 
     @GetMapping
     @RequestMapping
-    fun getBlogs() = blogsRepository.findAllByOrderByCreatedDesc()
+    fun getBlogs() = blogsRepository.findAllByOrderByCreatedDesc().map{
+        it.toBlogDetailsView()
+    }
 
     @GetMapping
     @RequestMapping("/{id}")
     fun getBlogById(@PathVariable id: Long) =
         blogsRepository.findById(id).orElseThrow {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Blog with ID=$id not found.")
-        }
+        }.toBlogDetailsView()
 }

@@ -1,11 +1,11 @@
 package course.kotlin.restmvc.init
 
+import course.kotlin.restmvc.model.Blog
+import course.kotlin.restmvc.model.User
 import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.domain.UsersService
 import course.kotlin.spring.extensions.log
-import course.kotlin.spring.model.Blog
 import course.kotlin.spring.model.Role
-import course.kotlin.spring.model.User
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
@@ -27,14 +27,14 @@ class DataInitializer(
             log().info("Created user: ${created.username}")
         }
         if (blogsService.count() == 0L) {
-            val defaultAuthor = blogsService.findAll().first()
+            val defaultAuthor = usersService.findAll().first()
             val blogs = listOf(
-                Blog("New in Kotlin", "Multicatch is arriving soon ..."),
-                Blog("Coroutines in Kotlin","Coroutines are non-blocking and high performance ..."),
-                Blog("Kotlin Flow", "Flow allows non-blocking stream processing ..."),
+                Blog("New in Kotlin", "Multicatch is arriving soon ...", defaultAuthor),
+                Blog("Coroutines in Kotlin","Coroutines are non-blocking and high performance ...", defaultAuthor),
+                Blog("Kotlin Flow", "Flow allows non-blocking stream processing ...", defaultAuthor),
             )
             val createdBlogs = blogs.map { blogsService.create(it) }
-            log().info("Created blogs: ${createdBlogs}")
+            log().info("Created blogs: $createdBlogs")
         }
     }
 }
