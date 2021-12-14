@@ -38,9 +38,9 @@ class BlogsServiceImpl(
     override fun create(blog: Blog): Blog {
         val authentication = SecurityContextHolder.getContext().authentication;
         var user: User? = null
-        if (authentication == null) {
+        if (authentication == null || authentication is AnonymousAuthenticationToken) {
             user = usersRepository.findByUsername(DEFAULT_AUTHOR_USERNAME)
-        } else if (!(authentication is AnonymousAuthenticationToken)) {
+        } else {
             user = usersRepository.findByUsername(authentication.getName())
         }
         if (user != null) {
