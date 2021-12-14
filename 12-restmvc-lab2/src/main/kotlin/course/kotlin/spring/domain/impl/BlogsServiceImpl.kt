@@ -24,7 +24,7 @@ class BlogsServiceImpl(
 //    @Autowired
 //    lateinit var usersRepository: UsersRepository
 
-    override fun findAll(): List<Blog> = blogsRepository.findAllByOrderByCreatedDesc()
+    override fun findAll(): List<Blog> = blogsRepository.findAll()
 
     override fun findById(id: Long): Blog =
         blogsRepository.findById(id).orElseThrow {

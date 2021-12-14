@@ -12,7 +12,7 @@ import javax.validation.constraints.*
 import kotlin.reflect.full.memberProperties
 
 //Blog Dtos
-class BlogCreateView(
+data class BlogCreateView(
     @field:NotBlank @field:Size(min = 2, max = 60, message = "{validation.title.size}") val title: String,
     @field:NotBlank @field:Size(min = 10, max = 2048, message = "{validation.content.size}") val content: String,
     val slug: String = title.toSlug(),
@@ -37,7 +37,7 @@ fun BlogCreateView.toBlogReflection() = with(::Blog) {
     })
 }
 
-class BlogDetailsView(
+data class BlogDetailsView(
     val id: Long,
     @NotNull @Size(min = 2, max = 60) val title: String,
     @NotNull @Size(min = 10, max = 2048) val content: String,
@@ -61,7 +61,7 @@ fun Blog.toBlogDetailsView() = with(::BlogDetailsView) {
 }
 
 // User Dtos
-class UserCreateView(
+data class UserCreateView(
     @NotNull @Size(min = 2, max = 40) val firstName: String,
     @NotNull @Size(min = 2, max = 40) val lastName: String,
     @NotNull @Size(min = 2, max = 30) val username: String,
@@ -75,7 +75,7 @@ class UserCreateView(
     val id: Long? = null,
 )
 
-class UserDetailsView(
+data class UserDetailsView(
     val id: Long? = null,
     val username: String,
     val role: Role = Role.READER,

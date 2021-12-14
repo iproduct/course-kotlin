@@ -8,6 +8,7 @@ import course.kotlin.spring.model.User
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.SpyK
+import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -51,7 +52,7 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc,
         val juergen = User("springjuergen", "Juergen", "Hoeller", "jurgen123&")
         val spring5Blog = Blog("Spring Framework 5.0 goes GA", "Dear Spring community ...", juergen)
         val spring43Blog = Blog("Spring Framework 4.3 goes GA", "Dear Spring community ...", juergen)
-        every { blogsRepository.findAll() } returns listOf(spring5Blog, spring43Blog)
+        every { blogsRepository.findAll() } returns listOf(spring43Blog, spring5Blog)
         mockMvc.perform(get("/api/blogs/").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -59,6 +60,8 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc,
             .andExpect(jsonPath("\$.[0].slug").value(spring5Blog.slug))
             .andExpect(jsonPath("\$.[1].author.username").value(juergen.username))
             .andExpect(jsonPath("\$.[1].slug").value(spring43Blog.slug))
+
+        verify { blogsRepository.findAll() }
     }
 
     @Test

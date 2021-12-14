@@ -8,9 +8,11 @@ import course.kotlin.spring.model.Role
 import course.kotlin.spring.model.User
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile("!test")
 class DataInitializer  (
     private val usersService: UsersService,
     private val blogsService: BlogsService,

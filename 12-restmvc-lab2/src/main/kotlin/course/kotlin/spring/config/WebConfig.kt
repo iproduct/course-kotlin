@@ -16,7 +16,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver
 import java.util.*
 
 @Configuration
-class WebConfig(private val blogProperties: BlogProperties): WebMvcConfigurer{
+class WebConfig: WebMvcConfigurer{
 
 
     @Bean("messageSource")

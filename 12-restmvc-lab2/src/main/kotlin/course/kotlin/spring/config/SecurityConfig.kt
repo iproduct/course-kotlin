@@ -21,13 +21,13 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
             csrf { disable() }
 //            securityMatcher("/")
             authorizeRequests {
-                authorize("/**", permitAll)
+//                authorize("/**", permitAll)
+                authorize(HttpMethod.GET,permitAll)
                 authorize(HttpMethod.POST,"/api/blogs", permitAll)
 //                authorize("/login", permitAll)
 //                authorize("/blogs", hasAnyRole(Role.READER.toString(), Role.AUTHOR.toString(), Role.ADMIN.toString()))
 //                authorize("/blogs/blog-form", hasAnyRole(Role.AUTHOR.toString(), Role.ADMIN.toString()))
             }
-            formLogin { }
         }
 //        http.authorizeRequests {
 //            it.antMatchers("/").hasAnyRole(Role.READER.toString(), Role.AUTHOR.toString(), Role.ADMIN.toString())
