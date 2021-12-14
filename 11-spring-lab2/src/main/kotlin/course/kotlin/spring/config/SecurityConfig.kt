@@ -35,7 +35,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Bean
     fun userDetailsService(usersRepository: UsersService): UserDetailsService {
         return UserDetailsService {
-            usersRepository.findByUsername(it)?: throw UsernameNotFoundException("Invalid username or password.")
+            usersRepository.findByUsername(it) ?: throw UsernameNotFoundException("Invalid username or password.")
         }
     }
-    }
+}

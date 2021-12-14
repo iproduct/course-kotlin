@@ -32,6 +32,8 @@ class UsersServiceImpl(
         usersRepository.findByUsername(username) ?: throw EntityNotFoundException("User with ID=$id not found.")
 
     override fun create(user: User): User {
+        user.created = LocalDateTime.now()
+        user.modified = user.created
         return usersRepository.save(user)
     }
 

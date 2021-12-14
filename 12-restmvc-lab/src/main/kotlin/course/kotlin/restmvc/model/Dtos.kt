@@ -12,7 +12,7 @@ import javax.validation.constraints.Size
 import kotlin.reflect.full.memberProperties
 
 //Blog Dtos
-class BlogCreateView(
+data class BlogCreateView(
     @field:NotEmpty @field:Size(min = 2, max = 60, message = "{blog.title.size}") val title: String,
     @field:NotEmpty @field:Size(min = 10, max = 2048, message = "{blog.content.size}") val content: String,
     val pictureUrl: String? = null,
@@ -29,7 +29,7 @@ fun BlogCreateView.toBlog() = with(::Blog) {
     })
 }
 
-class BlogDetailsView(
+data class BlogDetailsView(
     val id: Long,
     val title: String,
     val content: String,
@@ -54,7 +54,7 @@ fun Blog.toBlogDetailsView() = with(::BlogDetailsView) {
 
 
 // User Dtos
-class UserCreateView(
+data class UserCreateView(
     val id: Long? = null,
     @field:NotEmpty @field:Size(min = 2, max = 30, message = "{user.name.size}") val firstName: String,
     @field:NotEmpty @field:Size(min = 2, max = 30, message = "{user.name.size}") val lastName: String,
@@ -67,15 +67,15 @@ class UserCreateView(
     val pictureUrl: String? = null,
 )
 
-class UserDetailsView(
+data class UserDetailsView(
     val id: Long? = null,
     val name: String,
     val username: String,
     val role: Role = Role.READER,
     val active: Boolean = true,
     val pictureUrl: String? = null,
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val created: LocalDateTime = LocalDateTime.now(),
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) val modified: LocalDateTime = LocalDateTime.now(),
+    val created: LocalDateTime = LocalDateTime.now(),
+    val modified: LocalDateTime = LocalDateTime.now(),
 ) {
 //    val name: String
 //        get() = "$firstName $lastName"

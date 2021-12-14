@@ -1,15 +1,25 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    val kotlinVersion = "1.6.10"
     id("org.springframework.boot") version "2.6.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.6.0"
-    kotlin("plugin.spring") version "1.6.0"
-    kotlin("plugin.jpa") version "1.6.0"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
     id("idea")
     kotlin("plugin.allopen") version "1.4.32"
     kotlin("kapt") version "1.4.32"
 }
+
+println("Kotlin version used is ${org.jetbrains.kotlin.config.KotlinCompilerVersion.VERSION}")
+buildscript {
+    val kotlinVersion = "1.6.10"
+    dependencies {
+        classpath ("org.jetbrains.kotlin:kotlin-sam-with-receiver:$kotlinVersion")
+    }
+}
+apply(plugin = "kotlin-sam-with-receiver")
 
 group = "course.kotlin"
 version = "0.0.1-SNAPSHOT"

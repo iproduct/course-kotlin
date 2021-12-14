@@ -7,6 +7,7 @@ import course.kotlin.spring.model.BlogCreateView
 import course.kotlin.spring.model.BlogDetailsView
 import course.kotlin.spring.model.toBlog
 import course.kotlin.spring.model.toBlogDetailsView
+import org.springframework.context.annotation.PropertySource
 import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*

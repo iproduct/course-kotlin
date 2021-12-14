@@ -1,16 +1,18 @@
-package course.kotlin.spring
+package course.kotlin.restmvc.web
 
 import com.ninjasquad.springmockk.MockkBean
-import course.kotlin.spring.dao.BlogsRepository
-import course.kotlin.spring.dao.UsersRepository
+import course.kotlin.restmvc.Application
+import course.kotlin.restmvc.dao.BlogsRepository
+import course.kotlin.restmvc.dao.UsersRepository
+import course.kotlin.restmvc.model.Blog
+import course.kotlin.restmvc.model.User
 import course.kotlin.spring.extensions.log
-import course.kotlin.spring.extensions.toModel
-import course.kotlin.spring.model.Blog
 import course.kotlin.spring.model.BlogDetailsView
-import course.kotlin.spring.model.User
 import course.kotlin.spring.model.toBlogDetailsView
 import io.mockk.MockKAnnotations
 import io.mockk.every
+import org.assertj.core.api.Assertions.assertThat
+import org.hamcrest.Matchers.containsInAnyOrder
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -26,8 +28,8 @@ import java.time.LocalDateTime
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [Application::class])
-@AutoConfigureWebTestClient
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = [Application::class])
+@AutoConfigureWebTestClient
 //@WebFluxTest(controllers = [BlogsRestController::class, UsersRestController::class, Application::class])
 //@AutoConfigureWebTestClient
 @ActiveProfiles("test")
@@ -47,7 +49,7 @@ class HttpControllersTestsWebTestClient() {
     @Test
     @WithMockUser(roles = ["ADMIN"])
     @Throws(Exception::class)
-    fun givenBlogs_whenGetBlogs_thenStatus200andJsonArray() {
+    fun givenArticles_whenGetArticles_thenStatus200andJsonArray() {
         val now = LocalDateTime.now();
         val juergen = User("springjuergen", "Juergen", "Hoeller", "jurgen123&", id = 1)
         val spring5Blog = Blog("Spring Framework 5.0 goes GA", "Dear Spring community ...", juergen, id = 1)
@@ -72,23 +74,19 @@ class HttpControllersTestsWebTestClient() {
             .jsonPath("\$").value<List<BlogDetailsView>> { log().info(">>> {}", it) }
             .jsonPath("\$.length()").value<Int> { log().info(">>>Length: {}", it) }
             .jsonPath("\$.length()").isEqualTo(2)
-            .returnResult().responseBody.map{ b ->
-                log().info(">>> {}", b)
-                b.map {
-                    it.copy(created = "", modified = "")
-                }
-//                    .containsAll(
-//                    listOf(
-//                        spring5Blog.toBlogDetailsView().copy(created = "", modified = ""),
-//                        spring43Blog.toBlogDetailsView().copy(created = "", modified = "")
-//                    )
-//                )
+            .also {
+                assertThat(
+                    containsInAnyOrder(
+                        it,
+                        spring5Blog.toBlogDetailsView().copy(created = "111", modified = ""),
+                        spring43Blog.toBlogDetailsView().copy(created = "", modified = ""),
+                    )
+                )
             }
-
 //        response
-//            .returnResult<List<BlogDetailsView>>().responseBody.subscribe {
-//                log().info(">>>{}", it)
-//                it.map {
+//            .returnResult<List<BlogDetailsView>>().responseBody.subscribe { b ->
+//                log().info(">>>{}", b)
+//                b.map {
 //                    it.copy(created = "", modified = "")
 //                }.containsAll(
 //                    listOf(
