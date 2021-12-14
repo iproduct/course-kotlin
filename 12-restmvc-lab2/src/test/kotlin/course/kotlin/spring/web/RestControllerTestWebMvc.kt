@@ -57,4 +57,27 @@ class RestControllerTestWebMvc(@Autowired val mockMvc: MockMvc) {
         confirmVerified(blogsRepository)  // no other methods were called
     }
 
+//    @Test
+//    @WithMockUser(roles = ["ADMIN"])
+//    fun `List blogs`() {
+//        // setup
+//        val juergen = User("springjurgen", "Juergen", "Hoeller", "juergen1234&", id = 1)
+//        val spring5Blog = Blog("Spring Framework 5.0 goes GA", "Dear Spring community ...", juergen, id = 1)
+//        val spring43Blog = Blog("Spring Framework 4.3 goes GA", "Dear Spring community ...", juergen, id = 2)
+//        every { blogsRepository.findAll() } returns listOf(spring5Blog, spring43Blog)
+//
+//        //test
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/blogs").accept(MediaType.APPLICATION_JSON))
+//            .andExpect(MockMvcResultMatchers.status().isOk)
+//            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+//            .andExpect(MockMvcResultMatchers.jsonPath("\$.[0].author.username").value(juergen.username))
+//            .andExpect(MockMvcResultMatchers.jsonPath("\$.[0].slug").value(spring5Blog.slug))
+//            .andExpect(MockMvcResultMatchers.jsonPath("\$.[1].author.username").value(juergen.username))
+//            .andExpect(MockMvcResultMatchers.jsonPath("\$.[1].slug").value(spring43Blog.slug))
+//
+//        // verify repo method called
+//        verify { blogsRepository.findAll() }
+//        confirmVerified(blogsRepository)  // no other methods were called
+//    }
+
 }

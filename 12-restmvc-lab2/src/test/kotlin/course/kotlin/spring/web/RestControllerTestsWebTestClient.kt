@@ -17,24 +17,28 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.MediaType
+import org.springframework.security.test.context.TestSecurityContextHolder
 import org.springframework.security.test.context.support.WithMockUser
+import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockUser
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBodyList
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.client.MockMvcWebTestClient
 import java.time.LocalDateTime
 
-@ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [Application::class])
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = [Application::class])
-@AutoConfigureWebTestClient
-//@WebFluxTest(controllers = [BlogsRestController::class, UsersRestController::class])
 //@AutoConfigureWebTestClient
+//@WebFluxTest(controllers = [BlogsRestController::class, UsersRestController::class])
+@AutoConfigureMockMvc
 @ActiveProfiles("test")
-class HttpControllersTestsWebTestClient(@Autowired private val webClient: WebTestClient) {
+class HttpControllersTestsWebTestClient(@Autowired private val mockMvc: MockMvc) {
 
     @MockkBean
     private lateinit var usersRepository: UsersRepository
@@ -42,10 +46,18 @@ class HttpControllersTestsWebTestClient(@Autowired private val webClient: WebTes
     @MockkBean
     private lateinit var blogsRepository: BlogsRepository
 
+    lateinit var webClient: WebTestClient
+
+//    @BeforeEach
+//    fun setUp() = MockKAnnotations.init(this)
+
     @BeforeEach
-    fun setUp() = MockKAnnotations.init(this)
+    fun init() {
+        webClient = MockMvcWebTestClient.bindTo(mockMvc).build()
+    }
 
     @Test
+    @WithMockUser(roles = ["ADMIN"])
     fun givenArticles_whenGetArticles_thenStatus200andJsonArray() {
         // prepare
         val now = LocalDateTime.now();
@@ -55,7 +67,8 @@ class HttpControllersTestsWebTestClient(@Autowired private val webClient: WebTes
         every { blogsRepository.findAll() } returns listOf(spring5Blog, spring43Blog)
 
         // test
-        val response = webClient    //	.mutateWith(mockUser("admin").password("admin").roles("ADMIN"))
+        val response = webClient
+//            .mutateWith(mockUser("admin").password("admin").roles("ADMIN"))
 //            .mutate().defaultCookie(org.iproduct.spring.restmvc.RestMvcBootApplicationTests.AUTH_TOKEN, authToken)
 //            .build()
             .get().uri("/api/blogs").accept(MediaType.APPLICATION_JSON)
@@ -80,6 +93,7 @@ class HttpControllersTestsWebTestClient(@Autowired private val webClient: WebTes
     }
 
     @Test
+    @WithMockUser(roles = ["ADMIN"])
     fun givenArticles_whenGetArticles_thenStatus200andJsonArray2() {
         // prepare
         val now = LocalDateTime.now();
@@ -90,7 +104,8 @@ class HttpControllersTestsWebTestClient(@Autowired private val webClient: WebTes
 
         // test
         webClient
-            .get().uri("/api/blogs").accept(MediaType.APPLICATION_JSON)
+            .get()
+            .uri("/api/blogs").accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectBodyList<BlogDetailsView>()
             .hasSize(2)
