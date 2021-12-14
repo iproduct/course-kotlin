@@ -8,7 +8,6 @@ import org.springframework.context.annotation.PropertySource
 
 @SpringBootApplication
 @EnableConfigurationProperties(BlogProperties::class)
-@PropertySource("classpath:blog.properties")
 class Application
 
 fun main(args: Array<String>) {

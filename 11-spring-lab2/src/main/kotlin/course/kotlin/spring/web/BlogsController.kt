@@ -4,6 +4,8 @@ import course.kotlin.spring.domain.BlogsService
 import course.kotlin.spring.domain.impl.DEFAULT_AUTHOR_USERNAME
 import course.kotlin.spring.extensions.log
 import course.kotlin.spring.model.*
+import course.kotlin.spring.properties.BlogProperties
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
@@ -19,11 +21,16 @@ import javax.validation.Valid
 @Controller
 @RequestMapping("/blogs")
 class BlogsController(
-    private val blogsService: BlogsService
+    private val blogsService: BlogsService,
+    private val blogProperties: BlogProperties
 ) {
+//    @field:Value("#{blog.title}")
+//    private lateinit var title : String
+
+
     @GetMapping
     fun getAllBlogs(model: ModelMap): String {
-        model["title"] = "Kotlin Blogs"
+        model["title"] = blogProperties.title
         model["blogs"] = blogsService.findAll().map {
             it.toBlogDetailsView()
         }
@@ -37,7 +44,7 @@ class BlogsController(
         @RequestParam(value = "blogId", required = false) blogId: Long?,
         principal: Principal?
     ): String {
-        model["title"] = if (mode != null && mode == "edit" && blogId != null) "Edit Blog"
+        model["title"] =  if (mode != null && mode == "edit" && blogId != null) "Edit Blog"
         else "Add New Blog"
         if (!model.containsAttribute("blog")) {
             model["blog"] = if (mode != null && mode == "edit" && blogId != null)

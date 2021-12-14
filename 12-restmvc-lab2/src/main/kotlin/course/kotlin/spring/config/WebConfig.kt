@@ -18,14 +18,6 @@ import java.util.*
 @Configuration
 class WebConfig(private val blogProperties: BlogProperties): WebMvcConfigurer{
 
-    override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
-        registry.addResourceHandler("/uploads/**")
-            .addResourceLocations(blogProperties.upload.dir)
-    }
-
-    override fun addViewControllers(registry: ViewControllerRegistry) {
-        registry.addViewController("/").setViewName("redirect:blogs")
-    }
 
     @Bean("messageSource")
     fun messageSource(): MessageSource? {
@@ -36,16 +28,4 @@ class WebConfig(private val blogProperties: BlogProperties): WebMvcConfigurer{
         return messageSource
     }
 
-    @Bean
-    fun localeResolver(): LocaleResolver? {
-        val localeResolver = SessionLocaleResolver()
-        localeResolver.setDefaultLocale(Locale("bg", "BG"))
-        return localeResolver
-    }
-
-    override fun addInterceptors(registry: InterceptorRegistry) {
-        val localeChangeInterceptor = LocaleChangeInterceptor()
-        localeChangeInterceptor.paramName = "lang"
-        registry.addInterceptor(localeChangeInterceptor)
-    }
 }
