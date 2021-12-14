@@ -7,6 +7,7 @@ import course.kotlin.spring.dao.UsersRepository
 import course.kotlin.spring.model.Blog
 import course.kotlin.spring.model.Role
 import course.kotlin.spring.model.User
+import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.verify
 import org.junit.jupiter.api.Test
@@ -53,6 +54,7 @@ class RestControllerTestWebMvc(@Autowired val mockMvc: MockMvc) {
 
         // verify repo method called
         verify { blogsRepository.findAll() }
+        confirmVerified(blogsRepository)  // no other methods were called
     }
 
 }

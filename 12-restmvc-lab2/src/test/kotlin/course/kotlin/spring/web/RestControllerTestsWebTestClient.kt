@@ -10,9 +10,7 @@ import course.kotlin.spring.model.Blog
 import course.kotlin.spring.model.BlogDetailsView
 import course.kotlin.spring.model.User
 import course.kotlin.spring.model.toBlogDetailsView
-import io.mockk.MockKAnnotations
-import io.mockk.every
-import io.mockk.every
+import io.mockk.*
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -49,20 +47,20 @@ class HttpControllersTestsWebTestClient(@Autowired private val webClient: WebTes
 
     @Test
     fun givenArticles_whenGetArticles_thenStatus200andJsonArray() {
+        // prepare
         val now = LocalDateTime.now();
         val juergen = User("springjuergen", "Juergen", "Hoeller", "jurgen123&", id = 1)
         val spring5Blog = Blog("Spring Framework 5.0 goes GA", "Dear Spring community ...", juergen, id = 1)
         val spring43Blog = Blog("Spring Framework 4.3 goes GA", "Dear Spring community ...", juergen, id = 2)
         every { blogsRepository.findAll() } returns listOf(spring5Blog, spring43Blog)
 
-//        var exchangeMutator: Any
+        // test
         val response = webClient    //	.mutateWith(mockUser("admin").password("admin").roles("ADMIN"))
 //            .mutate().defaultCookie(org.iproduct.spring.restmvc.RestMvcBootApplicationTests.AUTH_TOKEN, authToken)
 //            .build()
             .get().uri("/api/blogs").accept(MediaType.APPLICATION_JSON)
             .exchange()
 
-//        val typeRef = typeReference<List<BlogDetailsView>>()
         response
             .expectStatus().isOk
             .expectHeader().contentType(MediaType.APPLICATION_JSON)
@@ -75,16 +73,22 @@ class HttpControllersTestsWebTestClient(@Autowired private val webClient: WebTes
             .jsonPath("\$").value<List<BlogDetailsView>> { log().info(">>> {}", it) }
             .jsonPath("\$.length()").value<Int> { log().info(">>>Length: {}", it) }
             .jsonPath("\$.length()").isEqualTo(2)
+
+        // verify repo method called
+        verify { blogsRepository.findAll() }
+        confirmVerified(blogsRepository) // no other methods were called
     }
 
     @Test
     fun givenArticles_whenGetArticles_thenStatus200andJsonArray2() {
+        // prepare
         val now = LocalDateTime.now();
         val juergen = User("springjuergen", "Juergen", "Hoeller", "jurgen123&", id = 1)
         val spring5Blog = Blog("Spring Framework 5.0 goes GA", "Dear Spring community ...", juergen, id = 1)
         val spring43Blog = Blog("Spring Framework 4.3 goes GA", "Dear Spring community ...", juergen, id = 2)
         every { blogsRepository.findAll() } returns listOf(spring5Blog, spring43Blog)
 
+        // test
         webClient
             .get().uri("/api/blogs").accept(MediaType.APPLICATION_JSON)
             .exchange()
@@ -92,5 +96,9 @@ class HttpControllersTestsWebTestClient(@Autowired private val webClient: WebTes
             .hasSize(2)
             .contains(spring5Blog.toBlogDetailsView())
             .contains(spring43Blog.toBlogDetailsView())
+
+        // verify repo method called
+        verify { blogsRepository.findAll() }
+        confirmVerified(blogsRepository) // no other methods were called
     }
 }
