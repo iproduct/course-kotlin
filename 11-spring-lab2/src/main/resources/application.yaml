@@ -56,4 +56,7 @@ logging:
         test:
           context:
             support: INFO
-
+blog:
+  title: MyBlogs with Kotlin
+  upload:
+    dir: file:uploads
