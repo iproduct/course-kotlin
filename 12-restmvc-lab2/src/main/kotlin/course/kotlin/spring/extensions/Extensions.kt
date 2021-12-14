@@ -2,6 +2,7 @@ package course.kotlin.spring.extensions
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.core.ParameterizedTypeReference
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
@@ -54,3 +55,4 @@ inline fun <reified T : Any, reified M : Any> T.toModel() =
         })
     }
 
+inline fun <reified T> typeReference() = object : ParameterizedTypeReference<T>() {}

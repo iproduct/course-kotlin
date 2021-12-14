@@ -22,7 +22,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 //            securityMatcher("/")
             authorizeRequests {
 //                authorize("/**", permitAll)
-                authorize(HttpMethod.GET,permitAll)
+                authorize(HttpMethod.GET,"/api/blogs", permitAll)
                 authorize(HttpMethod.POST,"/api/blogs", permitAll)
 //                authorize("/login", permitAll)
 //                authorize("/blogs", hasAnyRole(Role.READER.toString(), Role.AUTHOR.toString(), Role.ADMIN.toString()))
