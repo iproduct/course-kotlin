@@ -11,30 +11,26 @@ import course.kotlin.spring.model.BlogDetailsView
 import course.kotlin.spring.model.User
 import course.kotlin.spring.model.toBlogDetailsView
 import io.mockk.*
-import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.MediaType
-import org.springframework.security.test.context.TestSecurityContextHolder
 import org.springframework.security.test.context.support.WithMockUser
-import org.springframework.security.test.context.support.WithUserDetails
-import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockUser
 import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.event.annotation.BeforeTestClass
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.test.web.reactive.server.FluxExchangeResult
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBodyList
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.client.MockMvcWebTestClient
+import org.springframework.web.reactive.function.client.ClientRequest
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction
+import org.springframework.web.reactive.function.client.ExchangeFunction
 import java.time.LocalDateTime
+import java.util.function.Consumer
+
 
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [Application::class])
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = [Application::class])
@@ -81,6 +77,7 @@ class HttpControllersTestsWebTestClient(@Autowired private val mockMvc: MockMvc)
             .exchange()
 
         response
+            .expectAll({response -> log().info(response.returnResult(typeReference<FluxExchangeResult <String>>()).toString()) })
             .expectStatus().isOk
             .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody()
@@ -121,5 +118,23 @@ class HttpControllersTestsWebTestClient(@Autowired private val mockMvc: MockMvc)
         // verify repo method called
         verify { blogsRepository.findAll() }
         confirmVerified(blogsRepository) // no other methods were called
+    }
+
+    private fun logRequest(): ExchangeFilterFunction? {
+        return ExchangeFilterFunction { clientRequest: ClientRequest, next: ExchangeFunction ->
+            log().info("Request: {} {}", clientRequest.method(), clientRequest.url())
+            clientRequest.headers()
+                .forEach { name: String?, values: List<String?> ->
+                    values.forEach(
+                        Consumer { value: String? ->
+                            log().info(
+                                "{}={}",
+                                name,
+                                value
+                            )
+                        })
+                }
+            next.exchange(clientRequest)
+        }
     }
 }
