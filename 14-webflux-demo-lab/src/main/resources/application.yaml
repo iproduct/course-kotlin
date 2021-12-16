@@ -40,3 +40,7 @@ logging:
         test:
           context:
             support: INFO
+        http:
+          codec:
+            json:
+              Jackson2JsonDecoder: INFO
