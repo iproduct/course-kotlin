@@ -1,0 +1,5 @@
+junit:
+  jupiter:
+    testinstance:
+      lifecycle:
+        default: per_class
