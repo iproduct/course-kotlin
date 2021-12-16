@@ -7,3 +7,8 @@ spring:
   jpa:
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
 
+junit:
+  jupiter:
+    testinstance:
+      lifecycle:
+        default: per_class

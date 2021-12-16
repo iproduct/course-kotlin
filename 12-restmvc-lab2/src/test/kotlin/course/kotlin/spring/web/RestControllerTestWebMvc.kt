@@ -79,7 +79,7 @@ class RestControllerTestWebMvc(@Autowired val mockMvc: MockMvc) {
         mockMvc.get("/api/blogs") {
             accept = MediaType.APPLICATION_JSON
         }
-//            .andDo { print() }
+            .andDo { print() }
             .andExpect {
                 status { isOk() }
                 content { contentType(MediaType.APPLICATION_JSON) }

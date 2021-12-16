@@ -12,8 +12,10 @@ import course.kotlin.spring.model.User
 import course.kotlin.spring.model.toBlogDetailsView
 import io.mockk.*
 import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
@@ -23,8 +25,10 @@ import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.TestSecurityContextHolder
 import org.springframework.security.test.context.support.WithMockUser
+import org.springframework.security.test.context.support.WithUserDetails
 import org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.mockUser
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.event.annotation.BeforeTestClass
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.expectBodyList
@@ -38,6 +42,7 @@ import java.time.LocalDateTime
 //@WebFluxTest(controllers = [BlogsRestController::class, UsersRestController::class])
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HttpControllersTestsWebTestClient(@Autowired private val mockMvc: MockMvc) {
 
     @MockkBean
@@ -51,13 +56,14 @@ class HttpControllersTestsWebTestClient(@Autowired private val mockMvc: MockMvc)
 //    @BeforeEach
 //    fun setUp() = MockKAnnotations.init(this)
 
-    @BeforeEach
+    @BeforeAll
     fun init() {
         webClient = MockMvcWebTestClient.bindTo(mockMvc).build()
     }
 
     @Test
     @WithMockUser(roles = ["ADMIN"])
+//    @WithUserDetails()
     fun givenArticles_whenGetArticles_thenStatus200andJsonArray() {
         // prepare
         val now = LocalDateTime.now();
