@@ -1,5 +1,6 @@
 package course.kotlin.spring.web
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import course.kotlin.spring.Application
 import course.kotlin.spring.dao.BlogsRepository
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder.json
 import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.FluxExchangeResult
@@ -49,6 +51,9 @@ class HttpControllersTestsWebTestClient(@Autowired private val mockMvc: MockMvc)
 
     lateinit var webClient: WebTestClient
 
+    @Autowired
+    private lateinit var mapper: ObjectMapper
+
 //    @BeforeEach
 //    fun setUp() = MockKAnnotations.init(this)
 
@@ -77,7 +82,11 @@ class HttpControllersTestsWebTestClient(@Autowired private val mockMvc: MockMvc)
             .exchange()
 
         response
-            .expectAll({response -> log().info(response.returnResult(typeReference<FluxExchangeResult <String>>()).toString()) })
+            .expectAll({ response ->
+                log().info(
+                    response.returnResult(typeReference<FluxExchangeResult<String>>()).toString()
+                )
+            })
             .expectStatus().isOk
             .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody()
@@ -89,6 +98,7 @@ class HttpControllersTestsWebTestClient(@Autowired private val mockMvc: MockMvc)
             .jsonPath("\$").value<List<BlogDetailsView>> { log().info(">>> {}", it) }
             .jsonPath("\$.length()").value<Int> { log().info(">>>Length: {}", it) }
             .jsonPath("\$.length()").isEqualTo(2)
+            .json(mapper.writeValueAsString(listOf(spring5Blog.toBlogDetailsView(), spring43Blog.toBlogDetailsView())))
 
         // verify repo method called
         verify { blogsRepository.findAll() }
@@ -118,23 +128,5 @@ class HttpControllersTestsWebTestClient(@Autowired private val mockMvc: MockMvc)
         // verify repo method called
         verify { blogsRepository.findAll() }
         confirmVerified(blogsRepository) // no other methods were called
-    }
-
-    private fun logRequest(): ExchangeFilterFunction? {
-        return ExchangeFilterFunction { clientRequest: ClientRequest, next: ExchangeFunction ->
-            log().info("Request: {} {}", clientRequest.method(), clientRequest.url())
-            clientRequest.headers()
-                .forEach { name: String?, values: List<String?> ->
-                    values.forEach(
-                        Consumer { value: String? ->
-                            log().info(
-                                "{}={}",
-                                name,
-                                value
-                            )
-                        })
-                }
-            next.exchange(clientRequest)
-        }
     }
 }
