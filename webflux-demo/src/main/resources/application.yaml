@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+  mongodb:
+    host: localhost
+    port: 27017
+    database: kotlin_blogs
+  web:
+    resources:
+      static-locations: classpath:\static\
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, mappings, metrics, threaddump, heapdump, shutdown, beans, logfile, loggers
+  endpoint:
+    health:
+      show-details: always
+  info:
+    defaults:
+      enabled: true
+    java:
+      enabled: true
+    build:
+      enabled: true
+    env:
+      enabled: true
+info:
+  app:
+    encoding: "UTF-8"
+    name: Webflux Kotlin Demo
+    description: Webflux Kotlin demo with Spring Boot and Spring Data Mongo Reactive
+    version: 1.0-SNAPSHOT
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        test:
+          context:
+            support: INFO
