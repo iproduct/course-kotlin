@@ -1,13 +1,15 @@
 server:
   port: 8080
+
 spring:
-  mongodb:
-    host: localhost
-    port: 27017
-    database: kotlin_blogs
   web:
     resources:
       static-locations: classpath:\static\
+  data:
+    mongodb:
+      database: kotlin_blogs
+      host: localhost
+      port: 27017
 
 management:
   endpoints:
