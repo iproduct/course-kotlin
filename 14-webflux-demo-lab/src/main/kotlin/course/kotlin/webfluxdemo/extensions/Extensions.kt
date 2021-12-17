@@ -7,8 +7,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
 import java.util.*
-import kotlin.reflect.KCallable
-import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 
 fun LocalDateTime.format() = this.format(englishDateFormatter)
@@ -56,3 +54,5 @@ inline fun <reified T : Any, reified M : Any> T.toModel() =
     }
 
 inline fun <reified T> typeReference() = object : ParameterizedTypeReference<T>() {}
+
+fun isValidId(id: String?): Boolean = id != null && id.length == 24

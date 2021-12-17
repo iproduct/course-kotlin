@@ -16,7 +16,7 @@ println("Kotlin version used is ${org.jetbrains.kotlin.config.KotlinCompilerVers
 buildscript {
     val kotlinVersion = "1.6.10"
     dependencies {
-        classpath ("org.jetbrains.kotlin:kotlin-sam-with-receiver:$kotlinVersion")
+        classpath("org.jetbrains.kotlin:kotlin-sam-with-receiver:$kotlinVersion")
     }
 }
 apply(plugin = "kotlin-sam-with-receiver")
@@ -41,7 +41,9 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive")
     implementation("org.springframework.security:spring-security-messaging")
 //    implementation("org.springframework.security:spring-security-rsocket")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -54,7 +56,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("com.ninja-squad:springmockk:3.0.1")
-    testImplementation ("org.springframework.boot:spring-boot-starter-webflux")
+    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
 }
 
 tasks.withType<KotlinCompile> {

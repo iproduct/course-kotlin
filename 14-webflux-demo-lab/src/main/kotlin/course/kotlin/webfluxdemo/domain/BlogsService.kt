@@ -1,15 +1,16 @@
 package course.kotlin.webfluxdemo.domain
 
 import course.kotlin.spring.model.Blog
+import kotlinx.coroutines.flow.Flow
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 interface BlogsService {
-    fun findAll(): Flux<Blog>
-    fun findById(id: Long): Mono<Blog>
-    fun findBySlug(slug: String): Blog
-    fun create(blog: Blog): Blog
-    fun update(blog: Blog): Blog
-    fun deleteById(id: Long): Blog
-    fun count(): Long
+    fun findAll(): Flow<Blog>
+    suspend fun findById(id: String): Blog
+    suspend fun findBySlug(slug: String): Blog
+    suspend fun create(blog: Blog): Blog
+    suspend fun update(blog: Blog): Blog
+    suspend fun deleteById(id: String): Blog
+    suspend fun count(): Long
 }
