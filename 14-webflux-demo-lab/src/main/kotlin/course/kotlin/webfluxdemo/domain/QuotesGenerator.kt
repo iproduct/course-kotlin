@@ -10,7 +10,7 @@ import java.util.*
 class QuotesGenerator {
     private val rand = Random()
 
-    var quotes: List<Quote> = Arrays.asList<Quote>(
+    var quotes = mutableListOf<Quote>(
         Quote("VMW", 215.35),
         Quote("GOOG", 309.17),
         Quote("CTXS", 112.11),
@@ -22,9 +22,12 @@ class QuotesGenerator {
 
     fun getQuotesStream(period: Duration): Flux<Quote> {
         return Flux.interval(period)
-            .map { index: Long ->
-                val quote: Quote = quotes[index.toInt() % quotes.size]
-                quote.copy(price = quote.price * (0.9 + 0.2 * rand.nextDouble()))
+            .map { i: Long ->
+                val index = (i.toInt() - 1) % quotes.size
+                var quote: Quote = quotes[index]
+                quote = quote.copy(price = quote.price * (0.9 + 0.2 * rand.nextDouble()))
+                quotes[index] = quote
+                quote
             }
             .share()
             .log()

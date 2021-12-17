@@ -3,6 +3,7 @@ package course.kotlin.webfluxdemo
 import course.kotlin.webfluxdemo.web.SimpleRouterConfig
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.reactive.server.WebTestClient
 
 class RoutesTest {

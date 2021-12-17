@@ -13,8 +13,8 @@ class SimpleReactiveUsingAnnotations {
 
     @GetMapping(path = ["/numbers"], produces = [MediaType.APPLICATION_STREAM_JSON_VALUE])
     fun getNumbers(): Flux<Int> {
-        return Flux.zip(Flux.range(1, 10), Flux.interval(Duration.ofMillis(500)))
+        return Flux.range(1, 10).zipWith(Flux.interval(Duration.ofMillis(500)))
             .map{it.t1}
-//       return Flux.interval(Duration.ofMillis(1000))
+//       return Flux.interval(Duration.ofMillis(1000)).map{it.toInt()}
     }
 }

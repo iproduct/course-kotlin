@@ -27,11 +27,6 @@ public class UsersController(private val usersService: UsersService) {
     @GetMapping("/{id}")
     fun findOne(@PathVariable id: String): Mono<UserDetailsView> {
         return usersService.findById(id).map { it.toUserDetailsView() }
-//            .switchIfEmpty(
-//                Mono.error(
-//                    ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID='$id' does not exist.")
-//                )
-//            )
     }
 
     @PostMapping

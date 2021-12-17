@@ -69,7 +69,7 @@ class BlogsServiceImpl(
 
     override suspend fun deleteById(id: String): Blog {
         val oldBlog = findById(id)
-        blogsRepository.deleteById(id)
+        blogsRepository.deleteById(id).awaitSingleOrNull()
         return oldBlog;
     }
 

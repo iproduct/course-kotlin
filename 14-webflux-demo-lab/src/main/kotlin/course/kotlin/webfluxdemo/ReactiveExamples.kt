@@ -40,15 +40,16 @@ fun main(args: Array<String>) {
         .map { it.uppercase() }
         .delayElements(Duration.of(1000, ChronoUnit.MILLIS))
         .filter { s: String -> s.startsWith("HELLO") }
+        .share()
 
     result.map { data: String -> "Subscriber 1: $data" }.subscribe(System.out::println)
-    result.map { data: String -> "Subscriber 2: $data" }.subscribe(System.out::println)
-
     sink.tryEmitNext("Hello World!") // emit - non blocking
     sink.tryEmitNext("Hello Kotlin!") // emit - non blocking
     sink.tryEmitNext("Hello Reactor!") // emit - non blocking
     sink.tryEmitNext("Goodbye World!")
     sink.tryEmitNext("Hello Trayan!")
+    Thread.sleep(1500)
+    result.map { data: String -> "Subscriber 2: $data" }.subscribe(System.out::println)
 
     Thread.sleep(18000)
 }

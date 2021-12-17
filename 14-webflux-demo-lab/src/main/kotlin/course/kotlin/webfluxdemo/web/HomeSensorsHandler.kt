@@ -12,7 +12,7 @@ class HomeSensorsHandler {
 
     var data = mapOf("lamp" to arrayOf(0.7, 0.65, 0.67), "fridge" to arrayOf(12.0, 11.9, 12.5))
 
-    fun setLight(request: ServerRequest): Mono<ServerResponse> = ServerResponse.ok().build()
+    fun setLight(request: ServerRequest): Mono<ServerResponse> = ServerResponse.ok().bodyValue("ligth is ON")
 
     fun getLightReading(request: ServerRequest): Mono<ServerResponse> =
             ServerResponse.ok().body(fromValue(data["lamp"]!!))
