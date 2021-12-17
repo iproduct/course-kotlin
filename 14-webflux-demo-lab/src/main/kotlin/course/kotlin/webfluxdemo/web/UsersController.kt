@@ -27,15 +27,19 @@ public class UsersController(private val usersService: UsersService) {
     @GetMapping("/{id}")
     fun findOne(@PathVariable id: String): Mono<UserDetailsView> {
         return usersService.findById(id).map { it.toUserDetailsView() }
-            .switchIfEmpty(
-                Mono.error(
-                    ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID='$id' does not exist.")
-                )
-            )
+//            .switchIfEmpty(
+//                Mono.error(
+//                    ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID='$id' does not exist.")
+//                )
+//            )
     }
 
     @PostMapping
-    fun create(uriBuilder: UriComponentsBuilder, request: ServerHttpRequest, @RequestBody userCV: UserCreateView): Mono<ResponseEntity<UserDetailsView>> =
+    fun create(
+        uriBuilder: UriComponentsBuilder,
+        request: ServerHttpRequest,
+        @RequestBody userCV: UserCreateView
+    ): Mono<ResponseEntity<UserDetailsView>> =
         usersService.create(userCV.toUser()).map { it.toUserDetailsView() }
             .map {
                 ResponseEntity.created(
@@ -52,4 +56,45 @@ public class UsersController(private val usersService: UsersService) {
         }
         return usersService.update(userCV.toUser()).map { it.toUserDetailsView() };
     }
+
+    @DeleteMapping("/{id}")
+    fun update(@PathVariable id: String): Mono<UserDetailsView> =
+        usersService.deleteById(id).map { it.toUserDetailsView() };
+
+
+    @GetMapping("/userdetails1/{id}")
+    fun findUserProjectExperience(@PathVariable id: String): Mono<UserProjectExperience> {
+        return usersService.findById(id)
+            .map {
+                UserProjectExperience(
+                    id,
+                    "${Math.random().coerceIn(3.0..20.0).toInt()}+ years",
+                    "java, kotlin, typescript"
+                )
+            }
+            .switchIfEmpty(
+                Mono.error(
+                    ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID='$id' does not exist.")
+                )
+            )
+    }
+
+    @GetMapping("/userdetails2/{id}")
+    fun findUserHRData(@PathVariable id: String): Mono<UserHRData> {
+        val numSubordinates = Math.random().coerceIn(0.0..10.0).toInt()
+        return usersService.findById(id)
+            .map {
+                UserHRData(
+                    id,
+                    "${Math.random().coerceIn(500.0..800.0).toInt() * (numSubordinates + 1)} EUR",
+                    numSubordinates
+                )
+            }
+            .switchIfEmpty(
+                Mono.error(
+                    ResponseStatusException(HttpStatus.NOT_FOUND, "User with ID='$id' does not exist.")
+                )
+            )
+    }
+
 }

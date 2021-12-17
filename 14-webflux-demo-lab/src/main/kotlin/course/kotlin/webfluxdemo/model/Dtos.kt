@@ -108,6 +108,20 @@ fun User.toUserDetailsView() = with(::UserDetailsView) {
     })
 }
 
+data class UserProjectExperience(
+    val userId: String,
+    val experience: String,
+    val competencies: String,
+)
 
+data class UserHRData(
+    val userId: String,
+    val salary: String,
+    val numSubordinates: Int,
+)
 
-
+data class UserWithDetails (
+    val user: User,
+    val projectExperience: UserProjectExperience,
+    val hrData: UserHRData,
+)

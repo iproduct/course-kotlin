@@ -19,7 +19,7 @@ public class BlogsHandler(private val blogsService: BlogsService) {
 
     suspend fun findById(request: ServerRequest): ServerResponse {
         val id = request.pathVariable("id")
-        if (!isValidId(id)) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Error: Invalid URL user id: $id")
+        if (!isValidId(id)) throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Error: Invalid URL blog id: $id")
         val found = blogsService.findById(id).toBlogDetailsView()
         return ServerResponse.ok().bodyValueAndAwait(found)
     }
