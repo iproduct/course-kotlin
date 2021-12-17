@@ -10,9 +10,9 @@ import org.springframework.web.reactive.function.server.coRouter
 class UsersWithDetailsRouterConfig() {
 
     @Bean
-    fun productRoutes(handler: UserWithDetailsHandler) = coRouter {
+    fun userWithDetailRoutes(handler: UserWithDetailsHandler) = coRouter {
         accept(APPLICATION_JSON).nest {
-            GET("/api/userWithDetails", handler::findUserWithDetailsById)
+            GET("/api/users/{userId}/details", handler::findUserWithDetailsById)
         }
     }
 }

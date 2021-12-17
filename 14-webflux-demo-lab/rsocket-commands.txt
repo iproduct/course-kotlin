@@ -1,0 +1,4 @@
+wget -O rsc.jar https://github.com/making/rsc/releases/download/0.4.2/rsc-0.4.2.jar
+java -jar rsc.jar --help
+java -jar rsc.jar --debug --stream --route quotes.stream tcp://localhost:7000
+java -jar rsc.jar --debug --stream --route quotes.stream ws://localhost:8080/rsocket

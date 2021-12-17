@@ -3,3 +3,9 @@ junit:
     testinstance:
       lifecycle:
         default: per_class
+
+spring:
+  rsocket:
+    server:
+      transport: websocket
+      mapping-path: /rsocket

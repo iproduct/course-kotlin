@@ -1,4 +1,4 @@
-package course.kotlin.webfluxdemo.services
+package course.kotlin.webfluxdemo.domain
 
 import course.kotlin.webfluxdemo.model.Quote
 import org.springframework.stereotype.Service

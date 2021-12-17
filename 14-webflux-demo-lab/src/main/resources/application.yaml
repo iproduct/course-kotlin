@@ -10,6 +10,14 @@ spring:
       database: kotlin_blogs
       host: localhost
       port: 27017
+  rsocket:
+    server:
+#      port: 7000
+      transport: websocket
+      mapping-path: /rsocket
+
+  main:
+    lazy-initialization: true
 
 management:
   endpoints:
@@ -46,3 +54,4 @@ logging:
           codec:
             json:
               Jackson2JsonDecoder: INFO
+

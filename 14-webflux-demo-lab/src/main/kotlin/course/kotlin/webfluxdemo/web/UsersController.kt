@@ -68,7 +68,7 @@ public class UsersController(private val usersService: UsersService) {
             .map {
                 UserProjectExperience(
                     id,
-                    "${Math.random().coerceIn(3.0..20.0).toInt()}+ years",
+                    "${(Math.random() * 17 + 3).coerceIn(3.0..20.0).toInt()}+ years",
                     "java, kotlin, typescript"
                 )
             }
@@ -81,12 +81,12 @@ public class UsersController(private val usersService: UsersService) {
 
     @GetMapping("/userdetails2/{id}")
     fun findUserHRData(@PathVariable id: String): Mono<UserHRData> {
-        val numSubordinates = Math.random().coerceIn(0.0..10.0).toInt()
+        val numSubordinates = (Math.random() * 10).coerceIn(0.0..10.0).toInt()
         return usersService.findById(id)
             .map {
                 UserHRData(
                     id,
-                    "${Math.random().coerceIn(500.0..800.0).toInt() * (numSubordinates + 1)} EUR",
+                    "${(Math.random() * 300.0 + 500.0) .coerceIn(500.0..800.0).toInt() * (numSubordinates + 1)} EUR",
                     numSubordinates
                 )
             }
