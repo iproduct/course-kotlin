@@ -1,0 +1,7 @@
+POST http://localhost:8080/persons
+Content-Type: application/json
+
+{
+  "name": "Ivan D Petrov",
+  "age": 36
+}

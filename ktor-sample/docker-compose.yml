@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+
+#  yak-server:
+#    image: ${SERVICE_GROUP}/${SERVICE_NAME}:${SERVICE_TAG}
+#    ports:
+#      - 9000:9000
+#      - 9001:9001
+#    volumes:
+#      - ./resources/tmp/metrics/output:/opt/yak/metrics/output
+#    environment:
+#      - YAK_JFR_PROFILE_PATH=/opt/yak/metrics/profile.jfc
+#    deploy:
+#      resources:
+#        limits:
+#          cpus: '1'
+#          memory: 250M
+
+  prom:
+    image: prom/prometheus:v2.27.1
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prom/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:7.5.7
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/config.ini:/etc/grafana/config.ini
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+
+networks:
+  default:
+    name: yak-network

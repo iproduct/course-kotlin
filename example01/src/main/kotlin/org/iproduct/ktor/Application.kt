@@ -55,7 +55,7 @@ fun main() {
 fun Application.mymodule() {
     install(DefaultHeaders)
     install(CORS) {
-        maxAgeInSeconds = Duration.ofDays(1).toSeconds()
+        maxAgeInSeconds = Duration.ofDays(1).seconds
     }
     install(Compression)
     install(CallLogging)

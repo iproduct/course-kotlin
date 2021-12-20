@@ -23,7 +23,7 @@ class QuotesGenerator {
     fun getQuotesStream(period: Duration): Flux<Quote> {
         return Flux.interval(period)
             .map { i: Long ->
-                val index = (i.toInt() - 1) % quotes.size
+                val index = (i.toInt()) % quotes.size
                 var quote: Quote = quotes[index]
                 quote = quote.copy(price = quote.price * (0.9 + 0.2 * rand.nextDouble()))
                 quotes[index] = quote

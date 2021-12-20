@@ -1,0 +1,21 @@
+groups:
+  - name: Yak Server Health
+    rules:
+
+      - alert: thread heartbeat too slow
+        expr: sum(rate(thread_heartbeat_total[1m])) by (thread_name) < 50
+        for: 1m
+        labels:
+          severity: page
+        annotations:
+          summary: "thread {{ $labels.thread_name }} is not heart beating frequently enough"
+          description: "{{ $labels.thread_name }} is not spinning frequently enough for 1m"
+
+      - alert: unable to gather metrics
+        expr: scrape_samples_scraped{instance=~"yak-server.*"} == 0
+        for: 1m
+        labels:
+          severity: page
+        annotations:
+          summary: "{{ $labels.instance }} has not provided metrics in 1m"
+          description: "{{ $labels.instance }} may be offline as prom has been unable to gather metrics from it in over 1m"

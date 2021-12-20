@@ -12,7 +12,7 @@ import java.util.*
 class QuotesGeneratorFlow {
     private val rand = Random()
 
-    var quotes: List<Quote> = Arrays.asList<Quote>(
+    var quotes: MutableList<Quote> = Arrays.asList<Quote>(
         Quote("VMW", 215.35),
         Quote("GOOG", 309.17),
         Quote("CTXS", 112.11),
@@ -26,11 +26,14 @@ class QuotesGeneratorFlow {
         flow {
             println("Flow started")
             for (i in 1..10000) {
-                delay(500)
+                delay(250)
                 emit(i)
             }
         }.map {
-            val quote: Quote = quotes[it % quotes.size]
-            quote.copy(price = quote.price * (0.9 + 0.2 * rand.nextDouble()))
+            val index = (it.toInt() - 1) % quotes.size
+            var quote: Quote = quotes[index]
+            quote = quote.copy(price = quote.price * (0.9 + 0.2 * rand.nextDouble()))
+            quotes[index] = quote
+            quote
         } //.shareIn(this, SharingStarted.Lazily)
 }

@@ -40,6 +40,7 @@ class QuotesRSocketAppTests(
                 .route("quotes.stream")
                 .retrieveFlow<Quote>()
                 .test {
+                    assertEquals("VMW", awaitItem().symbol)
                     assertEquals("GOOG", awaitItem().symbol)
                     assertEquals("CTXS", awaitItem().symbol)
                     assertEquals("DELL", awaitItem().symbol)

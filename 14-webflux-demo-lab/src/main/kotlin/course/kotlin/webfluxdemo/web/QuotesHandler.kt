@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono
 import java.time.Duration
 
 @Service
-class QuotesHandler (val generator: QuotesGeneratorFlow){
+class QuotesHandler (val generator: QuotesGenerator){
 
     fun streamQuotes(request: ServerRequest?): Mono<ServerResponse> {
         return ServerResponse.ok()

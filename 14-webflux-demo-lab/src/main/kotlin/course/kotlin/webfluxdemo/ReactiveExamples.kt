@@ -48,7 +48,7 @@ fun main(args: Array<String>) {
     sink.tryEmitNext("Hello Reactor!") // emit - non blocking
     sink.tryEmitNext("Goodbye World!")
     sink.tryEmitNext("Hello Trayan!")
-    Thread.sleep(1500)
+    Thread.sleep(2500)
     result.map { data: String -> "Subscriber 2: $data" }.subscribe(System.out::println)
 
     Thread.sleep(18000)

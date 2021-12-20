@@ -1,0 +1,34 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+  external_labels:
+    monitor: 'ktor-monitor'
+
+# include the rules for alerting
+#rule_files:
+#  - rules.yml
+
+# targets for scraping metrics from
+#scrape_configs:
+#
+#  - job_name: 'prometheus'
+#    scrape_interval: 5s
+#    static_configs:
+#      - targets: [ 'prom:8080' ]
+
+#  - job_name: 'yak-server'
+#    scrape_interval: 5s
+#    static_configs:
+#      - targets: [ 'yak-server:9001' ]
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets:
+          - localhost:8080
+          - host.docker.internal:8080 # For connecting to a scrape endpoint from Prometheus running in a Docker container
+
+#remote_read:
+#  - url: http://localhost:9090/read
+#    read_recent: true
+#    name: grafana
