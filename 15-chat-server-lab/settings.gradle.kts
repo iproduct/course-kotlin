@@ -1,0 +1,1 @@
+rootProject.name = "15-chat-server-lab"

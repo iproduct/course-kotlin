@@ -5,73 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11af5273-0a5c-4450-ac31-41c1c0ede02c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../ktor-http-api-sample/src/test/All-orders.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/src/main/kotlin/org/iproduct/ktor/Application.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/src/main/resources/application.conf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/src/main/resources/logback.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/src/main/resources/static/ktor_logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../example01/src/test/kotlin/org/iproduct/ktor/ApplicationTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/README.adoc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/build.gradle.groovy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/src/main/kotlin/de/swirtz/kotlin/webdev/ktor/ApplicationConfiguration.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/src/main/kotlin/de/swirtz/kotlin/webdev/ktor/KtorServer.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/src/main/kotlin/de/swirtz/kotlin/webdev/ktor/repo/POST new Person.http" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/src/main/kotlin/de/swirtz/kotlin/webdev/ktor/repo/Person.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/src/main/kotlin/de/swirtz/kotlin/webdev/ktor/repo/PersonRepo.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/src/main/resources/logback.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/src/test/kotlin/de/swirtz/kotlin/webdev/ktor/KtorTest.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-REST-sample/src/test/kotlin/de/swirtz/kotlin/webdev/ktor/PersonRepoTest.kt" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/client/ChatClient.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/Application.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/model/Connection.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/plugins/HTTP.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/plugins/Monitoring.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/plugins/Routing.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/plugins/Sockets.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/resources/application.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/test/kotlin/course/kotlin/ApplicationTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ktor-auth-jwt/src/ktor/example/auth/jwt/JwtConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../ktor-auth-jwt/src/ktor/example/auth/jwt/JwtConfig.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ktor-auth-jwt/src/ktor/example/auth/jwt/Module.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../ktor-auth-jwt/src/ktor/example/auth/jwt/Module.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-auth-jwt/testresources/application.conf" beforeDir="false" afterPath="$PROJECT_DIR$/../ktor-auth-jwt/testresources/application.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/build-history.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/inputs/source-to-output.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/inputs/source-to-output.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/inputs/source-to-output.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/inputs/source-to-output.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/package-parts.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/package-parts.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/package-parts.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/package-parts.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/proto.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/proto.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/proto.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/proto.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/source-to-classes.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/source-to-classes.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/counters.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/counters.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/file-to-id.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/file-to-id.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/file-to-id.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/file-to-id.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab.keystream" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab.keystream.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/id-to-file.tab_i" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab.keystream" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab.keystream.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab.len" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/caches-jvm/lookups/lookups.tab_i" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/last-build.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prom/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/prom/prometheus.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/example/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/example/Application.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -263,7 +218,7 @@
       <workItem from="1631796421938" duration="2149000" />
       <workItem from="1631818588420" duration="15146000" />
       <workItem from="1636379666285" duration="11000" />
-      <workItem from="1639989325768" duration="13731000" />
+      <workItem from="1639989325768" duration="16084000" />
     </task>
     <task id="LOCAL-00001" summary="prometeus + grafana + micrometer demo added">
       <created>1640007624563</created>

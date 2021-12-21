@@ -15,7 +15,6 @@ import io.ktor.routing.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-private val Logger: Logger = LoggerFactory.getLogger("ktor.example.auth.jwt")
 
 fun Application.module() {
     install(CallLogging)
@@ -33,7 +32,7 @@ fun Application.module() {
             realm = "ktor.io"
             validate {
                 val id = it.payload.getClaim("id").asInt()
-                Logger.debug("ID: $id")
+                log.debug("ID: $id")
                 id?.let(userSource::findUserById)
             }
         }
