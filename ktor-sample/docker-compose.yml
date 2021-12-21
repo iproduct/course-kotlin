@@ -36,4 +36,4 @@ services:
 
 networks:
   default:
-    name: yak-network
+    name: ktor-network

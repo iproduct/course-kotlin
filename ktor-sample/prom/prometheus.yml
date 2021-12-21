@@ -26,7 +26,7 @@ scrape_configs:
     static_configs:
       - targets:
           - localhost:8080
-          - host.docker.internal:8080 # For connecting to a scrape endpoint from Prometheus running in a Docker container
+#          - host.docker.internal:8080 # For connecting to a scrape endpoint from Prometheus running in a Docker container
 
 #remote_read:
 #  - url: http://localhost:9090/read

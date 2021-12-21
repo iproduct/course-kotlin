@@ -48,6 +48,7 @@ fun Application.module() {
             val credentials = call.receive<UserPasswordCredential>()
             val user = userSource.findUserByCredentials(credentials)
             val token = JwtConfig.makeToken(user)
+            call.application.environment.log.info("User logged successfully and receiving JWT as: $user")
             call.respondText(token)
         }
 
