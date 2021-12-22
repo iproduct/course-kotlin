@@ -4,30 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11af5273-0a5c-4450-ac31-41c1c0ede02c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/settings.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/client/ChatClient.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/Application.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/model/Connection.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/plugins/HTTP.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/plugins/Monitoring.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/plugins/Routing.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/kotlin/course/kotlin/server/plugins/Sockets.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/resources/application.conf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../15-chat-server-lab/src/test/kotlin/course/kotlin/ApplicationTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-auth-jwt/src/ktor/example/auth/jwt/JwtConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../ktor-auth-jwt/src/ktor/example/auth/jwt/JwtConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ktor-auth-jwt/src/ktor/example/auth/jwt/Module.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../ktor-auth-jwt/src/ktor/example/auth/jwt/Module.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="11af5273-0a5c-4450-ac31-41c1c0ede02c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -218,7 +195,7 @@
       <workItem from="1631796421938" duration="2149000" />
       <workItem from="1631818588420" duration="15146000" />
       <workItem from="1636379666285" duration="11000" />
-      <workItem from="1639989325768" duration="16084000" />
+      <workItem from="1639989325768" duration="16099000" />
     </task>
     <task id="LOCAL-00001" summary="prometeus + grafana + micrometer demo added">
       <created>1640007624563</created>
@@ -227,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640007624564</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="prometeus + grafana + micrometer demo added">
+      <created>1640097681097</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1640097681097</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
