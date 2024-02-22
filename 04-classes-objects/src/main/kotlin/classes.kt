@@ -104,8 +104,8 @@ fun main() {
 //    println(p5)
 
     // Secondary constructors
-//    val ivan = Person7("Ivan Petrov")
-//    val johny = Pet("Johny", ivan)
+    val ivan = Person7("Ivan Petrov")
+    val johny = Pet("Johny", ivan)
 //    val silvester = Pet("Silvester", ivan)
 //    val caty = Pet("Caty")
 //    println(ivan) //Ivan Petrov's pets: [Pet(Johny), Pet(Silvester), Pet(Caty)]

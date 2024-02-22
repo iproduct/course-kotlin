@@ -36,8 +36,8 @@ fun main() {
     else if (x is IntArray) "${x.sum()}"
     else "Not recognized"
 
-    println(g2(1))
-    println(g2("abc"))
+//    println(g2(1))
+//    println(g2("abc"))
     println(g2(IntArray(5) { it }))
     println(g2(Shape()))
 
@@ -45,7 +45,7 @@ fun main() {
 //        val x = y as String
 //        val x: String? = y as String?
         val x: String? = y as? String
-        println(x)
+        print(x + " ")
     }
     h("abc")
     h(12)

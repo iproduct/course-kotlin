@@ -5,8 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="660f28ff-1492-4ce4-8c2e-139e6f2d0826" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../04-classes-objects/src/main/kotlin/properties.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../04-classes-objects/out/production/classes/META-INF/04-classes-objects.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../02-basics-lab2/out/production/classes/META-INF/02-basics-lab2.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/../02-basics-lab2/out/production/classes/META-INF/02-basics-lab2.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../04-classes-objects/src/main/kotlin/classes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../04-classes-objects/src/main/kotlin/classes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/src/main/java/course/spring/restjpa/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/src/main/java/course/spring/restjpa/config/SpringSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/src/main/java/course/spring/restjpa/config/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/src/main/java/course/spring/restjpa/model/Article.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/src/main/java/course/spring/restjpa/model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/src/main/java/course/spring/restjpa/web/HelloRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/src/main/resources/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../08-rest-jpa-2021-lab15/src/test/java/course/spring/restjpa/ApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,24 +89,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="go.formatter.settings.were.checked" value="true" />
-    <property name="go.import.settings.migrated" value="true" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.23772103" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  }
+}</component>
   <component name="RunManager" selected="Gradle.01-intro-gradle [run]">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -161,6 +166,8 @@
       <updated>1633294954448</updated>
       <workItem from="1633294957956" duration="919000" />
       <workItem from="1634803011950" duration="19000" />
+      <workItem from="1658688673681" duration="14000" />
+      <workItem from="1658994444235" duration="9000" />
     </task>
     <servers />
   </component>

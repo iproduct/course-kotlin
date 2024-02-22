@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.8.21"
     application
 }
 
@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation("javax.inject:javax.inject:1")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.21")
     testImplementation(kotlin("test"))
 }
 

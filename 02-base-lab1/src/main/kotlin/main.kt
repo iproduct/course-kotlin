@@ -4,9 +4,13 @@ fun Shape.draw() {
     println("Inside draw()")
 }
 
-class Rectangle(var width: Double = 0.0 , var height: Double = 0.0): Shape() {
+open class Rectangle(var width: Double = 0.0 , var height: Double = 0.0): Shape() {
     val perimeter = (width + height) * 2
     override fun toString() = "Rectange($width, $height)"
+}
+
+class Square(var side: Double=0.0): Rectangle(side, side) {
+    override fun toString() = "Square($width)"
 }
 
 data class Post(val id: Long, val title: String, val content: String)
@@ -38,6 +42,9 @@ fun main(args: Array<String>) {
 
     val r1  = Rectangle(5.0, 8.0)
     println("Reactangle $r1 perimeter is ${r1.perimeter}")
+
+    val sq1  = Square(12.0)
+    println("Square $sq1 perimeter is ${sq1.perimeter}")
 
     val posts = listOf<Post>(
         Post(1L, "New in Kotlin", "MMP is new ..."),
