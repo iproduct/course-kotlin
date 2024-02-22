@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
     incrementX()
     println("x = $x")
     val r = Rectangle(3.0, 5.0)
-    println("Perimeter = ${r.perimeter}, Area = ${r.area}")
+    println("Perimeter of $r = ${r.perimeter}, Area of $r = ${r.area}")
 
     // Arrays
 //    val a = arrayOf(1, 2, 3, 4, 5)
@@ -28,4 +28,7 @@ fun sum(a: Int = 0, b: Int = 0) = a + b
 class Rectangle(var width: Double, var height: Double) {
     var perimeter = (width + height) * 2
     var area = width * height
+    override fun toString(): String {
+        return "Rectangle($width, $height)"
+    }
 }
