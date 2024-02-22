@@ -25,9 +25,9 @@ fun main(args: Array<String>) {
 
 fun sum(a: Int = 0, b: Int = 0) = a + b
 
-class Rectangle(var width: Double, var height: Double) {
-    var perimeter = (width + height) * 2
-    var area = width * height
+class Rectangle(val width: Double, val height: Double) {
+    val perimeter = (width + height) * 2
+    val area = width * height
     override fun toString(): String {
         return "Rectangle($width, $height)"
     }
