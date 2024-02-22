@@ -12,6 +12,8 @@ fun main(args: Array<String>) {
     incrementX()
     println("x = $x")
     val r = Rectangle(3.0, 5.0)
+//    r.perimeter = 100.0
+    r.height = 1000.0
     println("Perimeter of $r = ${r.perimeter}, Area of $r = ${r.area}")
 
     // Arrays
@@ -19,15 +21,16 @@ fun main(args: Array<String>) {
     val a = Array(10) { it + 1 }
     val squares = a.map { it * it }.map { it.toString() }.filter { it.length > 1 }
     println(squares)
-    val sum = a.fold(0, {acc, v -> acc + v})
+    val sum = a.fold(0, { acc, v -> acc + v })
     println("Sum of ${a.asList()} = $sum")
+
 }
 
 fun sum(a: Int = 0, b: Int = 0) = a + b
 
-class Rectangle(val width: Double, val height: Double) {
-    val perimeter = (width + height) * 2
-    val area = width * height
+class Rectangle(var width: Double, var height: Double) {
+    val perimeter: Double get() = (width + height) * 2
+    val area: Double get() = width * height
     override fun toString(): String {
         return "Rectangle($width, $height)"
     }
